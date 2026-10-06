@@ -154,7 +154,7 @@ def save_catalog_files(cards, version = 1):
 def main():
     data_dir = Path(__file__).resolve().parent.parent / "web" / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
-    raw_file = data_dir / "raw_questions.json"
+    raw_file = Path(__file__).resolve().parent / "raw_questions.json"
 
     if raw_file.exists():
         print(f"Reading cached raw questions from {raw_file}...", flush=True)

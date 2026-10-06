@@ -1,14 +1,14 @@
-const cache_name = "genera-v9";
+const cache_name = "genera-v10";
 
 const app_shell_assets = [
   "/",
   "/index.html",
   "/favicon.ico",
-  "/favicon-32x32.png",
-  "/favicon-16x16.png",
-  "/apple-touch-icon.png",
-  "/android-chrome-192x192.png",
-  "/android-chrome-512x512.png",
+  "/icons/favicon-32x32.png",
+  "/icons/favicon-16x16.png",
+  "/icons/apple-touch-icon.png",
+  "/icons/android-chrome-192x192.png",
+  "/icons/android-chrome-512x512.png",
   "/site.webmanifest",
   "/css/style.css",
   "/js/app.js",
