@@ -8,7 +8,8 @@ import {
 import {
     perform_account_login,
     perform_account_logout,
-    sync_now
+    sync_now,
+    get_last_sync_error
 } from "./sync.js";
 
 let on_change_callback = null;
@@ -79,8 +80,13 @@ export async function render_account_section() {
             badge.className = "badge";
             text.textContent = `Logged in as ${username || "user"}. You are currently offline.`;
         } else {
+            const last_err = get_last_sync_error();
             const dirty_count = await count_dirty_rows();
-            if (dirty_count > 0) {
+            if (last_err) {
+                badge.textContent = "Sync failed";
+                badge.className = "badge badge-hidden";
+                text.textContent = `Logged in as ${username || "user"}. Sync failed (${last_err}).`;
+            } else if (dirty_count > 0) {
                 badge.textContent = `${dirty_count} unsynced`;
                 badge.className = "badge badge-mine";
                 text.textContent = `Logged in as ${username || "user"}. ${dirty_count} local change(s) pending sync.`;

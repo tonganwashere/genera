@@ -288,12 +288,13 @@ body {
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
+  color: var(--color-text);
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: 4px 10px;
   cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  transition: background-color 0.15s, border-color 0.15s;
   user-select: none;
   line-height: 1.2;
 }
@@ -305,13 +306,20 @@ body {
 }
 
 .status-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
-  background-color: currentColor;
+  background-color: var(--color-gray);
   flex-shrink: 0;
+  transition: background-color 0.2s;
 }
+
+.status-gray .status-dot { background-color: var(--color-gray); }
+.status-green .status-dot { background-color: var(--color-green); }
+.status-blue .status-dot { background-color: var(--color-blue); }
+.status-red .status-dot { background-color: var(--color-red); }
+.status-amber .status-dot { background-color: var(--color-amber); }
 
 #account-pill-text {
   max-width: 170px;

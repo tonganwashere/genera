@@ -13,39 +13,53 @@ import {
 } from "./localdb.js";
 
 let is_syncing = false;
+let last_sync_error = null;
 
-export function set_sync_status(text, color_class) {
+export function get_last_sync_error() {
+    return last_sync_error;
+}
+
+export async function set_sync_status(color_or_text, color_class) {
+    const raw_color = color_class || color_or_text || "status-gray";
+    const color = raw_color.startsWith("status-") ? raw_color : "status-gray";
     const el = document.getElementById("sync-status");
-    if (!el) return;
-    el.className = `status-pill ${color_class} account-btn`;
+    if (el) {
+        el.className = `status-pill ${color} account-btn`;
+    }
+    const mode = await get_meta("mode");
+    const username = await get_meta("username");
     const text_el = document.getElementById("account-pill-text");
     if (text_el) {
-        text_el.textContent = text;
-    } else {
-        el.textContent = text;
+        text_el.textContent = mode === "account" ? (username || "Account") : "Local Mode";
     }
 }
 
 export async function update_sync_status_ui() {
     const mode = await get_meta("mode");
     const username = await get_meta("username");
+    const text_el = document.getElementById("account-pill-text");
+    if (text_el) {
+        text_el.textContent = mode === "account" ? (username || "Account") : "Local Mode";
+    }
 
-    if (!navigator.onLine) {
-        const offline_label = mode === "account" && username ? `${username} (offline)` : "Offline";
-        set_sync_status(offline_label, "status-gray");
+    const el = document.getElementById("sync-status");
+    if (!el) return;
+
+    if (mode !== "account" || !navigator.onLine) {
+        el.className = "status-pill status-gray account-btn";
         return;
     }
 
-    if (mode !== "account") {
-        set_sync_status("Local mode (not backed up)", "status-gray");
+    if (last_sync_error) {
+        el.className = "status-pill status-red account-btn";
         return;
     }
 
     const dirty_count = await count_dirty_rows();
-    if (dirty_count > 0) {
-        set_sync_status(`${username || "Account"} (${dirty_count} unsynced)`, "status-blue");
+    if (dirty_count > 0 || is_syncing) {
+        el.className = "status-pill status-blue account-btn";
     } else {
-        set_sync_status(username || "Account", "status-green");
+        el.className = "status-pill status-green account-btn";
     }
 }
 
@@ -143,7 +157,7 @@ export async function sync_now(on_update) {
     }
 
     if (!navigator.onLine) {
-        set_sync_status("Offline", "status-gray");
+        await set_sync_status("status-gray");
         return false;
     }
 
@@ -154,16 +168,18 @@ export async function sync_now(on_update) {
             if (me_res.ok) {
                 await set_meta("mode", "account");
             } else {
-                set_sync_status("Local mode (not backed up)", "status-gray");
+                await set_sync_status("status-gray");
                 return false;
             }
         } catch (_) {
-            set_sync_status("Local mode (not backed up)", "status-gray");
+            await set_sync_status("status-gray");
             return false;
         }
     }
 
     is_syncing = true;
+    last_sync_error = null;
+    await set_sync_status("status-blue");
     let total_applied = 0;
     const all_conflicts = [];
 
@@ -178,7 +194,7 @@ export async function sync_now(on_update) {
             const dirty_total = dirty_cards.length + dirty_progress.length + (dirty_settings ? 1 : 0);
 
             if (dirty_total > 0) {
-                set_sync_status(`${dirty_total} changes not synced`, "status-blue");
+                await set_sync_status("status-blue");
             }
 
             const batch_cards = dirty_cards.slice(0, 500);
@@ -203,7 +219,7 @@ export async function sync_now(on_update) {
 
             if (response.status === 401) {
                 await set_meta("mode", "local");
-                set_sync_status("Local mode (not backed up)", "status-gray");
+                await set_sync_status("status-gray");
                 is_syncing = false;
                 return false;
             }
@@ -214,7 +230,8 @@ export async function sync_now(on_update) {
                     const err_data = await response.json();
                     if (err_data.error) err_msg = err_data.error;
                 } catch (_) {}
-                set_sync_status(`Sync failed (${err_msg})`, "status-red");
+                last_sync_error = err_msg;
+                await set_sync_status("status-red");
                 is_syncing = false;
                 return false;
             }
@@ -250,11 +267,8 @@ export async function sync_now(on_update) {
         }
 
         const remaining = await count_dirty_rows();
-        if (remaining === 0) {
-            set_sync_status("Synced", "status-green");
-        } else {
-            set_sync_status(`${remaining} changes not synced`, "status-blue");
-        }
+        last_sync_error = null;
+        await set_sync_status(remaining === 0 ? "status-green" : "status-blue");
 
         if (on_update && total_applied > 0) {
             await on_update();
@@ -263,13 +277,15 @@ export async function sync_now(on_update) {
         return true;
     } catch (err) {
         if (!navigator.onLine) {
-            set_sync_status("Offline", "status-gray");
+            await set_sync_status("status-gray");
         } else {
-            set_sync_status(`Sync failed (${err.message})`, "status-red");
+            last_sync_error = err.message;
+            await set_sync_status("status-red");
         }
         return false;
     } finally {
         is_syncing = false;
+        await update_sync_status_ui();
     }
 }
 
@@ -283,7 +299,7 @@ export async function init_sync_engine(on_update) {
     });
 
     window.addEventListener("offline", () => {
-        set_sync_status("Offline", "status-gray");
+        set_sync_status("status-gray");
     });
 
 
