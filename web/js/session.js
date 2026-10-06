@@ -62,7 +62,6 @@ export function build_session_from_data({
 
     const session_cards = [];
 
-    // 1. Due cards: every non-hidden progress row with due_date <= today
     for (const p of progress_rows) {
         if (p.hidden === 1) {
             continue;
@@ -102,7 +101,6 @@ export function build_session_from_data({
         });
     }
 
-    // 2. New official cards (only in "everything" mode)
     if (mode === "everything" && daily_new_limit > 0) {
         const remaining_quota = Math.max(0, daily_new_limit - introduced_today_count);
 
@@ -132,7 +130,6 @@ export function build_session_from_data({
         }
     }
 
-    // 3. New own cards (always eligible, uncapped by daily limit)
     for (const c of own_cards) {
         if (c.deleted === 1) {
             continue;
@@ -158,7 +155,6 @@ export function build_session_from_data({
         }
     }
 
-    // 4. Shuffle everything together
     return shuffle(session_cards);
 }
 

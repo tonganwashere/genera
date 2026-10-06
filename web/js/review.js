@@ -15,6 +15,7 @@ let is_flipped = false;
 let session_stats = { right: 0, wrong: 0 };
 let current_mode = "everything";
 let is_session_active = false;
+let is_rating = false;
 let session_update_callback = null;
 
 export function init_review_view(on_update) {
@@ -202,65 +203,65 @@ function render_active_card(container) {
     header.appendChild(quit_btn);
     container.appendChild(header);
 
-    const flashcard = document.createElement("div");
-    flashcard.className = "review-flashcard";
+    const scene = document.createElement("div");
+    scene.className = "flashcard-scene";
 
-    const body_div = document.createElement("div");
-    body_div.className = "review-card-body";
+    const flashcard = document.createElement("div");
+    flashcard.id = "active-flashcard";
+    flashcard.className = `flashcard-card ${is_flipped ? "flipped" : ""}`;
+    flashcard.setAttribute("role", "button");
+    flashcard.setAttribute("tabindex", "0");
+    flashcard.setAttribute("aria-label", "Flashcard. Click or press Space to flip.");
+
+    const front = document.createElement("div");
+    front.className = "flashcard-face flashcard-front";
 
     const q_el = document.createElement("div");
     q_el.className = "review-question";
     q_el.textContent = card.question;
-    body_div.appendChild(q_el);
 
-    if (is_flipped) {
-        const divider = document.createElement("div");
-        divider.className = "review-answer-divider";
-        body_div.appendChild(divider);
+    const front_hint = document.createElement("div");
+    front_hint.className = "flashcard-hint";
+    front_hint.textContent = "Click or Space to flip";
 
-        const a_el = document.createElement("div");
-        a_el.className = "review-answer";
-        a_el.textContent = card.answer;
-        body_div.appendChild(a_el);
-    }
+    front.appendChild(q_el);
+    front.appendChild(front_hint);
 
-    flashcard.appendChild(body_div);
+    const back = document.createElement("div");
+    back.className = "flashcard-face flashcard-back";
+
+    const a_el = document.createElement("div");
+    a_el.className = "review-answer";
+    a_el.textContent = card.answer;
+
+    const back_hint = document.createElement("div");
+    back_hint.className = "flashcard-hint";
+    back_hint.textContent = "Click or Space to flip back";
+
+    back.appendChild(a_el);
+    back.appendChild(back_hint);
+
+    flashcard.appendChild(front);
+    flashcard.appendChild(back);
+    scene.appendChild(flashcard);
+    container.appendChild(scene);
 
     const actions_bar = document.createElement("div");
+    actions_bar.id = "review-actions-bar";
     actions_bar.className = "review-actions-bar";
+    render_actions_bar(actions_bar);
+    container.appendChild(actions_bar);
 
-    if (!is_flipped) {
-        const flip_btn = document.createElement("button");
-        flip_btn.id = "btn-flip-card";
-        flip_btn.className = "btn btn-primary";
-        flip_btn.textContent = "Flip (Space)";
-        flip_btn.addEventListener("click", () => {
-            flip_card();
-        });
-        actions_bar.appendChild(flip_btn);
-    } else {
-        const wrong_btn = document.createElement("button");
-        wrong_btn.id = "btn-rate-wrong";
-        wrong_btn.className = "btn btn-danger";
-        wrong_btn.textContent = "Wrong (1)";
-        wrong_btn.addEventListener("click", async () => {
-            await rate_card(false);
-        });
+    flashcard.addEventListener("click", () => {
+        toggle_flip();
+    });
 
-        const right_btn = document.createElement("button");
-        right_btn.id = "btn-rate-right";
-        right_btn.className = "btn btn-success";
-        right_btn.textContent = "Right (2)";
-        right_btn.addEventListener("click", async () => {
-            await rate_card(true);
-        });
-
-        actions_bar.appendChild(wrong_btn);
-        actions_bar.appendChild(right_btn);
-    }
-
-    flashcard.appendChild(actions_bar);
-    container.appendChild(flashcard);
+    flashcard.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            toggle_flip();
+        }
+    });
 }
 
 function render_finished_screen(container) {
@@ -308,41 +309,99 @@ function render_finished_screen(container) {
     container.appendChild(finished_card);
 }
 
-function flip_card() {
-    if (!is_session_active || is_flipped) return;
-    is_flipped = true;
-    render_review_view();
+function render_actions_bar(actions_bar) {
+    actions_bar.innerHTML = "";
+
+    if (!is_flipped) {
+        const flip_btn = document.createElement("button");
+        flip_btn.id = "btn-flip-card";
+        flip_btn.className = "btn btn-primary";
+        flip_btn.textContent = "Flip (Space)";
+        flip_btn.addEventListener("click", () => {
+            toggle_flip();
+        });
+        actions_bar.appendChild(flip_btn);
+    } else {
+        const wrong_btn = document.createElement("button");
+        wrong_btn.id = "btn-rate-wrong";
+        wrong_btn.className = "btn btn-danger";
+        wrong_btn.textContent = "Wrong (1)";
+        wrong_btn.addEventListener("click", async () => {
+            await rate_card(false);
+        });
+
+        const right_btn = document.createElement("button");
+        right_btn.id = "btn-rate-right";
+        right_btn.className = "btn btn-success";
+        right_btn.textContent = "Right (2)";
+        right_btn.addEventListener("click", async () => {
+            await rate_card(true);
+        });
+
+        const flip_back_btn = document.createElement("button");
+        flip_back_btn.id = "btn-flip-back";
+        flip_back_btn.className = "btn";
+        flip_back_btn.textContent = "Flip Back";
+        flip_back_btn.title = "Flip back to question";
+        flip_back_btn.addEventListener("click", () => {
+            toggle_flip();
+        });
+
+        actions_bar.appendChild(wrong_btn);
+        actions_bar.appendChild(right_btn);
+        actions_bar.appendChild(flip_back_btn);
+    }
+}
+
+function toggle_flip() {
+    if (!is_session_active) return;
+    is_flipped = !is_flipped;
+
+    const flashcard = document.getElementById("active-flashcard");
+    if (flashcard) {
+        flashcard.classList.toggle("flipped", is_flipped);
+    }
+
+    const actions_bar = document.getElementById("review-actions-bar");
+    if (actions_bar) {
+        render_actions_bar(actions_bar);
+    }
 }
 
 async function rate_card(was_correct) {
-    if (!is_session_active || !is_flipped) return;
+    if (!is_session_active || !is_flipped || is_rating) return;
+    is_rating = true;
 
-    const card = current_session[current_card_index];
-    const today = get_today_date();
+    try {
+        const card = current_session[current_card_index];
+        const today = get_today_date();
 
-    const progress_input = card.progress || {
-        card_kind: card.card_kind,
-        card_id: card.card_id,
-        box: 1,
-        times_right: 0,
-        times_wrong: 0,
-        hidden: 0
-    };
+        const progress_input = card.progress || {
+            card_kind: card.card_kind,
+            card_id: card.card_id,
+            box: 1,
+            times_right: 0,
+            times_wrong: 0,
+            hidden: 0
+        };
 
-    const updated = schedule_card(progress_input, was_correct, today);
-    await save_progress_row(updated);
+        const updated = schedule_card(progress_input, was_correct, today);
+        await save_progress_row(updated);
 
-    if (was_correct) {
-        session_stats.right += 1;
-    } else {
-        session_stats.wrong += 1;
+        if (was_correct) {
+            session_stats.right += 1;
+        } else {
+            session_stats.wrong += 1;
+        }
+
+        current_card_index += 1;
+        is_flipped = false;
+
+        render_review_view();
+        if (session_update_callback) session_update_callback();
+    } finally {
+        is_rating = false;
     }
-
-    current_card_index += 1;
-    is_flipped = false;
-
-    render_review_view();
-    if (session_update_callback) session_update_callback();
 }
 
 function setup_keyboard_shortcuts() {
@@ -355,12 +414,10 @@ function setup_keyboard_shortcuts() {
         const tag = e.target.tagName;
         if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-        if (!is_flipped) {
-            if (e.code === "Space" || e.key === " ") {
-                e.preventDefault();
-                flip_card();
-            }
-        } else {
+        if (e.code === "Space" || e.key === " ") {
+            e.preventDefault();
+            toggle_flip();
+        } else if (is_flipped) {
             if (e.key === "1") {
                 e.preventDefault();
                 rate_card(false);
