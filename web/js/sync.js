@@ -19,9 +19,7 @@ export function get_last_sync_error() {
     return last_sync_error;
 }
 
-export async function set_sync_status(color_or_text, color_class) {
-    const raw_color = color_class || color_or_text || "status-gray";
-    const color = raw_color.startsWith("status-") ? raw_color : "status-gray";
+export async function set_sync_status(color = "status-gray") {
     const el = document.getElementById("sync-status");
     if (el) {
         el.className = `status-pill ${color} account-btn`;
@@ -166,7 +164,11 @@ export async function sync_now(on_update) {
         try {
             const me_res = await fetch("/api/me");
             if (me_res.ok) {
+                const me_data = await me_res.json();
                 await set_meta("mode", "account");
+                if (me_data && me_data.username) {
+                    await set_meta("username", me_data.username);
+                }
             } else {
                 await set_sync_status("status-gray");
                 return false;

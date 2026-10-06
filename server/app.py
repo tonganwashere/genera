@@ -9,7 +9,8 @@ app.config["SECRET_KEY"] = config.SECRET_KEY
 app.config["DATABASE_PATH"] = config.DATABASE_PATH
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-app.config["SESSION_COOKIE_SECURE"] = True
+is_prod = os.environ.get("FLASK_ENV") == "production" or "RENDER" in os.environ
+app.config["SESSION_COOKIE_SECURE"] = os.environ.get("SESSION_COOKIE_SECURE", "true" if is_prod else "false").lower() in ("true", "1")
 app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024
 
 db.check_db()

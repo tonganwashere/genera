@@ -255,6 +255,7 @@ function setup_account_listeners() {
             } finally {
                 sync_btn.disabled = false;
                 sync_btn.textContent = "Sync Now";
+                await render_account_section();
             }
         });
     }
