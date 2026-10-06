@@ -34,3 +34,9 @@ When you want to sync between your phone and laptop, you can log in to your acco
 - **Last-Write-Wins (LWW)**: Conflicts are resolved using ISO UTC timestamps (`updated_at`). Ties break in favor of the server.
 - **Dismissible Conflict Banner**: If an older edit from this device was rejected because a newer edit already existed on the server, Genera shows an amber banner naming the overwritten card or progress entry rather than silently discarding your work.
 - **Account Merging**: If you start studying in Local Mode and later register or log in, Genera reconciles cards by question and category, preserves your newer edits, and repoints local progress to canonical server UUIDs without creating duplicates.
+
+---
+
+## Attribution & License
+
+- Trivia questions sourced from the [Open Trivia Database](https://opentdb.com/), licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
