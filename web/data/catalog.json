@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "attribution": "Curated general knowledge questions sourced from Open Trivia DB (opentdb.com), licensed under CC BY-SA 4.0.",
+  "version": 3,
+  "attribution": "Questions sourced from Open Trivia DB (opentdb.com), licensed under CC BY-SA 4.0.",
   "cards": [
     {
       "id": "1e8e501981d38780",
@@ -52,8 +52,8 @@
     },
     {
       "id": "bd3808b671b33e17",
-      "question": "Which country has the Union Jack in its flag?",
-      "answer": "New Zealand",
+      "question": "True or False: The national flag of New Zealand features the British Union Jack in its upper hoist canton.",
+      "answer": "True",
       "category": "General Knowledge"
     },
     {
@@ -154,8 +154,8 @@
     },
     {
       "id": "a65a17f298d7ca1a",
-      "question": "Which of the following is NOT one of Aesop's fables?",
-      "answer": "The Fox and the Hound",
+      "question": "True or False: \"The Fox and the Hound\" is one of Aesop's fables.",
+      "answer": "False (Written by Daniel P. Mannix; classic Aesop fables include The Fox and the Grapes)",
       "category": "General Knowledge"
     },
     {
@@ -178,7 +178,7 @@
     },
     {
       "id": "ae77bd21ae2464de",
-      "question": "The word \"aprosexia\" means which of the following?",
+      "question": "What does the word \"aprosexia\" mean?",
       "answer": "The inability to concentrate on anything",
       "category": "General Knowledge"
     },
@@ -226,8 +226,8 @@
     },
     {
       "id": "cc1c923130c1cbc2",
-      "question": "Which of the following landmarks is not located in New York City?",
-      "answer": "Lincoln Memorial",
+      "question": "True or False: The Lincoln Memorial is located in New York City.",
+      "answer": "False (It is located in Washington, D.C.)",
       "category": "General Knowledge"
     },
     {
@@ -250,8 +250,8 @@
     },
     {
       "id": "b25773403cfd9bb2",
-      "question": "Of the following months, which has the most amount of days?",
-      "answer": "December",
+      "question": "How many days are in the month of December?",
+      "answer": "31 days",
       "category": "General Knowledge"
     },
     {
@@ -292,8 +292,8 @@
     },
     {
       "id": "d2d4d3df99c8fd9f",
-      "question": "Which one of these is not a typical European sword design?",
-      "answer": "Scimitar",
+      "question": "True or False: The scimitar is a traditional European sword design.",
+      "answer": "False (It is a Middle Eastern curved sword)",
       "category": "General Knowledge"
     },
     {
@@ -310,8 +310,8 @@
     },
     {
       "id": "6cc2a7fb2616695b",
-      "question": "Which of these cities does NOT have a United States Minting location?",
-      "answer": "St. Louis, MO",
+      "question": "True or False: St. Louis, Missouri is an active United States Mint location.",
+      "answer": "False (Active US Mints are in Philadelphia, Denver, San Francisco, and West Point)",
       "category": "General Knowledge"
     },
     {
@@ -340,8 +340,8 @@
     },
     {
       "id": "921a774ea76a382d",
-      "question": "Which of these companies does NOT manufacture automobiles?",
-      "answer": "Ducati",
+      "question": "True or False: The Italian manufacturer Ducati manufactures passenger automobiles.",
+      "answer": "False (Ducati manufactures motorcycles)",
       "category": "General Knowledge"
     },
     {
@@ -352,7 +352,7 @@
     },
     {
       "id": "54e0d60d87d1f65f",
-      "question": "What is the most-visited website out of these options?",
+      "question": "What is the most visited website in the world?",
       "answer": "Google",
       "category": "General Knowledge"
     },
@@ -376,7 +376,7 @@
     },
     {
       "id": "9d81fb5ed8b1b0df",
-      "question": "The word \"astasia\" means which of the following?",
+      "question": "What does the word \"astasia\" mean?",
       "answer": "The inability to stand up",
       "category": "General Knowledge"
     },
@@ -436,7 +436,7 @@
     },
     {
       "id": "21e2d31f3ee014e3",
-      "question": "Out of these four buildings, which one is the tallest, with a height of 1,776 ft (541.3 m)?",
+      "question": "Which skyscraper in the United States stands at a symbolic height of 1,776 ft (541.3 m)?",
       "answer": "One World Trade Center, United States",
       "category": "General Knowledge"
     },
@@ -472,7 +472,7 @@
     },
     {
       "id": "f587ec07aa344d0d",
-      "question": "Which of these is the name of a Japanese system of alternative medicine, literally meaning \"finger pressure\"?",
+      "question": "What Japanese system of alternative medicine literally translates to \"finger pressure\"?",
       "answer": "Shiatsu",
       "category": "General Knowledge"
     },
@@ -526,8 +526,8 @@
     },
     {
       "id": "49df726daab24176",
-      "question": "Which of these Indian languages is not part of the Indo-European language family?",
-      "answer": "Tamil",
+      "question": "True or False: The Tamil language belongs to the Indo-European language family.",
+      "answer": "False (It belongs to the Dravidian language family)",
       "category": "General Knowledge"
     },
     {
@@ -664,7 +664,7 @@
     },
     {
       "id": "666467ed4dbffdb9",
-      "question": "Which of the following buildings is example of a structure primarily built in the Art Deco architectural style?",
+      "question": "Which Syracuse, New York landmark is an acclaimed example of Art Deco architecture featuring a 28-foot statue of the \"Spirit of Light\"?",
       "answer": "Niagara Mohawk Building",
       "category": "General Knowledge"
     },
@@ -676,13 +676,13 @@
     },
     {
       "id": "8d48cfe44800e180",
-      "question": "In blood typing, the (+) and (-) marker after an A, B, AB, or O is called Rh factor. Which of the following is the source of its discovery?",
+      "question": "In human blood typing, from which animal was the Rh factor antigen originally discovered?",
       "answer": "Rhesus Monkeys",
       "category": "General Knowledge"
     },
     {
       "id": "a9ee0da3607c959b",
-      "question": "Which of these anatomical terms refers to the tail end of the creature?",
+      "question": "Which anatomical directional term refers to the tail or posterior end of a creature?",
       "answer": "Caudal",
       "category": "General Knowledge"
     },
@@ -730,7 +730,7 @@
     },
     {
       "id": "da66e2eb6b660dd2",
-      "question": "Which is the capital of Spain?",
+      "question": "What is the capital and most populous city of Spain?",
       "answer": "Madrid",
       "category": "General Knowledge"
     },
@@ -790,7 +790,7 @@
     },
     {
       "id": "51999b7b29dab7a4",
-      "question": "Which of the following Ivy League universities has its official motto in Hebrew as well as in Latin?",
+      "question": "Which Ivy League university features its official motto (Lux et Veritas) in Hebrew as well as in Latin?",
       "answer": "Yale University",
       "category": "General Knowledge"
     },
@@ -832,7 +832,7 @@
     },
     {
       "id": "9ac4bc52aa16ea58",
-      "question": "Which of the following is the IATA code for Manchester Airport?",
+      "question": "What is the 3-letter IATA airport code for Manchester Airport in the UK?",
       "answer": "MAN",
       "category": "General Knowledge"
     },
@@ -886,7 +886,7 @@
     },
     {
       "id": "e370633c6df181bb",
-      "question": "Out of these four buildings, which one is the tallest, with a height of 1,250 ft (381 m)?",
+      "question": "Which iconic New York City skyscraper stands at a roof height of 1,250 ft (381 m)?",
       "answer": "Empire State Building, United States",
       "category": "General Knowledge"
     },
@@ -946,8 +946,8 @@
     },
     {
       "id": "fe39d6f3f9b1e2a5",
-      "question": "Which country drives on the left side of the road?",
-      "answer": "Japan",
+      "question": "True or False: In Japan, motor vehicle traffic drives on the left-hand side of the road.",
+      "answer": "True",
       "category": "General Knowledge"
     },
     {
@@ -982,7 +982,7 @@
     },
     {
       "id": "85535215f671c257",
-      "question": "Which of the following chemicals are found in eggplant seeds?",
+      "question": "What addictive stimulant chemical is naturally found in trace amounts within eggplant seeds?",
       "answer": "Nicotine",
       "category": "General Knowledge"
     },
@@ -1006,8 +1006,8 @@
     },
     {
       "id": "fa48d4f21847f587",
-      "question": "Which of the following languages does NOT use gender as a part of its grammar?",
-      "answer": "Turkish",
+      "question": "True or False: The Turkish language features grammatical gender (masculine/feminine nouns).",
+      "answer": "False (Turkish has no grammatical gender)",
       "category": "General Knowledge"
     },
     {
@@ -1048,8 +1048,8 @@
     },
     {
       "id": "807e8521ab50ff37",
-      "question": "Which of the following presidents is not on Mount Rushmore?",
-      "answer": "John F. Kennedy",
+      "question": "True or False: John F. Kennedy is one of the four US presidents carved onto Mount Rushmore.",
+      "answer": "False (The four are George Washington, Thomas Jefferson, Theodore Roosevelt, and Abraham Lincoln)",
       "category": "General Knowledge"
     },
     {
@@ -1066,7 +1066,7 @@
     },
     {
       "id": "a98cd2556e659031",
-      "question": "Which of the following is an existing family in \"The Sims\"?",
+      "question": "Which iconic gothic pre-made family has appeared across multiple installments of \"The Sims\"?",
       "answer": "The Goth Family",
       "category": "General Knowledge"
     },
@@ -1144,7 +1144,7 @@
     },
     {
       "id": "1d30f6a576127dee",
-      "question": "Out of these four buildings, which one is the tallest, with a height of 2,717 ft (828 m)?",
+      "question": "Which skyscraper in Dubai, United Arab Emirates is the world's tallest building at 2,717 ft (828 m)?",
       "answer": "Burj Khalifa, United Arab Emirates",
       "category": "General Knowledge"
     },
@@ -1192,8 +1192,8 @@
     },
     {
       "id": "cb0103382c38f71d",
-      "question": "Which of these banks are NOT authorized to issue currency notes in Hong Kong?",
-      "answer": "OCBC",
+      "question": "True or False: OCBC Bank is authorized to issue Hong Kong dollar banknotes.",
+      "answer": "False (The three note-issuing banks are HSBC, Standard Chartered, and Bank of China)",
       "category": "General Knowledge"
     },
     {
@@ -1210,8 +1210,8 @@
     },
     {
       "id": "67d4edfc851069bc",
-      "question": "Which candy is NOT made by Mars?",
-      "answer": "Almond Joy",
+      "question": "True or False: Almond Joy candy bars are manufactured by Mars, Incorporated.",
+      "answer": "False (Almond Joy is manufactured in the United States by The Hershey Company)",
       "category": "General Knowledge"
     },
     {
@@ -1240,8 +1240,8 @@
     },
     {
       "id": "69ab679ca894b6b4",
-      "question": "In linguistics, which of the following is not one of the Gricean Maxims under the Cooperative Principal?",
-      "answer": "Length",
+      "question": "True or False: In linguistics, \"Length\" is one of the Gricean Maxims under the Cooperative Principle.",
+      "answer": "False (The four maxims are Quantity, Quality, Relation, and Manner)",
       "category": "General Knowledge"
     },
     {
@@ -1318,8 +1318,8 @@
     },
     {
       "id": "b4fbed3fc0df73ff",
-      "question": "Which of these holidays is NOT usually celebrated in the month of December?",
-      "answer": "Thanksgiving",
+      "question": "True or False: In the United States, Thanksgiving is celebrated in the month of December.",
+      "answer": "False (It is celebrated on the fourth Thursday of November)",
       "category": "General Knowledge"
     },
     {
@@ -1438,13 +1438,13 @@
     },
     {
       "id": "a69b11f6b531e9ff",
-      "question": "Which of the following carbonated soft drinks were introduced first?",
+      "question": "Formulated in 1885 in Waco, Texas, which popular soft drink predates Coca-Cola by one year?",
       "answer": "Dr. Pepper",
       "category": "General Knowledge"
     },
     {
       "id": "546b886299966a8f",
-      "question": "What planet is not named after a Greek or Roman god?",
+      "question": "Which planet in the Solar System is the only one not named after a Greek or Roman deity?",
       "answer": "Earth",
       "category": "General Knowledge"
     },
@@ -1492,8 +1492,8 @@
     },
     {
       "id": "2935b7d545615ff3",
-      "question": "Which of the following is not an Ivy League University?",
-      "answer": "Stanford",
+      "question": "True or False: Stanford University is a member of the Ivy League athletic conference.",
+      "answer": "False (The Ivy League consists of Brown, Columbia, Cornell, Dartmouth, Harvard, Penn, Princeton, and Yale)",
       "category": "General Knowledge"
     },
     {
@@ -1504,19 +1504,19 @@
     },
     {
       "id": "ac69d0bc0ebf1615",
-      "question": "Which of the following is not the host of a program on NPR?",
-      "answer": "Ben Shapiro",
+      "question": "True or False: Ben Shapiro is the host of an official program produced by NPR.",
+      "answer": "False",
       "category": "General Knowledge"
     },
     {
       "id": "a1db0bd1ac72b27e",
-      "question": "The Quadrangularis Reversum is best described as which of the following?",
-      "answer": "A percussion instrument",
+      "question": "What type of musical instrument is the microtonal Quadrangularis Reversum created by Harry Partch?",
+      "answer": "A percussion instrument (marimba-like)",
       "category": "General Knowledge"
     },
     {
       "id": "337aa63b22fe90fc",
-      "question": "Which of these words refers to something made, distributed, or sold illegally?",
+      "question": "What term refers to goods made, distributed, or sold illegally, especially unauthorized recordings?",
       "answer": "Bootleg",
       "category": "General Knowledge"
     },
@@ -1582,8 +1582,8 @@
     },
     {
       "id": "709394298faa5277",
-      "question": "Which language is NOT Indo-European?",
-      "answer": "Hungarian",
+      "question": "True or False: The Hungarian language belongs to the Indo-European language family.",
+      "answer": "False (Hungarian is an Uralic / Finno-Ugric language, unrelated to Indo-European)",
       "category": "General Knowledge"
     },
     {
@@ -1606,14 +1606,14 @@
     },
     {
       "id": "d52bf556e7b411a5",
-      "question": "Which of these American singers and songwriters won a Nobel Prize in Literature?",
+      "question": "Which American singer-songwriter was awarded the 2016 Nobel Prize in Literature?",
       "answer": "Bob Dylan",
       "category": "General Knowledge"
     },
     {
       "id": "79622b7578993671",
-      "question": "The word \"abulia\" means which of the following?",
-      "answer": "The inability to make decisions",
+      "question": "What does the neurological term \"abulia\" mean?",
+      "answer": "The inability to make decisions or lack of willpower",
       "category": "General Knowledge"
     },
     {
@@ -1744,7 +1744,7 @@
     },
     {
       "id": "c8ace50d1fed1aef",
-      "question": "In ancient Greece, if your job were a \"hippeus\" which of these would you own?",
+      "question": "In ancient Greece, what animal did a citizen of the \"hippeis\" social class own and maintain for cavalry service?",
       "answer": "Horse",
       "category": "General Knowledge"
     },
@@ -1780,8 +1780,8 @@
     },
     {
       "id": "1defd8b14ec445c3",
-      "question": "Which of these colours is NOT featured in the logo for Google?",
-      "answer": "Pink",
+      "question": "True or False: The color pink is featured in the official multi-colored Google logo.",
+      "answer": "False (The colors are blue, red, yellow, and green)",
       "category": "General Knowledge"
     },
     {
@@ -1846,14 +1846,14 @@
     },
     {
       "id": "c70cac44120cf5aa",
-      "question": "Which of the following is not another name for the eggplant?",
-      "answer": "Potimarron",
+      "question": "True or False: \"Potimarron\" is another culinary name for the eggplant (aubergine).",
+      "answer": "False (Potimarron is a variety of winter squash / pumpkin)",
       "category": "General Knowledge"
     },
     {
       "id": "15d04bb574cece1d",
-      "question": "Which of these fast-food chains is NOT mainly known to sell pizza?",
-      "answer": "Wendy's",
+      "question": "True or False: Fast-food chain Wendy's is primarily known for selling pizza.",
+      "answer": "False (Known for square hamburgers, sea-salt fries, and Frosty desserts)",
       "category": "General Knowledge"
     },
     {
@@ -1864,8 +1864,8 @@
     },
     {
       "id": "79ba70233c864566",
-      "question": "Which of the following British Monarchs never appeared on a circulated pound sterling coin?",
-      "answer": "Edward VIII",
+      "question": "True or False: King Edward VIII appeared on circulating British pound sterling coinage.",
+      "answer": "False (He abdicated in 1936 before circulating coins were struck for general public release)",
       "category": "General Knowledge"
     },
     {
@@ -1876,7 +1876,7 @@
     },
     {
       "id": "17857e2df499ae92",
-      "question": "Which of the following blood component forms a plug at the site of injuries?",
+      "question": "Which blood component forms a sticky plug at the site of vascular injuries to initiate clotting?",
       "answer": "Platelets",
       "category": "General Knowledge"
     },
@@ -1900,8 +1900,8 @@
     },
     {
       "id": "a7c1ac683f6357f6",
-      "question": "Which of these is NOT considered to be a colour that makes up the rainbow?",
-      "answer": "Pink",
+      "question": "True or False: Pink is considered one of the seven traditional colors of the rainbow.",
+      "answer": "False (The colors are Red, Orange, Yellow, Green, Blue, Indigo, Violet)",
       "category": "General Knowledge"
     },
     {
@@ -2026,19 +2026,19 @@
     },
     {
       "id": "7c48e16a671c03f4",
-      "question": "Which of the following nations was NOT a belligerent in World War I?",
-      "answer": "Denmark",
+      "question": "True or False: Denmark was an active belligerent combatant in World War I.",
+      "answer": "False (Denmark remained strictly neutral throughout WWI)",
       "category": "General Knowledge"
     },
     {
       "id": "886b6170c739af3f",
-      "question": "Which of the following correctly describes Japanese word order?",
+      "question": "What is the canonical basic word order of the Japanese language?",
       "answer": "Subject Object Verb",
       "category": "General Knowledge"
     },
     {
       "id": "11d047956e14db8e",
-      "question": "Which of the three astronauts of the Apollo 11 spaceflight did NOT walk on the moon?",
+      "question": "Which Apollo 11 astronaut remained in lunar orbit piloting the Command Module Columbia while Armstrong and Aldrin walked on the Moon?",
       "answer": "Michael Collins",
       "category": "General Knowledge"
     },
@@ -2074,7 +2074,7 @@
     },
     {
       "id": "47e4016cbe1e2f7d",
-      "question": "Which one of these Swedish companies was founded in 1943?",
+      "question": "Which Swedish multinational home furnishings retail company was founded in 1943 by Ingvar Kamprad?",
       "answer": "IKEA",
       "category": "General Knowledge"
     },
@@ -2110,7 +2110,7 @@
     },
     {
       "id": "2ceae9849b8469d8",
-      "question": "Out of these four buildings, which one is the tallest, with a height of 1,483 ft (451.9 m)?",
+      "question": "Which twin skyscrapers in Kuala Lumpur, Malaysia stand at a height of 1,483 ft (451.9 m)?",
       "answer": "Petronas Twin Towers, Malaysia",
       "category": "General Knowledge"
     },
@@ -2134,7 +2134,7 @@
     },
     {
       "id": "80868966533e0c82",
-      "question": "Which of these words means \"idle spectator\"?",
+      "question": "What British canal term refers to an idle spectator who spends time watching activity on canals and locks?",
       "answer": "Gongoozler",
       "category": "General Knowledge"
     },
@@ -2224,7 +2224,7 @@
     },
     {
       "id": "0173d01701148e21",
-      "question": "Which of the following was the author of \"Username Evie\"?",
+      "question": "Who was the author of the 2015 graphic novel \"Username: Evie\"?",
       "answer": "Joe Sugg",
       "category": "Literature"
     },
@@ -2284,8 +2284,8 @@
     },
     {
       "id": "0d11e47b66fc6b4e",
-      "question": "Which of these books was NOT written by the Czech author Karel Čapek?",
-      "answer": "Journey to the Center of the Earth",
+      "question": "True or False: \"Journey to the Center of the Earth\" was written by Czech author Karel Čapek.",
+      "answer": "False (It was written by French author Jules Verne; Čapek wrote R.U.R. and War with the Newts)",
       "category": "Literature"
     },
     {
@@ -2350,8 +2350,8 @@
     },
     {
       "id": "1a57c08bf25efa17",
-      "question": "Which of these does Charlie NOT read in The Perks of Being a Wallflower?",
-      "answer": "The Grapes of Wrath",
+      "question": "True or False: In Stephen Chbosky's \"The Perks of Being a Wallflower\", Charlie is assigned to read \"The Grapes of Wrath\".",
+      "answer": "False",
       "category": "Literature"
     },
     {
@@ -2374,8 +2374,8 @@
     },
     {
       "id": "a42bbb572dd59432",
-      "question": "Which of the following is NOT a work done by Shakespeare?",
-      "answer": "Trial of Temperance",
+      "question": "True or False: \"The Trial of Temperance\" is a theatrical play written by William Shakespeare.",
+      "answer": "False",
       "category": "Literature"
     },
     {
@@ -2392,8 +2392,8 @@
     },
     {
       "id": "908a6c1c73b47670",
-      "question": "In Romance of the Three Kingdoms, who was not a member of the Peach Garden Oath?",
-      "answer": "Zhao Yun",
+      "question": "True or False: In \"Romance of the Three Kingdoms\", warrior Zhao Yun was one of the sworn brothers of the Peach Garden Oath.",
+      "answer": "False (The oath was sworn exclusively between Liu Bei, Guan Yu, and Zhang Fei)",
       "category": "Literature"
     },
     {
@@ -2416,8 +2416,8 @@
     },
     {
       "id": "553c23cb3327524b",
-      "question": "Which of the following authors was not born in England?",
-      "answer": "Arthur Conan Doyle",
+      "question": "True or False: Sherlock Holmes author Sir Arthur Conan Doyle was born in England.",
+      "answer": "False (He was born in Edinburgh, Scotland)",
       "category": "Literature"
     },
     {
@@ -2548,8 +2548,8 @@
     },
     {
       "id": "21494138dbba1983",
-      "question": "Which of the following is not a work authored by Fyodor Dostoevsky?",
-      "answer": "Anna Karenina",
+      "question": "True or False: The classic 1877 novel \"Anna Karenina\" was authored by Fyodor Dostoevsky.",
+      "answer": "False (It was written by Leo Tolstoy)",
       "category": "Literature"
     },
     {
@@ -2560,13 +2560,13 @@
     },
     {
       "id": "bfa29adcdf17e53b",
-      "question": "Which of the following is a major muscle of the back?",
+      "question": "Which large superficial muscle of the upper back and neck moves the scapula and supports the arm?",
       "answer": "Trapezius",
       "category": "Science & Nature"
     },
     {
       "id": "59b2b26b2c20d3d4",
-      "question": "Which one of these is scientific term for \"Brain Freeze\"?",
+      "question": "What is the medical scientific term for \"brain freeze\" or an ice-cream headache?",
       "answer": "Sphenopalatine Ganglioneuralgia",
       "category": "Science & Nature"
     },
@@ -2578,8 +2578,8 @@
     },
     {
       "id": "7b5908e652ff141c",
-      "question": "Which of these is NOT a part of the structure of a typical neuron?",
-      "answer": "Islets of Langerhans",
+      "question": "True or False: The Islets of Langerhans are structural components of a typical human neuron.",
+      "answer": "False (They are endocrine hormone-producing cells in the pancreas)",
       "category": "Science & Nature"
     },
     {
@@ -2608,8 +2608,8 @@
     },
     {
       "id": "78166377669f34db",
-      "question": "Botanically speaking, which of these fruits is NOT a berry?",
-      "answer": "Strawberry",
+      "question": "True or False: Botanically speaking, the strawberry is classified as a true berry.",
+      "answer": "False (It is an aggregate accessory fruit; true botanical berries include bananas and tomatoes)",
       "category": "Science & Nature"
     },
     {
@@ -2650,8 +2650,8 @@
     },
     {
       "id": "786686f91d347996",
-      "question": "Which of the following bones is not in the leg?",
-      "answer": "Radius",
+      "question": "True or False: The radius is a bone located in the human leg.",
+      "answer": "False (The radius is located in the human forearm alongside the ulna)",
       "category": "Science & Nature"
     },
     {
@@ -2680,8 +2680,8 @@
     },
     {
       "id": "a3a929163062a606",
-      "question": "Which is not a type of neuron?",
-      "answer": "Perceptual Neuron",
+      "question": "True or False: \"Perceptual neuron\" is an established anatomical classification of biological nervous system neurons.",
+      "answer": "False (The primary morphological/functional classes are sensory neurons, motor neurons, and interneurons)",
       "category": "Science & Nature"
     },
     {
@@ -2710,13 +2710,13 @@
     },
     {
       "id": "87d2e63b7800c2c2",
-      "question": "Deionized water is water with which of the following removed?",
+      "question": "Deionized water has what specific substances removed via ion exchange?",
       "answer": "Iron",
       "category": "Science & Nature"
     },
     {
       "id": "9864a4be366fb450",
-      "question": "The medical term for the belly button is which of the following?",
+      "question": "What is the medical anatomical term for the belly button or navel?",
       "answer": "Umbilicus",
       "category": "Science & Nature"
     },
@@ -2746,7 +2746,7 @@
     },
     {
       "id": "b4901618c6fb4172",
-      "question": "Which of these two plates are best know for forming earthquakes and tsunami's?",
+      "question": "What type of tectonic plate boundaries are most notorious for generating megathrust earthquakes and tsunamis?",
       "answer": "Convergent Plate Boundaries/Oceanic Crust",
       "category": "Science & Nature"
     },
@@ -2782,8 +2782,8 @@
     },
     {
       "id": "b01ab3a8ed81b1f7",
-      "question": "Which of the following men does not have a chemical element named after him?",
-      "answer": "Sir Isaac Newton",
+      "question": "True or False: Sir Isaac Newton has an official chemical element on the periodic table named after him.",
+      "answer": "False",
       "category": "Science & Nature"
     },
     {
@@ -2794,8 +2794,8 @@
     },
     {
       "id": "33b52463d36eb5cc",
-      "question": "Which of the following is not one of the groups on the periodic table?",
-      "answer": "Fluorines",
+      "question": "True or False: \"Fluorines\" is the official name of a group column on the periodic table.",
+      "answer": "False (The group is officially named the Halogens / Group 17)",
       "category": "Science & Nature"
     },
     {
@@ -2914,7 +2914,7 @@
     },
     {
       "id": "d919ce32587e246b",
-      "question": "Which of the following elements is typically used in the doping of the semiconductor silicon?",
+      "question": "Which group 13 element is standardly used as a p-type dopant in semiconductor silicon manufacturing?",
       "answer": "Boron",
       "category": "Science & Nature"
     },
@@ -2968,7 +2968,7 @@
     },
     {
       "id": "a5593a6258c8304f",
-      "question": "How many teeth does the average adult mouth have (except for wisdom teeth)?",
+      "question": "How many permanent teeth does an adult human normally have (including wisdom teeth)?",
       "answer": "32",
       "category": "Science & Nature"
     },
@@ -2998,8 +2998,8 @@
     },
     {
       "id": "d9a1e22e7bdcf856",
-      "question": "Which of these is NOT a bone found in the human arm?",
-      "answer": "Tibia",
+      "question": "True or False: The tibia is one of the bones found in the human arm.",
+      "answer": "False (The tibia is the shin bone located in the lower leg)",
       "category": "Science & Nature"
     },
     {
@@ -3058,7 +3058,7 @@
     },
     {
       "id": "7530fa06497d5a35",
-      "question": "Which of these is a type of stretch/deep tendon reflex?",
+      "question": "What deep tendon reflex test involves tapping the Achilles tendon to cause plantar flexion?",
       "answer": "Ankle jerk reflex",
       "category": "Science & Nature"
     },
@@ -3142,7 +3142,7 @@
     },
     {
       "id": "0f00424c9aa8e270",
-      "question": "Which one of these scientists conducted the Gold Foil Experiment which concluded that atoms are mostly made of empty space?",
+      "question": "Which physicist conducted the famous 1909 Gold Foil Experiment demonstrating that atoms possess a dense nucleus?",
       "answer": "Ernest Rutherford",
       "category": "Science & Nature"
     },
@@ -3160,14 +3160,14 @@
     },
     {
       "id": "84a114cd7e25319d",
-      "question": "Which of these is a semiconductor amplifying device?",
+      "question": "What fundamental three-terminal semiconductor device is used to amplify or switch electrical signals?",
       "answer": "transistor",
       "category": "Science & Nature"
     },
     {
       "id": "1496ef66e2a89fef",
-      "question": "Which of the following is NOT a passive electrical component?",
-      "answer": "Transistor",
+      "question": "True or False: The transistor is classified as a passive electrical component.",
+      "answer": "False (It is an active electronic component; resistors and capacitors are passive)",
       "category": "Science & Nature"
     },
     {
@@ -3220,13 +3220,13 @@
     },
     {
       "id": "8f1aa1e866b5840b",
-      "question": "Which of these is used to show that Earth spins on an axis?",
+      "question": "What simple pendular device, demonstrated in Paris in 1851, provides direct visual proof of Earth's rotation?",
       "answer": "Foucault Pendulum",
       "category": "Science & Nature"
     },
     {
       "id": "1636db64bd0b4c09",
-      "question": "In quantum physics, which of these theorised sub-atomic particles has yet to be observed?",
+      "question": "In quantum field theory, which hypothetical massless boson that mediates gravity has never been experimentally observed?",
       "answer": "Graviton",
       "category": "Science & Nature"
     },
@@ -3274,7 +3274,7 @@
     },
     {
       "id": "74e4a0e349e3c57e",
-      "question": "Which of these is a stop codon in DNA?",
+      "question": "In genetics, what triplet sequence is an example of an ochre stop codon in DNA?",
       "answer": "TAA",
       "category": "Science & Nature"
     },
@@ -3316,7 +3316,7 @@
     },
     {
       "id": "ba11ee58094f345a",
-      "question": "Which of the following are cells of the adaptive immune system?",
+      "question": "Which lymphocytes of the adaptive immune system directly target and destroy virus-infected and tumor cells?",
       "answer": "Cytotoxic T cells",
       "category": "Science & Nature"
     },
@@ -3346,7 +3346,7 @@
     },
     {
       "id": "ee0fac5014efc6ed",
-      "question": "Which of the following is considered classical conditioning?",
+      "question": "What landmark 1890s psychological experiments famously established the principles of classical conditioning?",
       "answer": "Pavlov's dog experiments",
       "category": "Science & Nature"
     },
@@ -3364,14 +3364,14 @@
     },
     {
       "id": "ae8f7813a0c2b5e9",
-      "question": "In physics, conservation of energy and conservation of momentum are both consequences of which of the following?",
+      "question": "In physics, both conservation of energy and conservation of momentum arise as consequences of which mathematical theorem?",
       "answer": "Noether's Theorem",
       "category": "Science & Nature"
     },
     {
       "id": "6a629ffe8c08da53",
-      "question": "Which of the following is NOT a word used to describe an earthquake?",
-      "answer": "Drop-slide",
+      "question": "True or False: \"Drop-slide\" is a recognized seismological fault slip classification for earthquakes.",
+      "answer": "False (Standard slip categories include strike-slip, normal, and reverse/thrust)",
       "category": "Science & Nature"
     },
     {
@@ -3436,7 +3436,7 @@
     },
     {
       "id": "0b58098572dbd42d",
-      "question": "An organism described as \"heliotropic\" has a tendancy to move towards which of these things?",
+      "question": "An organism or plant described as \"heliotropic\" exhibits directional movement or growth toward what?",
       "answer": "Light",
       "category": "Science & Nature"
     },
@@ -3460,19 +3460,19 @@
     },
     {
       "id": "b4f43cb8e072a84a",
-      "question": "Which of these animals belongs in class Chondrichthyes?",
+      "question": "Which apex marine predator belongs to the class Chondrichthyes (cartilaginous fishes)?",
       "answer": "Great white shark",
       "category": "Science & Nature"
     },
     {
       "id": "e65fb08c76ec2e02",
-      "question": "Burning which of these metals will produce a bright white flame?",
+      "question": "Burning which lightweight alkaline earth metal ribbon produces a blindingly bright white flame?",
       "answer": "Magnesium",
       "category": "Science & Nature"
     },
     {
       "id": "365865e540aa9417",
-      "question": "Which of the following is the term for \"surgical complications resulting from surgical sponges left inside the patient's body?",
+      "question": "What medical malpractice term denotes a surgical sponge or gauze accidentally retained inside a patient's body?",
       "answer": "Gossypiboma",
       "category": "Science & Nature"
     },
@@ -3508,7 +3508,7 @@
     },
     {
       "id": "623d9bba1b95470b",
-      "question": "Which of these Elements is a metalloid?",
+      "question": "Which toxic chemical element with atomic number 51 and symbol Sb is categorized as a metalloid?",
       "answer": "Antimony",
       "category": "Science & Nature"
     },
@@ -3562,7 +3562,7 @@
     },
     {
       "id": "db2e74dac6b5a697",
-      "question": "Which of the following plastic is commonly used for window frames, gutters and drain pipes?",
+      "question": "Which rigid polymer plastic is widely used for residential window frames, gutters, and sewage drain pipes?",
       "answer": "Polyvinylchloride (PVC)",
       "category": "Science & Nature"
     },
@@ -3586,8 +3586,8 @@
     },
     {
       "id": "ffa46b274d408322",
-      "question": "All the following metal elements are liquids at or near room temperature EXCEPT:",
-      "answer": "Beryllium",
+      "question": "True or False: Beryllium is a liquid metal at or near room temperature.",
+      "answer": "False (Beryllium is a hard, brittle solid metal; mercury and gallium are liquid or near-liquid)",
       "category": "Science & Nature"
     },
     {
@@ -3616,7 +3616,7 @@
     },
     {
       "id": "f1860325d295a173",
-      "question": "Which of the following is the male pollen-producing reproductive part of a flower?",
+      "question": "What is the male pollen-producing reproductive organ of an angiosperm flower called?",
       "answer": "Stamen",
       "category": "Science & Nature"
     },
@@ -3640,7 +3640,7 @@
     },
     {
       "id": "10002121c465da43",
-      "question": "The element involved in making human blood red is which of the following?",
+      "question": "Which metallic transition element coordinated in hemoglobin binds oxygen and gives blood its red color?",
       "answer": "Iron",
       "category": "Science & Nature"
     },
@@ -3742,7 +3742,7 @@
     },
     {
       "id": "756d1aaad931b345",
-      "question": "Which of these bones is hardest to break?",
+      "question": "Which bone in the human body is the longest, strongest, and hardest to fracture?",
       "answer": "Femur",
       "category": "Science & Nature"
     },
@@ -3796,8 +3796,8 @@
     },
     {
       "id": "bbe5ee39400794ef",
-      "question": "Which of the following spacecraft never touched the moon?",
-      "answer": "Mariner 4",
+      "question": "True or False: NASA's Mariner 4 planetary probe touched down on the Moon.",
+      "answer": "False (Mariner 4 performed the first successful flyby of Mars in 1965)",
       "category": "Science & Nature"
     },
     {
@@ -3850,7 +3850,7 @@
     },
     {
       "id": "94d7481cc17a43bb",
-      "question": "Which of the following blood vessels carries deoxygenated blood?",
+      "question": "Which major blood vessel carries deoxygenated blood away from the right ventricle of the heart to the lungs?",
       "answer": "Pulmonary Artery",
       "category": "Science & Nature"
     },
@@ -3862,8 +3862,8 @@
     },
     {
       "id": "6c2dc789bc04062b",
-      "question": "Which of these chemical compounds is NOT found in gastric acid?",
-      "answer": "Sulfuric acid",
+      "question": "True or False: Sulfuric acid is one of the primary digestive acids secreted naturally in human gastric acid.",
+      "answer": "False (Gastric acid is composed primarily of hydrochloric acid)",
       "category": "Science & Nature"
     },
     {
@@ -3898,13 +3898,13 @@
     },
     {
       "id": "10a2bf2e8496cfb3",
-      "question": "All of the following human genetic haplogroup names are shared between Y-chromosome and mitochondrial DNA haplogroups EXCEPT:",
-      "answer": "Haplogroup U",
+      "question": "True or False: Haplogroup U is a human genetic haplogroup shared between both Y-chromosome and mtDNA lineages.",
+      "answer": "False (Haplogroup U is strictly a mitochondrial DNA maternal haplogroup)",
       "category": "Science & Nature"
     },
     {
       "id": "8ace36042fe60e57",
-      "question": "Which of these stars is the largest?",
+      "question": "What is the name of the red supergiant star in the constellation Scutum, historically recorded as one of the largest known stars by radius?",
       "answer": "UY Scuti",
       "category": "Science & Nature"
     },
@@ -3916,7 +3916,7 @@
     },
     {
       "id": "3f3900a0d9a570bd",
-      "question": "Which of the following liquids is least viscous? Assume temperature is 25°C.",
+      "question": "Between common laboratory solvents like glycerol, water, mercury, and acetone, which organic liquid exhibits the lowest viscosity at 25°C?",
       "answer": "Acetone",
       "category": "Science & Nature"
     },
@@ -3928,7 +3928,7 @@
     },
     {
       "id": "4bba80fd76ecda4c",
-      "question": "Which of these elements on the Periodic Table is a Noble Gas?",
+      "question": "Which chemical element with atomic number 10 is an unreactive Noble Gas that glows reddish-orange in high-voltage discharge tubes?",
       "answer": "Neon",
       "category": "Science & Nature"
     },
@@ -4018,8 +4018,8 @@
     },
     {
       "id": "fba6250cab39c22b",
-      "question": "Which of these choices is not one of the phases of mitosis?",
-      "answer": "Diplophase",
+      "question": "True or False: \"Diplophase\" is recognized as one of the standard phases of mitotic cell division.",
+      "answer": "False (Standard mitosis stages are prophase, prometaphase, metaphase, anaphase, telophase)",
       "category": "Science & Nature"
     },
     {
@@ -4030,8 +4030,8 @@
     },
     {
       "id": "2b62a1c8d64e95ac",
-      "question": "Which of the following is NOT a real element?",
-      "answer": "Vitrainium",
+      "question": "True or False: \"Vitrainium\" is an official element on the modern periodic table.",
+      "answer": "False",
       "category": "Science & Nature"
     },
     {
@@ -4072,8 +4072,8 @@
     },
     {
       "id": "4a7a5109c25d141e",
-      "question": "Which of these people was NOT a founder of Apple Inc?",
-      "answer": "Jonathan Ive",
+      "question": "True or False: Industrial designer Sir Jony Ive was one of the original co-founders of Apple Inc. in 1976.",
+      "answer": "False (Apple was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne; Ive joined Apple in 1992)",
       "category": "Technology & Computing"
     },
     {
@@ -4150,7 +4150,7 @@
     },
     {
       "id": "698d57a8722a19d6",
-      "question": "Linus Torvalds created which of these?",
+      "question": "Which world-renowned open-source operating system kernel was created by Finnish software engineer Linus Torvalds in 1991?",
       "answer": "Linux",
       "category": "Technology & Computing"
     },
@@ -4168,7 +4168,7 @@
     },
     {
       "id": "73173f29de4222a8",
-      "question": "America Online (AOL) started out as which of these online service providers?",
+      "question": "America Online (AOL) was originally launched in 1985 under what name as an online service for Commodore computers?",
       "answer": "Quantum Link",
       "category": "Technology & Computing"
     },
@@ -4246,7 +4246,7 @@
     },
     {
       "id": "fb04df2c60887ebc",
-      "question": "Which of these programming languages is a low-level language?",
+      "question": "What programming language category provides a direct 1-to-1 correspondence with CPU machine code architecture instructions?",
       "answer": "Assembly",
       "category": "Technology & Computing"
     },
@@ -4306,8 +4306,8 @@
     },
     {
       "id": "d9342c2ba2016b63",
-      "question": "Which one of these is not an official development name for a Ubuntu release?",
-      "answer": "Mystic Mansion",
+      "question": "True or False: \"Mystic Mansion\" was an official development codename for a release of Ubuntu Linux.",
+      "answer": "False (Ubuntu codenames use an adjective and an animal name with alliteration, e.g. Focal Fossa)",
       "category": "Technology & Computing"
     },
     {
@@ -4318,13 +4318,13 @@
     },
     {
       "id": "ec7de3ab73a222a1",
-      "question": "Which of these Cherry MX mechanical keyboard switches is both tactile and clicky?",
+      "question": "Which Cherry MX mechanical keyboard switch variant is renowned for providing both a tactile bump and an audible click?",
       "answer": "Cherry MX Blue",
       "category": "Technology & Computing"
     },
     {
       "id": "7fa3a31de14fa66b",
-      "question": "Which of the following computer components can be built using only NAND gates?",
+      "question": "Which core digital computer processing component can be implemented completely using solely NAND logic gates?",
       "answer": "ALU",
       "category": "Technology & Computing"
     },
@@ -4348,7 +4348,7 @@
     },
     {
       "id": "4c4bcd4e978af80a",
-      "question": "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn't get modified?",
+      "question": "In the Java programming language, which non-access modifier keyword is applied to a variable to declare it an unchangeable constant?",
       "answer": "Final",
       "category": "Technology & Computing"
     },
@@ -4420,7 +4420,7 @@
     },
     {
       "id": "a88b1147ed017169",
-      "question": "The acronym \"RIP\" stands for which of these?",
+      "question": "In computer networking, what does the routing protocol acronym \"RIP\" stand for?",
       "answer": "Routing Information Protocol",
       "category": "Technology & Computing"
     },
@@ -4474,7 +4474,7 @@
     },
     {
       "id": "71163550886391c8",
-      "question": "Which of these is the name for the failed key escrow device introduced by the National Security Agency in 1993?",
+      "question": "What controversial cryptographic hardware device featuring a government key escrow backdoor was introduced by the NSA in 1993?",
       "answer": "Clipper Chip",
       "category": "Technology & Computing"
     },
@@ -4540,7 +4540,7 @@
     },
     {
       "id": "95168dc44c2aa8a7",
-      "question": "Which of the following physical typologies are used with Ethernet Networks?",
+      "question": "Which physical network topology, centered around a central switch or hub, is predominantly used for modern Ethernet LANs?",
       "answer": "Star",
       "category": "Technology & Computing"
     },
@@ -4576,8 +4576,8 @@
     },
     {
       "id": "2db9e159376d246e",
-      "question": "All of the following programs are classified as raster graphics editors EXCEPT:",
-      "answer": "Inkscape",
+      "question": "True or False: The open-source graphic design program Inkscape is classified as a raster graphics editor.",
+      "answer": "False (Inkscape is a vector graphics editor; GIMP and Photoshop are raster editors)",
       "category": "Technology & Computing"
     },
     {
@@ -4624,13 +4624,13 @@
     },
     {
       "id": "039a5f691f544a61",
-      "question": "In CSS, which of these values CANNOT be used with the \"position\" property?",
-      "answer": "center",
+      "question": "True or False: In CSS, \"center\" is a valid value for the \"position\" property.",
+      "answer": "False (Valid position values are static, relative, absolute, fixed, and sticky)",
       "category": "Technology & Computing"
     },
     {
       "id": "22b38a26ebae1ae3",
-      "question": "Which of the following is a personal computer made by the Japanese company Fujitsu?",
+      "question": "Which 8-bit personal computer line was released by Japanese electronics manufacturer Fujitsu in 1982?",
       "answer": "FM-7",
       "category": "Technology & Computing"
     },
@@ -4684,7 +4684,7 @@
     },
     {
       "id": "ba977a83712a8064",
-      "question": "In the programming language \"Python\", which of these statements would display the string \"Hello World\" correctly?",
+      "question": "In Python 3, what exact built-in statement outputs the string \"Hello World\" to standard output?",
       "answer": "print(\"Hello World\")",
       "category": "Technology & Computing"
     },
@@ -4720,13 +4720,13 @@
     },
     {
       "id": "fb7563e1753e23ff",
-      "question": "Which of the following is NOT a computer science algorithm?",
-      "answer": "Float Sort",
+      "question": "True or False: \"Float Sort\" is a recognized computer science sorting algorithm.",
+      "answer": "False",
       "category": "Technology & Computing"
     },
     {
       "id": "c4424ff893ec9448",
-      "question": "Which of these names was an actual codename for a cancelled Microsoft project?",
+      "question": "What planetary name served as the internal codename for Microsoft's cancelled 1999 consumer operating system based on Windows 2000?",
       "answer": "Neptune",
       "category": "Technology & Computing"
     },
@@ -4780,14 +4780,14 @@
     },
     {
       "id": "ce0efcbf812d4fb1",
-      "question": "Which of the following languages is used as a scripting language in the Unity 3D game engine?",
+      "question": "Which primary programming language is utilized for gameplay scripting in the Unity 3D game engine?",
       "answer": "C#",
       "category": "Technology & Computing"
     },
     {
       "id": "42a71313eab70aaa",
-      "question": "Which kind of algorithm is Ron Rivest not famous for creating?",
-      "answer": "Secret sharing scheme",
+      "question": "True or False: Cryptographer Ron Rivest invented the secret sharing cryptographic scheme.",
+      "answer": "False (Secret sharing was independently formulated by Adi Shamir and George Blakley; Rivest co-invented RSA and RC4)",
       "category": "Technology & Computing"
     },
     {
@@ -4852,7 +4852,7 @@
     },
     {
       "id": "2980f94704159ec2",
-      "question": "Which of these was the name of a bug found in April 2014 in the publicly available OpenSSL cryptography library?",
+      "question": "What severe buffer over-read vulnerability in the OpenSSL heartbeat extension was disclosed in April 2014?",
       "answer": "Heartbleed",
       "category": "Technology & Computing"
     },
@@ -4900,13 +4900,13 @@
     },
     {
       "id": "045874dc4b58a054",
-      "question": "Which of these is not a layer in the OSI model for data communications?",
-      "answer": "Connection Layer",
+      "question": "True or False: The \"Connection Layer\" is one of the seven formal layers in the OSI network reference model.",
+      "answer": "False (The seven layers are Physical, Data Link, Network, Transport, Session, Presentation, Application)",
       "category": "Technology & Computing"
     },
     {
       "id": "1e4744d5d1efc4ac",
-      "question": "Which of the following is the oldest of these computers by release date?",
+      "question": "Sold via RadioShack starting in 1977, which microcomputer made by Tandy was part of the \"1977 Trinity\"?",
       "answer": "TRS-80",
       "category": "Technology & Computing"
     },
@@ -4918,8 +4918,8 @@
     },
     {
       "id": "270381a74f7b94e1",
-      "question": "Which of these is not a key value of Agile software development?",
-      "answer": "Comprehensive documentation",
+      "question": "True or False: Prioritizing comprehensive documentation over working software is one of the 4 core values of the Agile Manifesto.",
+      "answer": "False (The Agile Manifesto prioritizes working software over comprehensive documentation)",
       "category": "Technology & Computing"
     },
     {
@@ -4942,8 +4942,8 @@
     },
     {
       "id": "bc66df7bb49a658c",
-      "question": "Which of these probability distributions is NOT discrete?",
-      "answer": "Normal",
+      "question": "True or False: The normal (Gaussian) distribution is an example of a discrete probability distribution.",
+      "answer": "False (The normal distribution is a continuous probability distribution)",
       "category": "Mathematics & Logic"
     },
     {
@@ -5026,13 +5026,13 @@
     },
     {
       "id": "cacbb40e3cef73c0",
-      "question": "Which of the following dice is not a platonic solid?",
-      "answer": "10-sided die",
+      "question": "True or False: A standard 10-sided gaming die (d10, pentagonal trapezohedron) is one of the five geometric Platonic solids.",
+      "answer": "False (The five Platonic solids are tetrahedron, cube, octahedron, dodecahedron, and icosahedron)",
       "category": "Mathematics & Logic"
     },
     {
       "id": "a188d1c5af164a7d",
-      "question": "Which of the following mathematicians made major contributions to game theory?",
+      "question": "Which Hungarian-American polymath mathematician published \"Theory of Games and Economic Behavior\" in 1944?",
       "answer": "John Von Neumann",
       "category": "Mathematics & Logic"
     },
@@ -5110,7 +5110,7 @@
     },
     {
       "id": "6823176a709b1f29",
-      "question": "Which of the following famous mathematicians died in a duel at the age of 20?",
+      "question": "Which French prodigy mathematician and developer of Galois theory was killed in a pistol duel in 1832 at age 20?",
       "answer": "Galois",
       "category": "Mathematics & Logic"
     },
@@ -5140,14 +5140,14 @@
     },
     {
       "id": "51d1f821ec8f6928",
-      "question": "Which of the following is not one of the seven Millennium Prize Problems?",
-      "answer": "Naviér conjecture",
+      "question": "True or False: The \"Naviér conjecture\" is one of the Clay Mathematics Institute's seven Millennium Prize Problems.",
+      "answer": "False (The relevant Millennium Problem is Navier–Stokes existence and smoothness)",
       "category": "Mathematics & Logic"
     },
     {
       "id": "73197861f0e891ed",
-      "question": "Which of these did mathematician Leonhard Euler NOT develop?",
-      "answer": "An improvement to the Fast Fourier Transform",
+      "question": "True or False: Swiss polymath Leonhard Euler developed the modern Fast Fourier Transform (FFT) algorithm.",
+      "answer": "False (The FFT was developed by Gauss, with the modern algorithm published by Cooley and Tukey in 1965)",
       "category": "Mathematics & Logic"
     },
     {
@@ -5278,7 +5278,7 @@
     },
     {
       "id": "9c7c32442fc64f08",
-      "question": "Which of these numbers is closest to the total number of possible states for an army standard Enigma Machine?",
+      "question": "Approximately how many distinct theoretical electrical and mechanical states did a standard military Enigma machine possess?",
       "answer": "1.58 x 10^20",
       "category": "Mathematics & Logic"
     },
@@ -5308,7 +5308,7 @@
     },
     {
       "id": "c45132a62cc742a7",
-      "question": "The ancient Roman god of war was commonly known as which of the following?",
+      "question": "What was the name of the ancient Roman god of war and agricultural guardian?",
       "answer": "Mars",
       "category": "Mythology & Folklore"
     },
@@ -5338,14 +5338,14 @@
     },
     {
       "id": "b043aa2985fa20db",
-      "question": "Which of the following Mesopotamian mythological figures was NOT a deity?",
-      "answer": "Enkidu",
+      "question": "True or False: In the Epic of Gilgamesh, Enkidu is portrayed as an immortal patron god.",
+      "answer": "False (Enkidu was created by Aruru from clay as a wild mortal companion to Gilgamesh)",
       "category": "Mythology & Folklore"
     },
     {
       "id": "d369532f1ac69396",
-      "question": "Which of the following is NOT a god in Norse Mythology.",
-      "answer": "Jens",
+      "question": "True or False: \"Jens\" is the name of a prominent god in Norse mythology.",
+      "answer": "False",
       "category": "Mythology & Folklore"
     },
     {
@@ -5356,7 +5356,7 @@
     },
     {
       "id": "c9c05bd69a36f02b",
-      "question": "Which of these mythological creatures is said to be half-man and half-horse?",
+      "question": "What mythological creature from classical Greek legend features the upper body of a human and the lower body of a horse?",
       "answer": "Centaur",
       "category": "Mythology & Folklore"
     },
@@ -5380,8 +5380,8 @@
     },
     {
       "id": "fc53035d035c2f1a",
-      "question": "Which of the following is not one of the Greek Fates?",
-      "answer": "Narcissus",
+      "question": "True or False: In Greek mythology, Narcissus is counted as one of the three Fates (Moirai).",
+      "answer": "False (The three Fates are Clotho, Lachesis, and Atropos)",
       "category": "Mythology & Folklore"
     },
     {
@@ -5428,7 +5428,7 @@
     },
     {
       "id": "5e54159975b99572",
-      "question": "Which of these Roman gods doesn't have a counterpart in Greek mythology?",
+      "question": "Which Roman two-faced god of beginnings, gates, and transitions uniquely lacked a direct equivalent in Greek mythology?",
       "answer": "Janus",
       "category": "Mythology & Folklore"
     },
@@ -5440,8 +5440,8 @@
     },
     {
       "id": "1ec6a3c22945f29e",
-      "question": "Which of the following is not true about the life of Tiresias?",
-      "answer": "Sailed with the Argonauts to find the golden fleece",
+      "question": "True or False: In Greek mythology, the blind Theban prophet Tiresias sailed with Jason and the Argonauts on the Argo.",
+      "answer": "False",
       "category": "Mythology & Folklore"
     },
     {
@@ -5674,8 +5674,8 @@
     },
     {
       "id": "b13963a6697c2dc5",
-      "question": "Which of these countries is not a United Nations member state?",
-      "answer": "Niue",
+      "question": "True or False: The self-governing South Pacific island country of Niue is an official United Nations member state.",
+      "answer": "False (Niue is in free association with New Zealand and is not a member of the UN)",
       "category": "Geography"
     },
     {
@@ -5746,7 +5746,7 @@
     },
     {
       "id": "392f6e700da8cee4",
-      "question": "Which of the following Japanese islands is the biggest?",
+      "question": "What is the largest, most populous, and main island of the Japanese archipelago, home to Tokyo?",
       "answer": "Honshu",
       "category": "Geography"
     },
@@ -5776,13 +5776,13 @@
     },
     {
       "id": "43a59ef4684681d4",
-      "question": "All of the following countries have official claims to territory in Antartica EXCEPT:",
-      "answer": "United States",
+      "question": "True or False: The United States maintains official territorial claims to sovereign sectors of Antarctica.",
+      "answer": "False (The US reserves the right to make claims, but makes no territorial claims under the Antarctic Treaty)",
       "category": "Geography"
     },
     {
       "id": "21eb5d3c578fb338",
-      "question": "Which of these is the name of the largest city in the US state Tennessee?",
+      "question": "Which city on the Mississippi River was historically the largest city in the US state of Tennessee before being surpassed by Nashville?",
       "answer": "Memphis",
       "category": "Geography"
     },
@@ -5812,8 +5812,8 @@
     },
     {
       "id": "edae87700fd57fa8",
-      "question": "All of the following are towns/villages in the Pacific Island nation of Kiribati EXCEPT:",
-      "answer": "Urutora",
+      "question": "True or False: \"Urutora\" is an officially designated settlement village in the Pacific island nation of Kiribati.",
+      "answer": "False (Noted Kiribati settlements on Kiritimati include London, Paris, and Poland)",
       "category": "Geography"
     },
     {
@@ -5836,8 +5836,8 @@
     },
     {
       "id": "5bf4ed7a3d93a6d3",
-      "question": "Which of these is NOT an Australian state or territory?",
-      "answer": "Alberta",
+      "question": "True or False: Alberta is an administrative state or territory within the Commonwealth of Australia.",
+      "answer": "False (Alberta is a prairie province of Canada)",
       "category": "Geography"
     },
     {
@@ -5860,8 +5860,8 @@
     },
     {
       "id": "f4c369e0e6733474",
-      "question": "Which is not a country in Africa?",
-      "answer": "Guyana",
+      "question": "True or False: The Co-operative Republic of Guyana is a country situated on the African continent.",
+      "answer": "False (Guyana is located on the northern mainland of South America)",
       "category": "Geography"
     },
     {
@@ -5878,7 +5878,7 @@
     },
     {
       "id": "1991b16b364f36e5",
-      "question": "Which of these Mediterranian islands is under the sovereign rule of France?",
+      "question": "Which Mediterranean island, birthplace of Napoleon Bonaparte, is an administrative territorial collectivity of France?",
       "answer": "Corsica",
       "category": "Geography"
     },
@@ -5896,14 +5896,14 @@
     },
     {
       "id": "056b9c9acd3c11ca",
-      "question": "Which is the largest of these 4 islands?",
+      "question": "What is the largest island in Asia, divided among Indonesia, Malaysia, and Brunei?",
       "answer": "Borneo",
       "category": "Geography"
     },
     {
       "id": "26e89f197f104e56",
-      "question": "Which of these countries is the smallest by population?",
-      "answer": "Norway",
+      "question": "True or False: Norway has an estimated national population of under 6 million people.",
+      "answer": "True",
       "category": "Geography"
     },
     {
@@ -5926,7 +5926,7 @@
     },
     {
       "id": "ed89900beb0b5055",
-      "question": "Which of the following cities is the capital of Latvia?",
+      "question": "What Baltic seaport city is the capital and largest metropolis of Latvia?",
       "answer": "Riga",
       "category": "Geography"
     },
@@ -5974,8 +5974,8 @@
     },
     {
       "id": "404c8cdc9192509c",
-      "question": "Which of the following Arab countries does NOT have a flag containing only Pan-Arab colours?",
-      "answer": "Qatar",
+      "question": "True or False: The maroon-and-white national flag of Qatar contains all four traditional Pan-Arab colors (black, white, green, red).",
+      "answer": "False (Qatar's flag contains only maroon and white)",
       "category": "Geography"
     },
     {
@@ -6094,8 +6094,8 @@
     },
     {
       "id": "7a58f81d3d05a46a",
-      "question": "Which of these countries is NOT a part of the Asian continent?",
-      "answer": "Suriname",
+      "question": "True or False: The Republic of Suriname is located on the Asian continent.",
+      "answer": "False (Suriname is located on the northeastern Atlantic coast of South America)",
       "category": "Geography"
     },
     {
@@ -6232,8 +6232,8 @@
     },
     {
       "id": "3df2e272d86b3d76",
-      "question": "Which of these countries is not written in its native language?",
-      "answer": "Slovaško",
+      "question": "True or False: In its own native national language, Slovakia is written as \"Slovaško\".",
+      "answer": "False (\"Slovaško\" is Slovenian; in Slovak, the country is written as Slovensko)",
       "category": "Geography"
     },
     {
@@ -6292,14 +6292,14 @@
     },
     {
       "id": "7ed139d8d371b776",
-      "question": "Which of these cities is NOT in England?",
-      "answer": "Edinburgh",
+      "question": "True or False: The city of Edinburgh is located within England.",
+      "answer": "False (Edinburgh is the capital of Scotland)",
       "category": "Geography"
     },
     {
       "id": "adac2a49cff6ff5d",
-      "question": "Which of these is NOT a real tectonic plate?",
-      "answer": "Atlantic Plate",
+      "question": "True or False: The \"Atlantic Plate\" is one of Earth's primary lithospheric tectonic plates.",
+      "answer": "False (The Atlantic Ocean is divided between the North American, South American, Eurasian, and African plates)",
       "category": "Geography"
     },
     {
@@ -6316,14 +6316,14 @@
     },
     {
       "id": "6021c58012e159f2",
-      "question": "Which of the following is NOT a capital city?",
-      "answer": "Sydney",
+      "question": "True or False: Sydney is the official capital city of Australia.",
+      "answer": "False (The capital of Australia is Canberra)",
       "category": "Geography"
     },
     {
       "id": "7662a2a904fc56b8",
-      "question": "All of the following are classified as Finno-Ugric languages EXCEPT:",
-      "answer": "Samoyedic",
+      "question": "True or False: The Samoyedic languages belong directly to the Finno-Ugric sub-branch of Uralic languages.",
+      "answer": "False (Uralic splits into Finno-Ugric and Samoyedic as two sister branches)",
       "category": "Geography"
     },
     {
@@ -6340,8 +6340,8 @@
     },
     {
       "id": "3c55f1cf89dc2de7",
-      "question": "The following Spanish provinces are located in the northern area of Spain except:",
-      "answer": "Murcia",
+      "question": "True or False: The Spanish province of Murcia is located in the northern region of Spain.",
+      "answer": "False (Murcia is located on the southeastern Mediterranean coast of Spain)",
       "category": "Geography"
     },
     {
@@ -6358,8 +6358,8 @@
     },
     {
       "id": "eda6ab1e6e803603",
-      "question": "What European country is not a part of the EU?",
-      "answer": "Norway",
+      "question": "True or False: Norway is a full sovereign member state of the European Union (EU).",
+      "answer": "False (Norway participates in the EEA single market and Schengen Agreement, but rejected EU membership)",
       "category": "Geography"
     },
     {
@@ -6412,14 +6412,14 @@
     },
     {
       "id": "36cbb0a832883796",
-      "question": "Which islands below have been claimed by both Japan and Russia?",
+      "question": "Which archipelago of volcanic islands stretching between Hokkaido and Kamchatka has been disputed between Japan and Russia since WWII?",
       "answer": "Kuril Islands",
       "category": "Geography"
     },
     {
       "id": "8b7f2a4ea6aa7564",
-      "question": "What country is not a part of Scandinavia?",
-      "answer": "Finland",
+      "question": "True or False: Geographically and ethnolinguistically, Finland is strictly considered part of Scandinavia.",
+      "answer": "False (Finland is a Nordic country, but Scandinavia strictly denotes Norway, Sweden, and Denmark)",
       "category": "Geography"
     },
     {
@@ -6436,8 +6436,8 @@
     },
     {
       "id": "c757177d088a3cb2",
-      "question": "Which of the following is not a megadiverse country - one that harbors a high number of the earth's endemic species?",
-      "answer": "Thailand",
+      "question": "True or False: Thailand is recognized by Conservation International as one of the world's 17 designated \"megadiverse countries\".",
+      "answer": "False",
       "category": "Geography"
     },
     {
@@ -6454,7 +6454,7 @@
     },
     {
       "id": "d7664200bd58e732",
-      "question": "Which of the following countries is an island?",
+      "question": "Which island nation in the eastern Mediterranean Sea has Nicosia as its capital?",
       "answer": "Cyprus",
       "category": "Geography"
     },
@@ -6466,7 +6466,7 @@
     },
     {
       "id": "dd0c323e43b67c8a",
-      "question": "Which of the following European languages is classified as a \"language isolate?\"",
+      "question": "Which indigenous European language spoken in northern Spain and southwest France is a renowned language isolate?",
       "answer": "Basque",
       "category": "Geography"
     },
@@ -6502,7 +6502,7 @@
     },
     {
       "id": "ac3c2d59942182db",
-      "question": "Which of these countries is located the FURTHEST away from the South China Sea?",
+      "question": "Between Vietnam, the Philippines, Malaysia, and Bangladesh, which country is located furthest from the South China Sea?",
       "answer": "Bangladesh",
       "category": "Geography"
     },
@@ -6532,8 +6532,8 @@
     },
     {
       "id": "2da8ff702eaae590",
-      "question": "Which of these is NOT a province in China?",
-      "answer": "Yangtze",
+      "question": "True or False: \"Yangtze\" is an official administrative province of the People's Republic of China.",
+      "answer": "False (The Yangtze is China's longest river, not a province)",
       "category": "Geography"
     },
     {
@@ -6550,7 +6550,7 @@
     },
     {
       "id": "898f8f3ccf6c493e",
-      "question": "Which one of these countries borders with Poland?",
+      "question": "Which Baltic nation borders Poland along the Suwałki Gap to the northeast?",
       "answer": "Lithuania",
       "category": "Geography"
     },
@@ -6562,7 +6562,7 @@
     },
     {
       "id": "4397acf012e5dc98",
-      "question": "Which of the following countries is within the Eurozone but outside of the Schengen Area?",
+      "question": "Which island country is an EU member state that uses the Euro but is not part of the Schengen Area border-free zone?",
       "answer": "Cyprus",
       "category": "Geography"
     },
@@ -6604,7 +6604,7 @@
     },
     {
       "id": "3fb09669f58c0a8a",
-      "question": "Which of the following countries has a flag featuring a yellow lion wielding a sword on a dark red background?",
+      "question": "Which South Asian nation features a golden lion holding a sword in its right forepaw on its national flag?",
       "answer": "Sri Lanka",
       "category": "Geography"
     },
@@ -6622,7 +6622,7 @@
     },
     {
       "id": "de9e60e2ce91aca9",
-      "question": "Which of these is an official currency of the Cook Islands?",
+      "question": "What is the primary official national legal tender currency of the Cook Islands?",
       "answer": "New Zealand Dollar",
       "category": "Geography"
     },
@@ -6640,7 +6640,7 @@
     },
     {
       "id": "6de981c83868dacd",
-      "question": "Which of the following Inuit languages was the FIRST to use a unique writing system not based on the Latin alphabet?",
+      "question": "Which Inuit language was the first to adopt a specialized indigenous abugida syllabics writing system?",
       "answer": "Inuktitut",
       "category": "Geography"
     },
@@ -6652,8 +6652,8 @@
     },
     {
       "id": "1a1d05c81b9018bc",
-      "question": "Which of the following is a castle?",
-      "answer": "Elizabeth Castle",
+      "question": "True or False: Elizabeth Castle is a historic tidal fortress located on the Channel Island of Jersey.",
+      "answer": "True",
       "category": "Geography"
     },
     {
@@ -6694,20 +6694,20 @@
     },
     {
       "id": "ca559cb139306dfb",
-      "question": "Which of these cities has a 4° East longitude.",
+      "question": "Which European capital city with extensive canal networks is located near 4° East longitude and 52° North latitude?",
       "answer": "Amsterdam",
       "category": "Geography"
     },
     {
       "id": "8f8a5073a24a0701",
-      "question": "Which country inside the United Kingdom does NOT appear on its flag, the Union Jack?",
+      "question": "Which country of the United Kingdom is not directly represented by an heraldic cross in the design of the Union Jack?",
       "answer": "Wales",
       "category": "Geography"
     },
     {
       "id": "3cd4044814b08ec8",
-      "question": "Which of the following countries does NOT recognize Armenia as an independent country?",
-      "answer": "Pakistan",
+      "question": "True or False: Pakistan does not officially recognize Armenia as an independent sovereign country.",
+      "answer": "True",
       "category": "Geography"
     },
     {
@@ -6730,8 +6730,8 @@
     },
     {
       "id": "d5215763c0e5535e",
-      "question": "Which of these is NOT a city in India?",
-      "answer": "Islamabad",
+      "question": "True or False: Islamabad is an administrative city located in the Republic of India.",
+      "answer": "False (Islamabad is the federal capital of Pakistan)",
       "category": "Geography"
     },
     {
@@ -6808,7 +6808,7 @@
     },
     {
       "id": "6209275daa1d37fd",
-      "question": "Which of the following countries banned the use of personal genetic ancestry tests?",
+      "question": "Which European country enacted strict genetic diagnostics legislation (Gendiagnostikgesetz) banning direct-to-consumer genetic ancestry testing without medical supervision?",
       "answer": "Germany",
       "category": "Geography"
     },
@@ -6826,8 +6826,8 @@
     },
     {
       "id": "6ecc06ca375408b3",
-      "question": "Which of these is NOT an island that is part of the Philippines?",
-      "answer": "Java",
+      "question": "True or False: The island of Java is part of the Philippine archipelago.",
+      "answer": "False (Java is the most populous island of Indonesia)",
       "category": "Geography"
     },
     {
@@ -6916,19 +6916,19 @@
     },
     {
       "id": "782aee561570dbb9",
-      "question": "Which of the following landlocked countries is entirely contained within another country?",
+      "question": "Which landlocked kingdom and enclave in southern Africa is completely surrounded on all sides by South Africa?",
       "answer": "Lesotho",
       "category": "Geography"
     },
     {
       "id": "5b4fa6bf4f544fe3",
-      "question": "Which of the following is the longest river in Europe?",
+      "question": "What is the longest river in Europe, flowing entirely through European Russia into the Caspian Sea?",
       "answer": "Volga",
       "category": "Geography"
     },
     {
       "id": "51d2d971e4113497",
-      "question": "Which of these African countries displays a gun on their flag?",
+      "question": "Which southeastern African country depicts a crossed Kalashnikov AK-47 assault rifle and hoe on its national flag?",
       "answer": "Mozambique",
       "category": "Geography"
     },
@@ -6946,7 +6946,7 @@
     },
     {
       "id": "5e3937981d1b65b3",
-      "question": "The derisive acronym \"PIIGS\" refers to which of the following European countries and their economic statuses?",
+      "question": "In European financial commentary, what five southern eurozone debtor countries were grouped under the acronym \"PIIGS\"?",
       "answer": "Portugal, Ireland, Italy, Greece, Spain",
       "category": "Geography"
     },
@@ -6970,7 +6970,7 @@
     },
     {
       "id": "37c3e93c11c33a01",
-      "question": "Which of these African countries list \"Spanish\" as an official language?",
+      "question": "Which Central African country is the only sovereign African nation to have Spanish as an official national language?",
       "answer": "Equatorial Guinea",
       "category": "Geography"
     },
@@ -6982,20 +6982,20 @@
     },
     {
       "id": "be1173c4e7448102",
-      "question": "Which of these African regions does *not* directly border the Democratic Republic of The Congo?",
-      "answer": "Sudan",
+      "question": "True or False: Sudan shares a direct international land border with the Democratic Republic of the Congo.",
+      "answer": "False (The two are separated by South Sudan and the Central African Republic)",
       "category": "Geography"
     },
     {
       "id": "382c26226bbbae3c",
-      "question": "Which of these places is a location in Cornwall?",
-      "answer": "Barcelona",
+      "question": "True or False: There is a small rural hamlet named Barcelona located in Cornwall, England.",
+      "answer": "True",
       "category": "Geography"
     },
     {
       "id": "7b8fbf4772a9163e",
-      "question": "Which country does Austria not border?",
-      "answer": "France",
+      "question": "True or False: The Republic of Austria shares a direct international land border with France.",
+      "answer": "False (Austria is separated from France by Switzerland and Germany)",
       "category": "Geography"
     },
     {
@@ -7024,8 +7024,8 @@
     },
     {
       "id": "9de254ad8526a27e",
-      "question": "Which of these American cities has fewer than 1,000,000 people?",
-      "answer": "San Francisco, California",
+      "question": "True or False: Despite its global cultural prominence, the city proper of San Francisco, California has a population under 1,000,000.",
+      "answer": "True (San Francisco's population is around 800,000)",
       "category": "Geography"
     },
     {
@@ -7042,8 +7042,8 @@
     },
     {
       "id": "0fcb86f76a0129bb",
-      "question": "Which of these Japanese islands is the largest by area?",
-      "answer": "Shikoku",
+      "question": "True or False: Shikoku is one of the four main home islands of Japan.",
+      "answer": "True",
       "category": "Geography"
     },
     {
@@ -7054,8 +7054,8 @@
     },
     {
       "id": "1b6ba8bd0c36c38d",
-      "question": "Which country was NOT part of the Soviet Union?",
-      "answer": "Romania",
+      "question": "True or False: Romania was one of the fifteen constituent Soviet Socialist Republics forming the Soviet Union (USSR).",
+      "answer": "False (Romania was an allied Eastern Bloc Warsaw Pact nation, but never part of the USSR)",
       "category": "Geography"
     },
     {
@@ -7072,8 +7072,8 @@
     },
     {
       "id": "3c64ffc1b7d74010",
-      "question": "Which of these countries is NOT located in Africa?",
-      "answer": "Suriname",
+      "question": "True or False: The Republic of Suriname is geographically situated in Africa.",
+      "answer": "False (Suriname is located on the northern coast of South America)",
       "category": "Geography"
     },
     {
@@ -7168,7 +7168,7 @@
     },
     {
       "id": "279138d9cd6b86af",
-      "question": "Which of the following language families is the most controversial amongst modern linguists?",
+      "question": "Which proposed language macrofamily, uniting Turkic, Mongolic, and Tungusic languages, is largely rejected by modern comparative linguists?",
       "answer": "Altaic",
       "category": "Geography"
     },
@@ -7210,13 +7210,13 @@
     },
     {
       "id": "fb5c8bf31e54c3ce",
-      "question": "Which of the following languages does NOT use the Latin alphabet?",
-      "answer": "Georgian",
+      "question": "True or False: The Kartvelian language Georgian uses the standard 26-letter Latin alphabet.",
+      "answer": "False (Georgian uses its own unique Mkhedruli script)",
       "category": "Geography"
     },
     {
       "id": "b8b590a82653c3ff",
-      "question": "Which of these countries is \"doubly landlocked\" (surrounded entirely by one or more landlocked countries)?",
+      "question": "Along with Liechtenstein, which Central Asian country is one of the world's only two \"doubly landlocked\" nations?",
       "answer": "Uzbekistan",
       "category": "Geography"
     },
@@ -7234,7 +7234,7 @@
     },
     {
       "id": "906078634fbc72e0",
-      "question": "Which of the following former Yugoslavian states is landlocked?",
+      "question": "Which landlocked Balkan republic in Southeast Europe was the largest constituent state of the former Yugoslavia, with Belgrade as its capital?",
       "answer": "Serbia",
       "category": "Geography"
     },
@@ -7270,14 +7270,14 @@
     },
     {
       "id": "70f2c5f27adc0175",
-      "question": "Which of these is NOT a city in Saudi Arabia?",
-      "answer": "Dubai",
+      "question": "True or False: The ultramodern metropolis Dubai is located within the Kingdom of Saudi Arabia.",
+      "answer": "False (Dubai is an emirate and the largest city in the United Arab Emirates)",
       "category": "Geography"
     },
     {
       "id": "e62509deea899fd5",
-      "question": "Which country was NOT formerly part of Yugoslavia?",
-      "answer": "Albania",
+      "question": "True or False: Albania was one of the six constituent republics forming the former Socialist Federal Republic of Yugoslavia.",
+      "answer": "False (Albania maintained complete independence outside Yugoslavia)",
       "category": "Geography"
     },
     {
@@ -7372,8 +7372,8 @@
     },
     {
       "id": "bdc98d0a38c09776",
-      "question": "Which of these countries is NOT the only country to start with that letter of the alphabet?",
-      "answer": "Zambia",
+      "question": "Which two southern African sovereign states both have names beginning with the letter \"Z\"?",
+      "answer": "Zambia and Zimbabwe",
       "category": "Geography"
     },
     {
@@ -7402,7 +7402,7 @@
     },
     {
       "id": "6ae7574a4b551d64",
-      "question": "The mountainous Khyber Pass connects which of the two following countries?",
+      "question": "The historic and strategic mountain Khyber Pass through the Hindu Kush connects which two countries?",
       "answer": "Afghanistan and Pakistan",
       "category": "Geography"
     },
@@ -7498,7 +7498,7 @@
     },
     {
       "id": "affc6365f3226326",
-      "question": "Which of these island countries is located in the Caribbean?",
+      "question": "Which Caribbean island nation, the easternmost of the Lesser Antilles, has Bridgetown as its capital?",
       "answer": "Barbados",
       "category": "Geography"
     },
@@ -7528,14 +7528,14 @@
     },
     {
       "id": "a4b20c823d18fdf8",
-      "question": "Which one of these archipelagos are NOT a part of the United Kingdom?",
-      "answer": "The Channel Islands",
+      "question": "True or False: The Channel Islands archipelago is constitutionally part of the United Kingdom.",
+      "answer": "False (They are self-governing British Crown Dependencies, not part of the UK)",
       "category": "Geography"
     },
     {
       "id": "25b694eb73e36a43",
-      "question": "Which of these country's capitals starts with the letter B?",
-      "answer": "Lebanon",
+      "question": "What is the capital city of Lebanon, starting with the letter B?",
+      "answer": "Beirut",
       "category": "Geography"
     },
     {
@@ -7546,7 +7546,7 @@
     },
     {
       "id": "dc298920c516465e",
-      "question": "Which of the following geographic features is a ring-shaped coral reef, island, or series of islets?",
+      "question": "What geological term denotes a ring-shaped coral reef, island, or series of islets surrounding a central lagoon?",
       "answer": "Atoll",
       "category": "Geography"
     },
@@ -7606,8 +7606,8 @@
     },
     {
       "id": "a2fdbad6a7651804",
-      "question": "Which of the following is NOT classified as a Semetic language?",
-      "answer": "Sumerian",
+      "question": "True or False: The ancient cuneiform language Sumerian is classified as a Semitic language.",
+      "answer": "False (Sumerian is an unclassified language isolate; Akkadian, Hebrew, and Arabic are Semitic)",
       "category": "History"
     },
     {
@@ -7672,7 +7672,7 @@
     },
     {
       "id": "9ef153dd67dd0ad6",
-      "question": "Which of these countries was sea charted in 1500 by the Portuguese maritime explorations?",
+      "question": "Which South American land was sighted, charted, and claimed for the Portuguese Empire in 1500 by Pedro Álvares Cabral?",
       "answer": "Brazil",
       "category": "History"
     },
@@ -7714,7 +7714,7 @@
     },
     {
       "id": "15f753bf762368ee",
-      "question": "Which of the following battles is often considered as marking the beginning of the fall of the Western Roman Empire?",
+      "question": "Which 378 AD battle, in which eastern Roman emperor Valens was slain by the Visigoths, is cited as a catastrophic harbinger of the Western Roman Empire's collapse?",
       "answer": "Battle of Adrianople",
       "category": "History"
     },
@@ -7792,8 +7792,8 @@
     },
     {
       "id": "1289327283094ce0",
-      "question": "Which of the following is not in the Indo-European language family?",
-      "answer": "Finnish",
+      "question": "True or False: The Finnish language belongs to the Indo-European language family.",
+      "answer": "False (Finnish belongs to the Uralic / Finno-Ugric language family)",
       "category": "History"
     },
     {
@@ -7816,8 +7816,8 @@
     },
     {
       "id": "38d2a1d608c8597c",
-      "question": "Which of these landmarks is not included in the original 'Seven Wonders of the Ancient World'?",
-      "answer": "Great Wall of China",
+      "question": "True or False: The Great Wall of China was included in the classical canonical list of the Seven Wonders of the Ancient World.",
+      "answer": "False (The classical Hellenic list consisted only of Mediterranean/Middle Eastern structures)",
       "category": "History"
     },
     {
@@ -7828,8 +7828,8 @@
     },
     {
       "id": "8bbceaade332387d",
-      "question": "Which one of these was not a beach landing site in the Invasion of Normandy?",
-      "answer": "Silver",
+      "question": "True or False: \"Silver Beach\" was one of the five Allied amphibious landing zones on D-Day in the 1944 Invasion of Normandy.",
+      "answer": "False (The five assault beach sectors were Utah, Omaha, Gold, Juno, and Sword)",
       "category": "History"
     },
     {
@@ -7840,8 +7840,8 @@
     },
     {
       "id": "925e7dc71a50801c",
-      "question": "The original Roman alphabet lacked the following letters EXCEPT:",
-      "answer": "X",
+      "question": "True or False: The classical 23-letter Latin alphabet included the letter X.",
+      "answer": "True",
       "category": "History"
     },
     {
@@ -7912,7 +7912,7 @@
     },
     {
       "id": "d39da57f782498af",
-      "question": "List the following Iranic empires in chronological order:",
+      "question": "In what chronological order did the four major ancient Iranian empires succeed each other: Median, Achaemenid, Parthian, and Sassanid?",
       "answer": "Median, Achaemenid, Parthian, Sassanid",
       "category": "History"
     },
@@ -7954,7 +7954,7 @@
     },
     {
       "id": "3df27097870486e2",
-      "question": "Which of the following ancient Near Eastern peoples still exists as a modern ethnic group?",
+      "question": "Which ancient indigenous Near Eastern people of Mesopotamia continues to survive as a distinctive modern ethnic and cultural minority?",
       "answer": "Assyrians",
       "category": "History"
     },
@@ -8026,8 +8026,8 @@
     },
     {
       "id": "d2a358d2b72f7d7e",
-      "question": "Which one of these rulers did not belong to the Habsburg dynasty?",
-      "answer": "Philip V",
+      "question": "True or False: Philip V, who acceded to the Spanish throne in 1700, belonged to the Habsburg dynasty.",
+      "answer": "False (He was the grandson of Louis XIV and founded the Spanish House of Bourbon)",
       "category": "History"
     },
     {
@@ -8044,7 +8044,7 @@
     },
     {
       "id": "f67fbd904754fff1",
-      "question": "Which of the following was Brazil was a former colony under?",
+      "question": "Brazil was established as an overseas viceroyalty and colony under which European colonial power?",
       "answer": "Portugal",
       "category": "History"
     },
@@ -8068,8 +8068,8 @@
     },
     {
       "id": "6d13657766bed2dc",
-      "question": "Which one of these countries was NOT in the Central Powers during WWI?",
-      "answer": "Spain",
+      "question": "True or False: Spain was a member of the Central Powers military alliance during World War I.",
+      "answer": "False (Spain maintained neutrality throughout the conflict)",
       "category": "History"
     },
     {
@@ -8116,7 +8116,7 @@
     },
     {
       "id": "db4e4ce17064a739",
-      "question": "Which of the following Presidents of the United States was assassinated?",
+      "question": "Which 25th US President was assassinated in Buffalo, New York in September 1901 by anarchist Leon Czolgosz?",
       "answer": "William McKinley",
       "category": "History"
     },
@@ -8188,8 +8188,8 @@
     },
     {
       "id": "bc97cdfb48a08850",
-      "question": "Which of the following ancient peoples was NOT classified as Hellenic (Greek)?",
-      "answer": "Illyrians",
+      "question": "True or False: The ancient Illyrian peoples of the western Balkans were classified as Hellenic (Greek) ethnically.",
+      "answer": "False (Illyrian was a distinct Indo-European branch separate from Greek)",
       "category": "History"
     },
     {
@@ -8236,8 +8236,8 @@
     },
     {
       "id": "404c8872b2458485",
-      "question": "Which Nation did NOT have a Colony in modern-day North America?",
-      "answer": "Portugal",
+      "question": "True or False: The Kingdom of Portugal established official colonial territory in mainland North America.",
+      "answer": "False (Portugal's primary American empire was concentrated in South America, namely Brazil)",
       "category": "History"
     },
     {
@@ -8284,8 +8284,8 @@
     },
     {
       "id": "7bedfbea2348b3d5",
-      "question": "Which of these countries was NOT a part of the Soviet Union?",
-      "answer": "Afghanistan",
+      "question": "True or False: Afghanistan was ever incorporated as a constituent Soviet Socialist Republic of the USSR.",
+      "answer": "False",
       "category": "History"
     },
     {
@@ -8314,7 +8314,7 @@
     },
     {
       "id": "ab110cff828075fb",
-      "question": "Which one of these tanks was designed and operated by the United Kingdom?",
+      "question": "What was the designation of the colossal 80-ton British prototype tank designed during early WWII by the Special Vehicle Development Committee?",
       "answer": "Tog II",
       "category": "History"
     },
@@ -8344,14 +8344,14 @@
     },
     {
       "id": "6459b8624aee4d9e",
-      "question": "The first Legoland park was opened in 1968 in which of these cities?",
+      "question": "In which Danish municipality adjacent to the Lego company headquarters was the original Legoland theme park opened in 1968?",
       "answer": "Billund, Denmark",
       "category": "History"
     },
     {
       "id": "859c8a7af690ca46",
-      "question": "Which of the following physicists did NOT work on the Manhattan project?",
-      "answer": "Murray Gell-Mann",
+      "question": "True or False: Theoretical physicist Murray Gell-Mann worked on the Manhattan Project during World War II.",
+      "answer": "False (Gell-Mann was born in 1929 and was only 15 in 1945; he proposed quarks in 1964)",
       "category": "History"
     },
     {
@@ -8386,7 +8386,7 @@
     },
     {
       "id": "3c7fd4a36a24c79d",
-      "question": "Which of these founding fathers of the United States of America later became president?",
+      "question": "Which prominent Founding Father and diplomat served as the fifth President of the United States from 1817 to 1825?",
       "answer": "James Monroe",
       "category": "History"
     },
@@ -8422,7 +8422,7 @@
     },
     {
       "id": "4dc2c187e5830077",
-      "question": "Which of the following countries was the first to send an object into space?",
+      "question": "Which nation launched the first artificial human-made object to cross the Kármán line into space, using the MW 18014 V-2 rocket in 1944?",
       "answer": "Germany",
       "category": "History"
     },
@@ -8776,7 +8776,7 @@
     },
     {
       "id": "b14fd2939738d12f",
-      "question": "Which of the following snipers has the highest amount of confirmed kills?",
+      "question": "Which Finnish sniper, nicknamed \"The White Death\", achieved over 500 confirmed kills during the 1939–1940 Winter War?",
       "answer": "Simo Häyhä",
       "category": "History"
     },
@@ -8800,8 +8800,8 @@
     },
     {
       "id": "dbcfafd110b0f2cc",
-      "question": "Which of the following Assyrian kings did NOT rule during the Neo-Assyrian Empire?",
-      "answer": "Shamshi-Adad III",
+      "question": "True or False: Assyrian monarch Shamshi-Adad III reigned during the Neo-Assyrian Empire period.",
+      "answer": "False (Shamshi-Adad III reigned during the Old Assyrian period around the 16th century BC)",
       "category": "History"
     },
     {
@@ -8836,7 +8836,7 @@
     },
     {
       "id": "e3b3873b1c203e44",
-      "question": "Bohdan Khmelnytsky was which of the following?",
+      "question": "What historic leadership role was held by 17th-century Ukrainian leader Bohdan Khmelnytsky?",
       "answer": "Leader of the Ukrainian Cossacks",
       "category": "History"
     },
@@ -8866,7 +8866,7 @@
     },
     {
       "id": "5a33896f6a418d52",
-      "question": "Which of the following Physicists aided Nazi Germany in their production of a nuclear weapon?",
+      "question": "Which Nobel Prize-winning German theoretical physicist served as principal scientist of the German nuclear research project (Uranprojekt)?",
       "answer": "Werner Heisenberg",
       "category": "History"
     },
@@ -8902,8 +8902,8 @@
     },
     {
       "id": "951c08707e80d721",
-      "question": "Which of the following was not one of Joseph Stalin's ten blows during World War II?",
-      "answer": "Vistula-Oder Offensive",
+      "question": "True or False: The Vistula–Oder Offensive was officially counted among \"Stalin's Ten Blows\" of 1944.",
+      "answer": "False (The Vistula–Oder operation took place in January 1945, after the ten blows of 1944)",
       "category": "History"
     },
     {
@@ -9004,7 +9004,7 @@
     },
     {
       "id": "fc1fd874ac0463f5",
-      "question": "Which of the following African countries was most successful in resisting colonization?",
+      "question": "Which sovereign African empire successfully defended its sovereignty against European colonization by crushing an Italian army at the 1896 Battle of Adwa?",
       "answer": "Ethiopia",
       "category": "History"
     },
@@ -9058,7 +9058,7 @@
     },
     {
       "id": "393139d3ebebabb8",
-      "question": "In which one of these cities did the Great Stink of 1858 occur?",
+      "question": "In which major European capital city did the intense \"Great Stink\" untreated sewage odor crisis occur during hot weather in 1858?",
       "answer": "London",
       "category": "History"
     },
@@ -9106,8 +9106,8 @@
     },
     {
       "id": "15540d79e4f605da",
-      "question": "Which of these positions did the astronomer and physicist Isaac Newton not hold?",
-      "answer": "Surveyor to the City of London",
+      "question": "True or False: Polymath Sir Isaac Newton held the post of Surveyor to the City of London after the Great Fire.",
+      "answer": "False (The post was held by polymath Robert Hooke; Newton served as Master of the Royal Mint)",
       "category": "History"
     },
     {
@@ -9136,7 +9136,7 @@
     },
     {
       "id": "068018e1ff4108ca",
-      "question": "Which of these 1900s tanks were designed and built BEFORE the others?",
+      "question": "Which French light tank designed in 1916 introduced the revolutionary modern tank layout: revolving turret, crew cabin in front, engine in rear?",
       "answer": "Renault FT",
       "category": "History"
     },
@@ -9160,7 +9160,7 @@
     },
     {
       "id": "9c5e58acc710521d",
-      "question": "Which of the following years is commonly referred to as the \"Year Without a Summer\"?",
+      "question": "Which calendar year is internationally famous in climatological history as the \"Year Without a Summer\" after the cataclysmic eruption of Mount Tambora?",
       "answer": "1816",
       "category": "History"
     },
@@ -9256,7 +9256,7 @@
     },
     {
       "id": "f14bf726830d728f",
-      "question": "The Arab Spring was a series of protests and rebellions that began in which of these Arab nations?",
+      "question": "In which North African country did the nationwide wave of revolutionary uprisings known as the Arab Spring ignite in December 2010?",
       "answer": "Tunisia",
       "category": "History"
     },
@@ -9322,7 +9322,7 @@
     },
     {
       "id": "441d4f9b5e0a5523",
-      "question": "Which of these theoretical phycisists first predicted the existence of antimatter?",
+      "question": "Which English Nobel laureate theoretical physicist mathematically formulated relativistic electron wave mechanics and predicted antimatter in 1928?",
       "answer": "Paul Dirac",
       "category": "History"
     },
@@ -9388,8 +9388,8 @@
     },
     {
       "id": "910fe68d0eae897d",
-      "question": "All of the following are names of the Seven Warring States EXCEPT:",
-      "answer": "Zhai (翟)",
+      "question": "True or False: Zhai (翟) was one of the seven dominant major powers known as the Seven Warring States of ancient China.",
+      "answer": "False (The Seven Warring States were Qin, Chu, Zhao, Wei, Han, Yan, and Qi)",
       "category": "History"
     },
     {
@@ -9400,8 +9400,8 @@
     },
     {
       "id": "20af825401eb4f46",
-      "question": "Which of the following countries was not an axis power during World War II?",
-      "answer": "Soviet Union",
+      "question": "True or False: The Soviet Union fought as one of the Axis powers in World War II.",
+      "answer": "False (The USSR was one of the Big Three leading the Allied coalition against the Axis)",
       "category": "History"
     },
     {
@@ -9436,13 +9436,13 @@
     },
     {
       "id": "92260f586cbc9f29",
-      "question": "Which of these countries remained neutral during World War II?",
+      "question": "Which mountainous Central European country maintained continuous armed neutrality throughout the Second World War?",
       "answer": "Switzerland",
       "category": "History"
     },
     {
       "id": "226b78b781961312",
-      "question": "The Herero genocide was perpetrated in Africa by which of the following colonial nations?",
+      "question": "The Herero and Namaqua genocide in early 20th-century Southwest Africa was perpetrated by which colonial empire?",
       "answer": "Germany",
       "category": "History"
     },
@@ -9466,8 +9466,8 @@
     },
     {
       "id": "fda6b95352036435",
-      "question": "Which of these facilities was not present on the Titanic?",
-      "answer": "Fainting room",
+      "question": "True or False: The RMS Titanic was fitted with a designated \"fainting room\" on its upper promenade decks.",
+      "answer": "False",
       "category": "History"
     },
     {
@@ -9484,7 +9484,7 @@
     },
     {
       "id": "7f32d0a8ffd52864",
-      "question": "Which of the following Soviet revolutionaries was exiled from the USSR and later assassinated in 1940 for criticizing Stalinism?",
+      "question": "Which Soviet revolutionary theoretician and founder of the Red Army was expelled from the USSR and murdered in Mexico in 1940 by an NKVD assassin?",
       "answer": "Leon Trotsky",
       "category": "History"
     },
@@ -9580,7 +9580,7 @@
     },
     {
       "id": "9d8960634f5735d5",
-      "question": "These two countries held a commonwealth from the 16th to 18th century.",
+      "question": "Which two European realms formed a joint bi-confederal Commonwealth governed by a common monarch and parliament from 1569 until 1795?",
       "answer": "Poland and Lithuania",
       "category": "History"
     },
@@ -9712,7 +9712,7 @@
     },
     {
       "id": "d1aa620e7496c85e",
-      "question": "Which of the following Argentinian presidents was elected in 2015?",
+      "question": "Who was elected President of Argentina in 2015, marking the first non-Peronist president in over a decade?",
       "answer": "Mauricio Macri",
       "category": "Politics & Society"
     },
@@ -9796,7 +9796,7 @@
     },
     {
       "id": "27b0b87e1cc1de24",
-      "question": "Which of the following Pacific Islander countries is ruled by a constitutional monarchy?",
+      "question": "Which Polynesian archipelago country in the South Pacific is a constitutional monarchy headed by King Tupou VI?",
       "answer": "Tonga",
       "category": "Politics & Society"
     },
@@ -9868,7 +9868,7 @@
     },
     {
       "id": "8cb8cb067047a19e",
-      "question": "Which of the following United States senators is known for performing a 24-hour long filibuster?",
+      "question": "Which United States Senator delivered a record-setting 24-hour and 18-minute filibuster speech against the Civil Rights Act of 1957?",
       "answer": "Strom Thurmond",
       "category": "Politics & Society"
     },
@@ -9904,7 +9904,7 @@
     },
     {
       "id": "1d6ba28111d55127",
-      "question": "Which of the following United States Presidents served the shortest term in office?",
+      "question": "Which US President served the shortest tenure in the nation's history, succumbing to pneumonia 31 days into his term in 1841?",
       "answer": "William Henry Harrison",
       "category": "Politics & Society"
     },
@@ -9946,8 +9946,8 @@
     },
     {
       "id": "a2c7ce5e963844c7",
-      "question": "Which of these is NOT one of Donald Trump's children?",
-      "answer": "Julius",
+      "question": "True or False: Julius is the name of one of Donald Trump's children.",
+      "answer": "False (Donald Trump's five children are Donald Jr., Ivanka, Eric, Tiffany, and Barron)",
       "category": "Politics & Society"
     },
     {
@@ -9976,7 +9976,7 @@
     },
     {
       "id": "08374bc08f561881",
-      "question": "Which of these was an official candidate in the 2017 British General Election?",
+      "question": "Which satirical space-costumed fringe candidate challenged Prime Minister Theresa May in Maidenhead during the 2017 UK General Election?",
       "answer": "Lord Buckethead",
       "category": "Politics & Society"
     },
@@ -10000,8 +10000,8 @@
     },
     {
       "id": "0566dc34eaa1c776",
-      "question": "Which one of these colors are not featured in Mondrian's Broadway Boogie-Woogie?",
-      "answer": "Green",
+      "question": "True or False: The color green is featured on the canvas grid of Piet Mondrian's 1943 painting \"Broadway Boogie-Woogie\".",
+      "answer": "False (Mondrian strictly employed the primary colors red, blue, and yellow with white and grey)",
       "category": "Art & Architecture"
     },
     {
@@ -10042,8 +10042,8 @@
     },
     {
       "id": "38fdf01ae896854d",
-      "question": "Which painting was not made by Vincent Van Gogh?",
-      "answer": "The Ninth Wave",
+      "question": "True or False: The celebrated maritime painting \"The Ninth Wave\" was created by Dutch post-impressionist Vincent van Gogh.",
+      "answer": "False (It was painted by Russian maritime master Ivan Aivazovsky in 1850)",
       "category": "Art & Architecture"
     },
     {
@@ -10132,8 +10132,8 @@
     },
     {
       "id": "49227b031b6e5480",
-      "question": "Which one of these paintings is not by Caspar David Friedrich?",
-      "answer": "The Black Sea",
+      "question": "True or False: The dramatic seascape \"The Black Sea\" was painted by German Romantic landscape master Caspar David Friedrich.",
+      "answer": "False (It was painted by Russian-Armenian maritime master Ivan Aivazovsky)",
       "category": "Art & Architecture"
     },
     {
@@ -10150,8 +10150,8 @@
     },
     {
       "id": "b27d2ad3a2e025bb",
-      "question": "Which of these is not an additional variation of the color purple?",
-      "answer": "Kobicha",
+      "question": "True or False: \"Kobicha\" is recognized as a traditional variation shade of the color purple.",
+      "answer": "False (Kobicha is one of the traditional Japanese colors representing kelp/tea brown)",
       "category": "Art & Architecture"
     },
     {
@@ -10216,8 +10216,8 @@
     },
     {
       "id": "ce652247cc3fd492",
-      "question": "Which of these paintings did Johannes Vermeer not paint?",
-      "answer": "Bacchus",
+      "question": "True or False: Dutch golden age painter Johannes Vermeer painted the famous baroque masterpiece \"Bacchus\".",
+      "answer": "False (It was painted by Italian master Caravaggio)",
       "category": "Art & Architecture"
     },
     {
@@ -10228,7 +10228,7 @@
     },
     {
       "id": "7a5a05ecb24c8994",
-      "question": "Which of these are the name of a famous marker brand?",
+      "question": "What high-end Japanese manufacturer is globally celebrated for its refillable alcohol markers utilized in manga and industrial design?",
       "answer": "Copic",
       "category": "Art & Architecture"
     },
@@ -10282,8 +10282,8 @@
     },
     {
       "id": "f66dc09a00d398b1",
-      "question": "Which of these species is not extinct?",
-      "answer": "Komodo dragon",
+      "question": "True or False: The Komodo dragon is an extinct reptile species.",
+      "answer": "False (It is an extant monitor lizard native to Indonesian islands)",
       "category": "Science & Nature"
     },
     {
@@ -10432,8 +10432,8 @@
     },
     {
       "id": "0e79271f41a27565",
-      "question": "Which of these animals is NOT a lizard?",
-      "answer": "Tuatara",
+      "question": "True or False: The tuatara of New Zealand is classified by herpetologists as a lizard.",
+      "answer": "False (The tuatara belongs to Rhynchocephalia, an ancient reptile order separate from squamate lizards)",
       "category": "Science & Nature"
     },
     {
@@ -10456,8 +10456,8 @@
     },
     {
       "id": "fb938c10415eddb6",
-      "question": "Which species of Brown Bear is not extinct?",
-      "answer": "Syrian Brown Bear",
+      "question": "True or False: The Syrian brown bear subspecies is completely extinct.",
+      "answer": "False (It remains an extant endangered subspecies in the Caucasus and parts of the Middle East)",
       "category": "Science & Nature"
     },
     {
@@ -10474,8 +10474,8 @@
     },
     {
       "id": "ebefe944dea19137",
-      "question": "Which of the following is another name for the \"Poecilotheria Metallica Tarantula\"?",
-      "answer": "Gooty",
+      "question": "What popular common name, derived from a town in Andhra Pradesh, is given to the metallic blue Poecilotheria metallica tarantula?",
+      "answer": "Gooty sapphire ornamental (Gooty)",
       "category": "Science & Nature"
     },
     {
@@ -10522,8 +10522,8 @@
     },
     {
       "id": "6174ac7389d94642",
-      "question": "Which of the following is NOT a venomous snake?",
-      "answer": "Reticulated python",
+      "question": "True or False: The reticulated python is a venomous snake species.",
+      "answer": "False (It is a non-venomous constrictor snake)",
       "category": "Science & Nature"
     },
     {
@@ -10546,7 +10546,7 @@
     },
     {
       "id": "4eb8db7c928d942f",
-      "question": "Which of these is a colony of polyps and not a jellyfish?",
+      "question": "What marine creature, often mistaken for a jellyfish, is actually a siphonophore colony of specialized physiological polyps and zooids?",
       "answer": "Portuguese Man-of-War",
       "category": "Science & Nature"
     },
@@ -10600,13 +10600,13 @@
     },
     {
       "id": "6ab5e1f93b2480dd",
-      "question": "\"Decapods\" are an order of ten-footed crustaceans. Which of these are NOT decapods?",
-      "answer": "Krill",
+      "question": "True or False: Krill are classified within the crustacean order Decapoda (ten-footed crustaceans).",
+      "answer": "False (Krill comprise the distinct order Euphausiacea; crabs, lobsters, and shrimp are decapods)",
       "category": "Science & Nature"
     },
     {
       "id": "4e33a5158114784c",
-      "question": "Which of the following is true when alligators are behaving territorially?",
+      "question": "What distinctive vocalization and postural behavior do bull alligators exhibit when defending their territory during mating season?",
       "answer": "They bellow while showing their tail and neck",
       "category": "Science & Nature"
     },
@@ -10642,8 +10642,8 @@
     },
     {
       "id": "a9ebd55c6925e995",
-      "question": "Which of these animals are not real?",
-      "answer": "Nemean Lion",
+      "question": "True or False: The Nemean Lion was a real, historically cataloged biological species of lion in ancient Greece.",
+      "answer": "False (It was a mythological monster in Greek legend slain by Heracles)",
       "category": "Science & Nature"
     },
     {

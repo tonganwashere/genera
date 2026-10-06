@@ -102,7 +102,7 @@ def compute_card_id(question, category):
     key = f"{question}:{category}"
     return hashlib.sha256(key.encode("utf-8")).hexdigest()[:16]
 
-def clean_raw_questions(raw_questions):
+def clean_raw_questions(raw_questions, cleanups = None):
     cards = []
     seen_ids = set()
 
@@ -122,6 +122,10 @@ def clean_raw_questions(raw_questions):
             continue
 
         seen_ids.add(card_id)
+        if cleanups and card_id in cleanups:
+            question = cleanups[card_id]["question"]
+            answer = cleanups[card_id]["answer"]
+
         cards.append({
             "id": card_id,
             "question": question,
@@ -154,8 +158,39 @@ def save_catalog_files(cards, version = 1):
 def main():
     data_dir = Path(__file__).resolve().parent.parent / "web" / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
-    raw_file = Path(__file__).resolve().parent / "raw_questions.json"
+    catalog_path = data_dir / "catalog.json"
+    cleanups_file = Path(__file__).resolve().parent / "catalog_cleanups.json"
+    cleanups = {}
+    if cleanups_file.exists():
+        with open(cleanups_file, "r", encoding="utf-8") as f:
+            cleanups = json.load(f)
 
+    manifest_path = data_dir / "catalog-manifest.json"
+    target_version = 3
+    if len(sys.argv) > 1 and sys.argv[1].isdigit():
+        target_version = int(sys.argv[1])
+    elif manifest_path.exists():
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest_data = json.load(f)
+                target_version = max(3, manifest_data.get("version", 3))
+        except Exception:
+            target_version = 3
+
+    if catalog_path.exists() and "--rebuild-all" not in sys.argv:
+        with open(catalog_path, "r", encoding="utf-8") as f:
+            catalog_payload = json.load(f)
+        cards = catalog_payload.get("cards", [])
+        for card in cards:
+            cid = card.get("id")
+            if cid in cleanups:
+                card["question"] = cleanups[cid]["question"]
+                card["answer"] = cleanups[cid]["answer"]
+        save_catalog_files(cards, version = target_version)
+        print(f"Catalog and manifest (v{target_version}) saved with {len(cards)} cards.", flush=True)
+        return
+
+    raw_file = Path(__file__).resolve().parent / "raw_questions.json"
     if raw_file.exists():
         print(f"Reading cached raw questions from {raw_file}...", flush=True)
         with open(raw_file, "r", encoding="utf-8") as f:
@@ -166,20 +201,8 @@ def main():
             f.write(json.dumps(all_questions, indent=2).rstrip("\r\n"))
 
     print(f"Processing {len(all_questions)} raw questions...", flush=True)
-    cards = clean_raw_questions(all_questions)
+    cards = clean_raw_questions(all_questions, cleanups = cleanups)
     print(f"Produced {len(cards)} unique clean cards.", flush=True)
-
-    manifest_path = data_dir / "catalog-manifest.json"
-    target_version = 1
-    if len(sys.argv) > 1 and sys.argv[1].isdigit():
-        target_version = int(sys.argv[1])
-    elif manifest_path.exists():
-        try:
-            with open(manifest_path, "r", encoding="utf-8") as f:
-                manifest_data = json.load(f)
-                target_version = manifest_data.get("version", 1)
-        except Exception:
-            target_version = 1
 
     save_catalog_files(cards, version = target_version)
     print(f"Catalog and manifest (v{target_version}) saved to web/data/catalog.json and web/data/catalog-manifest.json", flush=True)
