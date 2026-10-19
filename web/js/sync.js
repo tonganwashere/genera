@@ -169,6 +169,15 @@ export async function sync_now(on_update) {
                 if (me_data && me_data.username) {
                     await set_meta("username", me_data.username);
                 }
+                if (me_data && me_data.email) {
+                    await set_meta("email", me_data.email);
+                }
+                if (me_data && me_data.email_verified !== undefined) {
+                    await set_meta("email_verified", me_data.email_verified);
+                }
+                if (me_data && me_data.csrf_token) {
+                    await set_meta("csrf_token", me_data.csrf_token);
+                }
             } else {
                 await set_sync_status("status-gray");
                 return false;
@@ -211,10 +220,12 @@ export async function sync_now(on_update) {
                 settings: sanitize_settings_for_sync(batch_settings)
             };
 
+            const csrf_token = await get_meta("csrf_token");
             const response = await fetch("/api/sync", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrf_token || ""
                 },
                 body: JSON.stringify(payload)
             });
@@ -318,12 +329,16 @@ export async function init_sync_engine(on_update) {
     await sync_now(on_update);
 }
 
-export async function perform_account_login({ username, password, is_register = false, on_update = null }) {
+export async function perform_account_login({ username, email, password, is_register = false, on_update = null }) {
     const endpoint = is_register ? "/api/register" : "/api/login";
+    const payload = is_register
+        ? { username, email, password }
+        : { identifier: username, password };
+
     const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify(payload)
     });
 
     if (!res.ok) {
@@ -359,13 +374,40 @@ export async function perform_account_login({ username, password, is_register = 
                 server_version: pull_data.version || 0,
                 username: user_data.username
             });
+            if (user_data.email) {
+                await set_meta("email", user_data.email);
+            }
+            if (user_data.email_verified !== undefined) {
+                await set_meta("email_verified", user_data.email_verified);
+            }
+            if (user_data.csrf_token) {
+                await set_meta("csrf_token", user_data.csrf_token);
+            }
         } else {
             await set_meta("mode", "account");
             await set_meta("username", user_data.username);
+            if (user_data.email) {
+                await set_meta("email", user_data.email);
+            }
+            if (user_data.email_verified !== undefined) {
+                await set_meta("email_verified", user_data.email_verified);
+            }
+            if (user_data.csrf_token) {
+                await set_meta("csrf_token", user_data.csrf_token);
+            }
         }
     } else {
         await set_meta("mode", "account");
         await set_meta("username", user_data.username);
+        if (user_data.email) {
+            await set_meta("email", user_data.email);
+        }
+        if (user_data.email_verified !== undefined) {
+            await set_meta("email_verified", user_data.email_verified);
+        }
+        if (user_data.csrf_token) {
+            await set_meta("csrf_token", user_data.csrf_token);
+        }
     }
 
     await sync_now(on_update);
@@ -379,9 +421,175 @@ export async function perform_account_logout(on_update = null) {
 
     await set_meta("mode", "local");
     await set_meta("username", null);
+    await set_meta("email", null);
+    await set_meta("email_verified", 0);
+    await set_meta("csrf_token", null);
     await update_sync_status_ui();
 
     if (on_update) {
         await on_update();
     }
+}
+
+export async function change_account_password({ current_password, new_password }) {
+    const csrf_token = await get_meta("csrf_token");
+    const res = await fetch("/api/change-password", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrf_token || ""
+        },
+        body: JSON.stringify({ current_password, new_password })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to update password.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    return await res.json();
+}
+
+export async function verify_account_email(otp) {
+    const csrf_token = await get_meta("csrf_token");
+    const res = await fetch("/api/verify-email", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrf_token || ""
+        },
+        body: JSON.stringify({ otp })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to verify email.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    await set_meta("email_verified", 1);
+    return await res.json();
+}
+
+export async function resend_account_verification() {
+    const csrf_token = await get_meta("csrf_token");
+    const res = await fetch("/api/resend-verification", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrf_token || ""
+        }
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to resend verification code.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    return await res.json();
+}
+
+export async function bind_account_email(email) {
+    const csrf_token = await get_meta("csrf_token");
+    const res = await fetch("/api/bind-email", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrf_token || ""
+        },
+        body: JSON.stringify({ email })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to link email.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    const data = await res.json();
+    await set_meta("email", email);
+    await set_meta("email_verified", 0);
+    return data;
+}
+
+export async function delete_user_account(password) {
+    const csrf_token = await get_meta("csrf_token");
+    const res = await fetch("/api/account", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": csrf_token || ""
+        },
+        body: JSON.stringify({ password })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to delete account.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    await set_meta("mode", "local");
+    await set_meta("username", null);
+    await set_meta("email", null);
+    await set_meta("email_verified", 0);
+    await set_meta("csrf_token", null);
+    await update_sync_status_ui();
+
+    return await res.json();
+}
+
+export async function request_password_reset_otp(email) {
+    const res = await fetch("/api/forgot-password/request-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to request password reset code.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    return await res.json();
+}
+
+export async function reset_password_with_otp({ email, otp, new_password }) {
+    const res = await fetch("/api/forgot-password/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp, new_password })
+    });
+
+    if (!res.ok) {
+        let err_msg = "Failed to reset password.";
+        try {
+            const err_data = await res.json();
+            if (err_data.error) err_msg = err_data.error;
+        } catch (_) {}
+        throw new Error(err_msg);
+    }
+
+    return await res.json();
 }

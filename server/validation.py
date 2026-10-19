@@ -10,11 +10,30 @@ def validate_username(username):
         return False, "Username may only contain letters, digits, and underscores."
     return True, ""
 
+def validate_email(email):
+    if not isinstance(email, str):
+        return False, "Email must be a string."
+    email = email.strip().lower()
+    if len(email) > 254:
+        return False, "Email must not exceed 254 characters."
+    if not re.match(r"^[a-zA-Z0-9_.+-]+@gmail\.com$", email):
+        return False, "A valid @gmail.com address is required."
+    return True, ""
+
 def validate_password(password):
     if not isinstance(password, str):
         return False, "Password must be a string."
     if len(password) < 8 or len(password) > 128:
         return False, "Password must be between 8 and 128 characters."
+    if not re.search(r"[A-Z]", password) or not re.search(r"[a-z]", password) or not re.search(r"[0-9]", password):
+        return False, "Password must contain uppercase, lowercase, and numeric characters."
+    return True, ""
+
+def validate_otp(otp):
+    if not isinstance(otp, str):
+        return False, "OTP must be a string."
+    if not re.match(r"^\d{6}$", otp.strip()):
+        return False, "OTP must be a 6-digit code."
     return True, ""
 
 def is_valid_date(date_str):

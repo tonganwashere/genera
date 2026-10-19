@@ -2,6 +2,7 @@ import json
 import sqlite3
 from flask import Blueprint, jsonify, request, session
 from server import db
+from server.auth import get_current_user, validate_csrf
 from server.validation import validate_own_card, validate_progress_row, validate_settings
 
 sync_bp = Blueprint("sync", __name__, url_prefix="/api")
@@ -153,9 +154,17 @@ def sync_settings(conn, user_id, incoming_settings):
 
 @sync_bp.route("/sync", methods=["POST"])
 def sync():
-    user_id = session.get("user_id")
-    if not user_id:
+    user = get_current_user()
+    if not user:
         return jsonify({"error": "Not logged in."}), 401
+
+    if not validate_csrf():
+        return jsonify({"error": "Invalid or missing CSRF token."}), 403
+
+    if not user["email_verified"]:
+        return jsonify({"error": "Please verify your email address to enable sync.", "unverified_email": True}), 403
+
+    user_id = user["id"]
 
     if not request.is_json:
         return jsonify({"error": "Request body must be JSON."}), 400

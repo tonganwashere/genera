@@ -47,7 +47,10 @@
               <div class="account-dropdown-title-row">
                 <div class="account-dropdown-user-wrap">
                   <span class="account-dropdown-icon" aria-hidden="true">&#128100;</span>
-                  <strong id="dropdown-username" class="account-dropdown-username">Local Mode</strong>
+                  <div>
+                    <strong id="dropdown-username" class="account-dropdown-username">Local Mode</strong>
+                    <div id="dropdown-email" class="account-dropdown-email" style="display: none;"></div>
+                  </div>
                 </div>
                 <span id="account-status-badge" class="badge">Local</span>
               </div>
@@ -59,8 +62,12 @@
             <div class="account-dropdown-actions">
               <button type="button" id="btn-open-login" class="btn btn-sm btn-primary">Log In</button>
               <button type="button" id="btn-open-register" class="btn btn-sm">Create Account</button>
+              <button type="button" id="btn-open-verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
+              <button type="button" id="btn-open-bind-email" class="btn btn-sm btn-primary" style="display: none;">Add Gmail</button>
+              <button type="button" id="btn-open-change-password" class="btn btn-sm" style="display: none;">Change Password</button>
               <button type="button" id="btn-account-sync" class="btn btn-sm" style="display: none;">Sync Now</button>
-              <button type="button" id="btn-account-logout" class="btn btn-sm btn-danger" style="display: none;">Log Out</button>
+              <button type="button" id="btn-open-delete-account" class="btn btn-sm btn-danger" style="display: none;">Delete Account</button>
+              <button type="button" id="btn-account-logout" class="btn btn-sm" style="display: none;">Log Out</button>
             </div>
           </div>
         </div>
@@ -238,20 +245,119 @@
     <form id="auth-form" method="dialog">
       <h3 id="auth-modal-title">Log In</h3>
       <div id="auth-error-msg" class="auth-error" style="display: none;"></div>
-      <div class="form-group">
-        <label for="auth-username-input">Username</label>
-        <input type="text" id="auth-username-input" autocomplete="username" required maxlength="32" placeholder="e.g. alex_trivia">
+      <div id="auth-success-msg" class="auth-success" style="display: none;"></div>
+      <div class="form-group" id="auth-username-group">
+        <label for="auth-username-input" id="auth-username-label">Username</label>
+        <input type="text" id="auth-username-input" autocomplete="username" maxlength="32" placeholder="e.g. alex_trivia">
       </div>
-      <div class="form-group">
+      <div class="form-group" id="auth-email-group" style="display: none;">
+        <label for="auth-email-input">Gmail Address</label>
+        <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com">
+      </div>
+      <div class="form-group" id="auth-password-group">
         <label for="auth-password-input">Password</label>
-        <input type="password" id="auth-password-input" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="At least 8 characters">
+        <input type="password" id="auth-password-input" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+      </div>
+      <div class="form-group" id="auth-otp-group" style="display: none;">
+        <label for="auth-otp-input">6-digit Code (OTP)</label>
+        <input type="text" id="auth-otp-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456">
+      </div>
+      <div class="form-group" id="auth-new-password-group" style="display: none;">
+        <label for="auth-new-password-input">New Password</label>
+        <input type="password" id="auth-new-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
       </div>
       <div class="modal-actions" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
-        <button type="button" id="auth-toggle-mode-btn" class="btn" style="padding: 0; background: none; border: none; color: var(--color-blue); cursor: pointer; font-size: 13px;">Need an account? Register</button>
+        <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+          <button type="button" id="auth-toggle-mode-btn" class="btn-link">Need an account? Register</button>
+          <button type="button" id="auth-forgot-btn" class="btn-link">Forgot password?</button>
+        </div>
         <div style="display: flex; gap: var(--space-2);">
-          <button type="button" id="auth-cancel-btn" class="btn">Continue without an account</button>
+          <button type="button" id="auth-cancel-btn" class="btn">Cancel</button>
           <button type="submit" id="auth-submit-btn" class="btn btn-primary">Log In</button>
         </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="change-password-modal" class="modal">
+    <form id="change-password-form" method="dialog">
+      <h3>Change Password</h3>
+      <div id="change-pass-error-msg" class="auth-error" style="display: none;"></div>
+      <div id="change-pass-success-msg" class="auth-success" style="display: none;"></div>
+      <div class="form-group">
+        <label for="change-pass-current">Current Password</label>
+        <input type="password" id="change-pass-current" autocomplete="current-password" required minlength="8" maxlength="128">
+      </div>
+      <div class="form-group">
+        <label for="change-pass-new">New Password</label>
+        <input type="password" id="change-pass-new" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+      </div>
+      <div class="form-group">
+        <label for="change-pass-confirm">Confirm New Password</label>
+        <input type="password" id="change-pass-confirm" autocomplete="new-password" required minlength="8" maxlength="128">
+      </div>
+      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+        <button type="button" id="change-pass-cancel-btn" class="btn">Cancel</button>
+        <button type="submit" id="change-pass-submit-btn" class="btn btn-primary">Update Password</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="verify-email-modal" class="modal">
+    <form id="verify-email-form" method="dialog">
+      <h3>Verify Email</h3>
+      <p id="verify-email-desc" style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
+        Enter the 6-digit code sent to your Gmail address.
+      </p>
+      <div id="verify-email-error-msg" class="auth-error" style="display: none;"></div>
+      <div id="verify-email-success-msg" class="auth-success" style="display: none;"></div>
+      <div class="form-group">
+        <label for="verify-email-otp">6-digit Code (OTP)</label>
+        <input type="text" id="verify-email-otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456" required>
+      </div>
+      <div class="modal-actions" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
+        <button type="button" id="verify-email-resend-btn" class="btn-link">Resend Code</button>
+        <div style="display: flex; gap: var(--space-2);">
+          <button type="button" id="verify-email-cancel-btn" class="btn">Close</button>
+          <button type="submit" id="verify-email-submit-btn" class="btn btn-primary">Verify Email</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="bind-email-modal" class="modal">
+    <form id="bind-email-form" method="dialog">
+      <h3>Add Gmail Address</h3>
+      <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
+        Link a Gmail address to your account to enable cloud sync and password recovery.
+      </p>
+      <div id="bind-email-error-msg" class="auth-error" style="display: none;"></div>
+      <div id="bind-email-success-msg" class="auth-success" style="display: none;"></div>
+      <div class="form-group">
+        <label for="bind-email-input">Gmail Address</label>
+        <input type="email" id="bind-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" required>
+      </div>
+      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+        <button type="button" id="bind-email-cancel-btn" class="btn">Cancel</button>
+        <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Link Gmail</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="delete-account-modal" class="modal">
+    <form id="delete-account-form" method="dialog">
+      <h3>Delete Account</h3>
+      <p style="font-size: 13px; color: var(--color-red); margin-bottom: var(--space-3);">
+        This action is permanent and will delete all your cards, study progress, and settings from the server.
+      </p>
+      <div id="delete-account-error-msg" class="auth-error" style="display: none;"></div>
+      <div class="form-group">
+        <label for="delete-account-password">Confirm Password</label>
+        <input type="password" id="delete-account-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter your current password">
+      </div>
+      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+        <button type="button" id="delete-account-cancel-btn" class="btn">Cancel</button>
+        <button type="submit" id="delete-account-submit-btn" class="btn btn-danger">Permanently Delete</button>
       </div>
     </form>
   </dialog>
