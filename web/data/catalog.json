@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 6,
   "attribution": "Questions sourced from Open Trivia DB (opentdb.com), licensed under CC BY-SA 4.0.",
   "cards": [
     {
@@ -51,12 +51,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "bd3808b671b33e17",
-      "question": "True or False: The national flag of New Zealand features the British Union Jack in its upper hoist canton.",
-      "answer": "True",
-      "category": "General Knowledge"
-    },
-    {
       "id": "bda17b90fcf56341",
       "question": "Located in Chile, El Teniente is the world's largest underground mine for what metal?",
       "answer": "Copper",
@@ -100,7 +94,7 @@
     },
     {
       "id": "6247ad4d75744f47",
-      "question": "Before the 19th Century, the \"Living Room\" was originally called the...",
+      "question": "What was the \"living room\" originally called before the 19th century?",
       "answer": "Parlor",
       "category": "General Knowledge"
     },
@@ -108,18 +102,6 @@
       "id": "48ada8b65a0936a3",
       "question": "After how many years would you celebrate your crystal anniversary?",
       "answer": "15",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "c9fe436fc14292f0",
-      "question": "What fast food chain has the most locations globally?",
-      "answer": "Subway",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "90f5ca92d5192bfd",
-      "question": "What was Mountain Dew's original slogan?",
-      "answer": "Yahoo! Mountain Dew... It'll tickle your innards!",
       "category": "General Knowledge"
     },
     {
@@ -150,12 +132,6 @@
       "id": "722664ef6e7a23b5",
       "question": "Terry Gilliam was an animator that worked with which British comedy group?",
       "answer": "Monty Python",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "a65a17f298d7ca1a",
-      "question": "True or False: \"The Fox and the Hound\" is one of Aesop's fables.",
-      "answer": "False (Written by Daniel P. Mannix; classic Aesop fables include The Fox and the Grapes)",
       "category": "General Knowledge"
     },
     {
@@ -225,12 +201,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "cc1c923130c1cbc2",
-      "question": "True or False: The Lincoln Memorial is located in New York City.",
-      "answer": "False (It is located in Washington, D.C.)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "a457c34405382b4e",
       "question": "The phrase \"accident waiting to happen\" is an example of what type of figure of speech?",
       "answer": "Idiom",
@@ -279,24 +249,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "61c738ad15b7e68f",
-      "question": "De Eemhof, Port Zelande and Het Heijderbos are holiday villas owned by what company?",
-      "answer": "Center Parcs",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "7422f86a1a6ce8bf",
-      "question": "Red Vines is a brand of what type of candy?",
-      "answer": "Licorice",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "d2d4d3df99c8fd9f",
-      "question": "True or False: The scimitar is a traditional European sword design.",
-      "answer": "False (It is a Middle Eastern curved sword)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "71195fdd9b93b712",
       "question": "What is Cuba's official, most widely spoken language?",
       "answer": "Spanish",
@@ -306,12 +258,6 @@
       "id": "bad8e24445cf96a6",
       "question": "Where in La Coruña (Spain) is the headquarters of \"Inditex\", the biggest fashion group in the world?",
       "answer": "Arteijo",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "6cc2a7fb2616695b",
-      "question": "True or False: St. Louis, Missouri is an active United States Mint location.",
-      "answer": "False (Active US Mints are in Philadelphia, Denver, San Francisco, and West Point)",
       "category": "General Knowledge"
     },
     {
@@ -336,12 +282,6 @@
       "id": "922ad0afbc51eead",
       "question": "In which cardinal direction does the Sun rise from?",
       "answer": "East",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "921a774ea76a382d",
-      "question": "True or False: The Italian manufacturer Ducati manufactures passenger automobiles.",
-      "answer": "False (Ducati manufactures motorcycles)",
       "category": "General Knowledge"
     },
     {
@@ -390,12 +330,6 @@
       "id": "8cfbeb8d2ecb1812",
       "question": "The drug cartel run by Pablo Escobar originated in which South American city?",
       "answer": "Medellín",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "f2b0d9d055bc3e5a",
-      "question": "What is Tasmania?",
-      "answer": "An Australian State",
       "category": "General Knowledge"
     },
     {
@@ -525,12 +459,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "49df726daab24176",
-      "question": "True or False: The Tamil language belongs to the Indo-European language family.",
-      "answer": "False (It belongs to the Dravidian language family)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "94844206f5397be7",
       "question": "How long did it take the motorized window washers of the original World Trade Center to clean the entire exterior of the building?",
       "answer": "1 Month",
@@ -597,18 +525,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "e1920083386ff35a",
-      "question": "If you planted the seeds of Quercus robur, what would grow?",
-      "answer": "Trees",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "685870e8c98e6720",
-      "question": "Who invented Pastafarianism?",
-      "answer": "Bobby Henderson",
-      "category": "General Knowledge"
-    },
-    {
       "id": "cb49a44040ee0cd8",
       "question": "Earth is located in which galaxy?",
       "answer": "The Milky Way Galaxy",
@@ -624,12 +540,6 @@
       "id": "4afd7b34010f80f8",
       "question": "How many letters are there in the English alphabet?",
       "answer": "26",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "49cb31e3235b4fdb",
-      "question": "Who is the founder of \"The Lego Group\"?",
-      "answer": "Ole Kirk Christiansen",
       "category": "General Knowledge"
     },
     {
@@ -705,12 +615,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "8f27d5a1f6e5a67b",
-      "question": "In which country was the Michelin tire company founded in 1889?",
-      "answer": "France",
-      "category": "General Knowledge"
-    },
-    {
       "id": "eba63cdc56764787",
       "question": "In a standard set of playing cards, which is the only king without a moustache?",
       "answer": "Hearts",
@@ -724,20 +628,8 @@
     },
     {
       "id": "277b5366def4d77d",
-      "question": "Only 9% of US Households owned a television in",
+      "question": "In what year did only 9% of US households own a television?",
       "answer": "1950",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "da66e2eb6b660dd2",
-      "question": "What is the capital and most populous city of Spain?",
-      "answer": "Madrid",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "607f7db326c96fe4",
-      "question": "In DC comics where does the Green Arrow (Oliver Queen) live?",
-      "answer": "Star City",
       "category": "General Knowledge"
     },
     {
@@ -750,12 +642,6 @@
       "id": "34b74cc1bacb5f43",
       "question": "In the English language, what is the name of the \"&\" character?",
       "answer": "Ampersand",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "8b1c5cc073b98740",
-      "question": "What machine element is located in the center of fidget spinners?",
-      "answer": "Bearings",
       "category": "General Knowledge"
     },
     {
@@ -774,12 +660,6 @@
       "id": "a5e4caa8933eb668",
       "question": "Macintosh has named six of its operating systems after big cats. What big cat did Macintosh name their 2007 release after?",
       "answer": "Leopard",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "41bbeeea00aed579",
-      "question": "What type of animal was Harambe, who was shot after a child fell into it's enclosure at the Cincinnati Zoo?",
-      "answer": "Gorilla",
       "category": "General Knowledge"
     },
     {
@@ -834,12 +714,6 @@
       "id": "9ac4bc52aa16ea58",
       "question": "What is the 3-letter IATA airport code for Manchester Airport in the UK?",
       "answer": "MAN",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "eaca9720fb6b77bb",
-      "question": "What is the closest planet to our solar system's sun?",
-      "answer": "Mercury",
       "category": "General Knowledge"
     },
     {
@@ -945,12 +819,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "fe39d6f3f9b1e2a5",
-      "question": "True or False: In Japan, motor vehicle traffic drives on the left-hand side of the road.",
-      "answer": "True",
-      "category": "General Knowledge"
-    },
-    {
       "id": "283ddeed66988a07",
       "question": "What is the Swedish word for \"window\"?",
       "answer": "Fönster",
@@ -1005,27 +873,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "fa48d4f21847f587",
-      "question": "True or False: The Turkish language features grammatical gender (masculine/feminine nouns).",
-      "answer": "False (Turkish has no grammatical gender)",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "4fe3361a316ea02a",
-      "question": "What are the tallest twin buildings in the world, with a height of 1,483 ft (451.9 m)?",
-      "answer": "Petronas Twin Towers, Malaysia",
-      "category": "General Knowledge"
-    },
-    {
       "id": "af9a479dc2aaa461",
       "question": "According to the BBPA, what is the most common pub name in the UK?",
       "answer": "Red Lion",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "f4b4a157a736ee29",
-      "question": "In the fictional SCP universe what “Object Class” is given to SCP’s that cannot be contained.",
-      "answer": "Apollyon",
       "category": "General Knowledge"
     },
     {
@@ -1044,12 +894,6 @@
       "id": "7c8ef11c3777eb65",
       "question": "The words \"bungalow\" and \"shampoo\" originate from the languages of which country?",
       "answer": "India",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "807e8521ab50ff37",
-      "question": "True or False: John F. Kennedy is one of the four US presidents carved onto Mount Rushmore.",
-      "answer": "False (The four are George Washington, Thomas Jefferson, Theodore Roosevelt, and Abraham Lincoln)",
       "category": "General Knowledge"
     },
     {
@@ -1084,7 +928,7 @@
     },
     {
       "id": "e43b3b860c05dd43",
-      "question": "When was the website reddit founded ?",
+      "question": "In what year was the website Reddit founded?",
       "answer": "2005",
       "category": "General Knowledge"
     },
@@ -1122,12 +966,6 @@
       "id": "04228e3763443117",
       "question": "The Flag of the European Union has how many stars on it?",
       "answer": "12",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "5ff0a70816a2eeb7",
-      "question": "What do the letters of the fast food chain KFC stand for?",
-      "answer": "Kentucky Fried Chicken",
       "category": "General Knowledge"
     },
     {
@@ -1191,12 +1029,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "cb0103382c38f71d",
-      "question": "True or False: OCBC Bank is authorized to issue Hong Kong dollar banknotes.",
-      "answer": "False (The three note-issuing banks are HSBC, Standard Chartered, and Bank of China)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "3936e785215341f7",
       "question": "What is the highest number of Michelin stars a restaurant can receive?",
       "answer": "Three",
@@ -1206,12 +1038,6 @@
       "id": "ab4a959ed2e8265e",
       "question": "What is the romanized Korean word for \"heart\"?",
       "answer": "Simjang",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "67d4edfc851069bc",
-      "question": "True or False: Almond Joy candy bars are manufactured by Mars, Incorporated.",
-      "answer": "False (Almond Joy is manufactured in the United States by The Hershey Company)",
       "category": "General Knowledge"
     },
     {
@@ -1233,18 +1059,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "f232a623f3289b71",
-      "question": "The American company \"Campbell's\" is most well known for making what food product?",
-      "answer": "Canned soups",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "69ab679ca894b6b4",
-      "question": "True or False: In linguistics, \"Length\" is one of the Gricean Maxims under the Cooperative Principle.",
-      "answer": "False (The four maxims are Quantity, Quality, Relation, and Manner)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "799065a93d89549a",
       "question": "Area 51 is located in which US state?",
       "answer": "Nevada",
@@ -1254,12 +1068,6 @@
       "id": "98d9800ead6122fc",
       "question": "Which mountain has the highest peak in Europe?",
       "answer": "Mount Elbrus, Russia",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "f9ccea3597ecf958",
-      "question": "In what year was McDonald's founded?",
-      "answer": "1955",
       "category": "General Knowledge"
     },
     {
@@ -1293,12 +1101,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "32afcd56fe1fc135",
-      "question": "What is H2O?",
-      "answer": "Water",
-      "category": "General Knowledge"
-    },
-    {
       "id": "182e210f29cb542d",
       "question": "Which film star has his statue in Leicester Square?",
       "answer": "Charlie Chaplin",
@@ -1314,18 +1116,6 @@
       "id": "39f3293e28861cbb",
       "question": "What is the first book of the Old Testament?",
       "answer": "Genesis",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "b4fbed3fc0df73ff",
-      "question": "True or False: In the United States, Thanksgiving is celebrated in the month of December.",
-      "answer": "False (It is celebrated on the fourth Thursday of November)",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "a1b277c6c67e6b47",
-      "question": "How many calories are in a 355 ml can of Pepsi Cola?",
-      "answer": "150",
       "category": "General Knowledge"
     },
     {
@@ -1389,14 +1179,8 @@
       "category": "General Knowledge"
     },
     {
-      "id": "9e98adbe959fbdf7",
-      "question": "In which fast food chain can you order a Jamocha Shake?",
-      "answer": "Arby's",
-      "category": "General Knowledge"
-    },
-    {
       "id": "7b9449256506cc64",
-      "question": "This field is sometimes known as “The Dismal Science.”",
+      "question": "Which academic discipline is historically referred to as \"the dismal science\"?",
       "answer": "Economics",
       "category": "General Knowledge"
     },
@@ -1437,27 +1221,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "a69b11f6b531e9ff",
-      "question": "Formulated in 1885 in Waco, Texas, which popular soft drink predates Coca-Cola by one year?",
-      "answer": "Dr. Pepper",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "546b886299966a8f",
-      "question": "Which planet in the Solar System is the only one not named after a Greek or Roman deity?",
-      "answer": "Earth",
-      "category": "General Knowledge"
-    },
-    {
       "id": "6129e3d6601d6c0e",
       "question": "What organ of the body produces bile?",
       "answer": "Liver",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "2b3713694fd0b261",
-      "question": "Which slogan did the fast food company, McDonald's, use before their \"I'm Lovin' It\" slogan?",
-      "answer": "We Love to See You Smile",
       "category": "General Knowledge"
     },
     {
@@ -1491,21 +1257,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "2935b7d545615ff3",
-      "question": "True or False: Stanford University is a member of the Ivy League athletic conference.",
-      "answer": "False (The Ivy League consists of Brown, Columbia, Cornell, Dartmouth, Harvard, Penn, Princeton, and Yale)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "a919ef773d278284",
       "question": "According to the United States' CDC, one in how many Americans die annually due to smoking?",
       "answer": "Five",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "ac69d0bc0ebf1615",
-      "question": "True or False: Ben Shapiro is the host of an official program produced by NPR.",
-      "answer": "False",
       "category": "General Knowledge"
     },
     {
@@ -1558,8 +1312,8 @@
     },
     {
       "id": "891587eeadaefe49",
-      "question": "According to Sherlock Holmes, \"If you eliminate the impossible, whatever remains, however improbable, must be the...\"",
-      "answer": "Truth",
+      "question": "According to Sherlock Holmes, whatever remains once the impossible is eliminated must be what?",
+      "answer": "The truth",
       "category": "General Knowledge"
     },
     {
@@ -1575,27 +1329,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "9f44679e61a271cd",
-      "question": "Which best selling toy of 1983 caused hysteria, resulting in riots breaking out in stores?",
-      "answer": "Cabbage Patch Kids",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "709394298faa5277",
-      "question": "True or False: The Hungarian language belongs to the Indo-European language family.",
-      "answer": "False (Hungarian is an Uralic / Finno-Ugric language, unrelated to Indo-European)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "8dae746321bc22f1",
       "question": "In which country was the 1992 Summer Olympics Games held?",
       "answer": "Spain",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "8c3c2fc32390269a",
-      "question": "What was the soft drink Pepsi originally introduced as?",
-      "answer": "Brad's Drink",
       "category": "General Knowledge"
     },
     {
@@ -1614,12 +1350,6 @@
       "id": "79622b7578993671",
       "question": "What does the neurological term \"abulia\" mean?",
       "answer": "The inability to make decisions or lack of willpower",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "864f4730e0c5be61",
-      "question": "Which restaurant's mascot is a clown?",
-      "answer": "McDonald's",
       "category": "General Knowledge"
     },
     {
@@ -1659,18 +1389,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "77f1ac1d977da1a6",
-      "question": "What year was the RoboSapien toy robot released?",
-      "answer": "2004",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "9ae01f7984129d97",
-      "question": "What is the real name of viral internet meme Grumpy Cat?",
-      "answer": "Tardar Sauce",
-      "category": "General Knowledge"
-    },
-    {
       "id": "1f8b7fc8397d2e9d",
       "question": "What year was the first Apple iPod introduced?",
       "answer": "2001",
@@ -1704,12 +1422,6 @@
       "id": "477972be7d646019",
       "question": "Which item of clothing is usually worn by a Scotsman at a wedding?",
       "answer": "Kilt",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "a460ddda23dc4f6a",
-      "question": "What is \"dabbing\"?",
-      "answer": "A dance",
       "category": "General Knowledge"
     },
     {
@@ -1773,18 +1485,6 @@
       "category": "General Knowledge"
     },
     {
-      "id": "b28e6394623971e9",
-      "question": "\"Nephelococcygia\" is the practice of doing what?",
-      "answer": "Finding shapes in clouds",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "1defd8b14ec445c3",
-      "question": "True or False: The color pink is featured in the official multi-colored Google logo.",
-      "answer": "False (The colors are blue, red, yellow, and green)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "ca20509192e09fc7",
       "question": "Earl Grey tea is black tea flavoured with what?",
       "answer": "Bergamot oil",
@@ -1816,7 +1516,7 @@
     },
     {
       "id": "6c3d618d919b45a2",
-      "question": "This Ghanaian entrepreneur is a pioneer of microlending.",
+      "question": "Which Ghanaian entrepreneur and businesswoman was a pioneer of microlending in Africa?",
       "answer": "Esther Afua Ocloo",
       "category": "General Knowledge"
     },
@@ -1845,27 +1545,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "c70cac44120cf5aa",
-      "question": "True or False: \"Potimarron\" is another culinary name for the eggplant (aubergine).",
-      "answer": "False (Potimarron is a variety of winter squash / pumpkin)",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "15d04bb574cece1d",
-      "question": "True or False: Fast-food chain Wendy's is primarily known for selling pizza.",
-      "answer": "False (Known for square hamburgers, sea-salt fries, and Frosty desserts)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "7c1a9c691d175656",
-      "question": "The lesser-known continuation of the saying \"Curiosity killed the cat...\" is:",
+      "question": "What is the second half of the proverb \"Curiosity killed the cat\"?",
       "answer": "\"...but satisfaction brought it back.\"",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "79ba70233c864566",
-      "question": "True or False: King Edward VIII appeared on circulating British pound sterling coinage.",
-      "answer": "False (He abdicated in 1936 before circulating coins were struck for general public release)",
       "category": "General Knowledge"
     },
     {
@@ -1899,21 +1581,9 @@
       "category": "General Knowledge"
     },
     {
-      "id": "a7c1ac683f6357f6",
-      "question": "True or False: Pink is considered one of the seven traditional colors of the rainbow.",
-      "answer": "False (The colors are Red, Orange, Yellow, Green, Blue, Indigo, Violet)",
-      "category": "General Knowledge"
-    },
-    {
       "id": "9132cf32a32d03ec",
       "question": "What is the full meaning of RAM?",
       "answer": "Random Access Memory",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "5bcdc3fe6073677f",
-      "question": "The Panama Canal was officially opened by which US president?",
-      "answer": "Woodrow Wilson",
       "category": "General Knowledge"
     },
     {
@@ -1936,7 +1606,7 @@
     },
     {
       "id": "53e3bf77d60e76ef",
-      "question": "The New York Times slogan is, “All the News That’s Fit to…”",
+      "question": "What word completes The New York Times slogan: \"All the News That's Fit to...\"?",
       "answer": "Print",
       "category": "General Knowledge"
     },
@@ -2014,20 +1684,14 @@
     },
     {
       "id": "64f3459ddcf8f93c",
-      "question": "Trypophobia is the fear of",
-      "answer": "groups of holes",
+      "question": "What is trypophobia the fear of?",
+      "answer": "Groups of holes",
       "category": "General Knowledge"
     },
     {
       "id": "9bf09c8ca79a9960",
       "question": "Where is the train station \"Llanfair­pwllgwyngyll­gogery­chwyrn­drobwll­llan­tysilio­gogo­goch\"?",
       "answer": "Wales",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "7c48e16a671c03f4",
-      "question": "True or False: Denmark was an active belligerent combatant in World War I.",
-      "answer": "False (Denmark remained strictly neutral throughout WWI)",
       "category": "General Knowledge"
     },
     {
@@ -2046,12 +1710,6 @@
       "id": "6b91d0f9e7a5baf7",
       "question": "When did the website \"Facebook\" launch?",
       "answer": "2004",
-      "category": "General Knowledge"
-    },
-    {
-      "id": "54d0b62724e0f518",
-      "question": "What was the third country to have a McDonald's restaurant?",
-      "answer": "Costa Rica",
       "category": "General Knowledge"
     },
     {
@@ -2199,12 +1857,6 @@
       "category": "Literature"
     },
     {
-      "id": "fd953250cca31de3",
-      "question": "Who is the protagonist of the book: \"The Catcher in the Rye\" by J.D. Salinger",
-      "answer": "Holden Caulfield",
-      "category": "Literature"
-    },
-    {
       "id": "a0d2540683464ed5",
       "question": "In the children's book series, where is Paddington Bear originally from?",
       "answer": "Peru",
@@ -2283,12 +1935,6 @@
       "category": "Literature"
     },
     {
-      "id": "0d11e47b66fc6b4e",
-      "question": "True or False: \"Journey to the Center of the Earth\" was written by Czech author Karel Čapek.",
-      "answer": "False (It was written by French author Jules Verne; Čapek wrote R.U.R. and War with the Newts)",
-      "category": "Literature"
-    },
-    {
       "id": "d57a0558f70e13bf",
       "question": "What is Ron Weasley's middle name?",
       "answer": "Bilius",
@@ -2344,14 +1990,8 @@
     },
     {
       "id": "c8bcf6ecd2f05783",
-      "question": "George Orwell wrote this book, which is often considered a statement on government oversight.",
+      "question": "Which dystopian novel about totalitarianism and government surveillance was written by George Orwell?",
       "answer": "1984",
-      "category": "Literature"
-    },
-    {
-      "id": "1a57c08bf25efa17",
-      "question": "True or False: In Stephen Chbosky's \"The Perks of Being a Wallflower\", Charlie is assigned to read \"The Grapes of Wrath\".",
-      "answer": "False",
       "category": "Literature"
     },
     {
@@ -2362,7 +2002,7 @@
     },
     {
       "id": "cece1cfe9a20ca4b",
-      "question": "The book \"The Little Prince\" was written by...",
+      "question": "Who wrote the novella \"The Little Prince\"?",
       "answer": "Antoine de Saint-Exupéry",
       "category": "Literature"
     },
@@ -2370,12 +2010,6 @@
       "id": "40f507272ddbe493",
       "question": "Which author and poet famously wrote the line, \"The female of the species is more deadly than the male\"?",
       "answer": "Rudyard Kipling",
-      "category": "Literature"
-    },
-    {
-      "id": "a42bbb572dd59432",
-      "question": "True or False: \"The Trial of Temperance\" is a theatrical play written by William Shakespeare.",
-      "answer": "False",
       "category": "Literature"
     },
     {
@@ -2388,12 +2022,6 @@
       "id": "ee2c86b7f3ea2e76",
       "question": "Which author co-wrote \"The Communist Manifesto\" alongside Karl Marx?",
       "answer": "Friedrich Engels",
-      "category": "Literature"
-    },
-    {
-      "id": "908a6c1c73b47670",
-      "question": "True or False: In \"Romance of the Three Kingdoms\", warrior Zhao Yun was one of the sworn brothers of the Peach Garden Oath.",
-      "answer": "False (The oath was sworn exclusively between Liu Bei, Guan Yu, and Zhang Fei)",
       "category": "Literature"
     },
     {
@@ -2412,12 +2040,6 @@
       "id": "00a6abaf38319fae",
       "question": "Mary Shelley is the author of what classic horror story?",
       "answer": "Frankenstein",
-      "category": "Literature"
-    },
-    {
-      "id": "553c23cb3327524b",
-      "question": "True or False: Sherlock Holmes author Sir Arthur Conan Doyle was born in England.",
-      "answer": "False (He was born in Edinburgh, Scotland)",
       "category": "Literature"
     },
     {
@@ -2476,7 +2098,7 @@
     },
     {
       "id": "011ae18a24d29d9e",
-      "question": "This play is generally considered to be the most adaptable of Shakespeare’s works, and follows two “star-crossed lovers”.",
+      "question": "Which Shakespearean tragedy follows two \"star-crossed lovers\" in Verona?",
       "answer": "Romeo and Juliet",
       "category": "Literature"
     },
@@ -2488,7 +2110,7 @@
     },
     {
       "id": "00e99246f62e6609",
-      "question": "In the year 1818, novelist Mary Shelly is credited with writing a fiction novel and creating this infamous character.",
+      "question": "Which gothic creature did author Mary Shelley introduce in her 1818 novel?",
       "answer": "Frankenstein's monster",
       "category": "Literature"
     },
@@ -2547,12 +2169,6 @@
       "category": "Literature"
     },
     {
-      "id": "21494138dbba1983",
-      "question": "True or False: The classic 1877 novel \"Anna Karenina\" was authored by Fyodor Dostoevsky.",
-      "answer": "False (It was written by Leo Tolstoy)",
-      "category": "Literature"
-    },
-    {
       "id": "8c9d154f67c65a78",
       "question": "What is the standard atomic weight of a Plutonium nucleus?",
       "answer": "244",
@@ -2577,12 +2193,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "7b5908e652ff141c",
-      "question": "True or False: The Islets of Langerhans are structural components of a typical human neuron.",
-      "answer": "False (They are endocrine hormone-producing cells in the pancreas)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "f774c716bd72614c",
       "question": "What does DNA stand for?",
       "answer": "Deoxyribonucleic Acid",
@@ -2604,12 +2214,6 @@
       "id": "2ff54a2b296be675",
       "question": "What does the scientific name of the Cambrian-Period sea creature Anomalocaris mean?",
       "answer": "Abnormal Shrimp",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "78166377669f34db",
-      "question": "True or False: Botanically speaking, the strawberry is classified as a true berry.",
-      "answer": "False (It is an aggregate accessory fruit; true botanical berries include bananas and tomatoes)",
       "category": "Science & Nature"
     },
     {
@@ -2649,12 +2253,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "786686f91d347996",
-      "question": "True or False: The radius is a bone located in the human leg.",
-      "answer": "False (The radius is located in the human forearm alongside the ulna)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "36c343e555457bef",
       "question": "How many legs is it biologically impossible for a centipede to have?",
       "answer": "100",
@@ -2676,12 +2274,6 @@
       "id": "7ed065677e4a1343",
       "question": "What did Gregory Mendel use to test genetic crossovers?",
       "answer": "Peas",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "a3a929163062a606",
-      "question": "True or False: \"Perceptual neuron\" is an established anatomical classification of biological nervous system neurons.",
-      "answer": "False (The primary morphological/functional classes are sensory neurons, motor neurons, and interneurons)",
       "category": "Science & Nature"
     },
     {
@@ -2752,14 +2344,8 @@
     },
     {
       "id": "01693906ebab2b2f",
-      "question": "71% of the Earth's surface is made up of",
+      "question": "What substance covers approximately 71% of the Earth's surface?",
       "answer": "Water",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "a7ab3b99893d5b8e",
-      "question": "What is the \"powerhouse\" of the Eukaryotic animal cell?",
-      "answer": "Mitochondria",
       "category": "Science & Nature"
     },
     {
@@ -2781,21 +2367,9 @@
       "category": "Science & Nature"
     },
     {
-      "id": "b01ab3a8ed81b1f7",
-      "question": "True or False: Sir Isaac Newton has an official chemical element on the periodic table named after him.",
-      "answer": "False",
-      "category": "Science & Nature"
-    },
-    {
       "id": "4cee44c7fa5755d4",
       "question": "Which is the most abundant element in the universe?",
       "answer": "Hydrogen",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "33b52463d36eb5cc",
-      "question": "True or False: \"Fluorines\" is the official name of a group column on the periodic table.",
-      "answer": "False (The group is officially named the Halogens / Group 17)",
       "category": "Science & Nature"
     },
     {
@@ -2832,12 +2406,6 @@
       "id": "88e7c123cb000f90",
       "question": "What element on the periodic table has 92 electrons?",
       "answer": "Uranium",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "3f68e40e1452713c",
-      "question": "The Axiom of Preventive Medicine states that people with ___ risk for a disease should be screened and we should treat ___ of those people.",
-      "answer": "low, all",
       "category": "Science & Nature"
     },
     {
@@ -2997,12 +2565,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "d9a1e22e7bdcf856",
-      "question": "True or False: The tibia is one of the bones found in the human arm.",
-      "answer": "False (The tibia is the shin bone located in the lower leg)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "d95fb5da67301dd5",
       "question": "What is the first element on the periodic table?",
       "answer": "Hydrogen",
@@ -3123,12 +2685,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "c7e2bf70f9cd1fb0",
-      "question": "Which is the longest bone in the human body?",
-      "answer": "Femur",
-      "category": "Science & Nature"
-    },
-    {
       "id": "93907c621214728b",
       "question": "How many moons does the Earth have?",
       "answer": "1",
@@ -3162,12 +2718,6 @@
       "id": "84a114cd7e25319d",
       "question": "What fundamental three-terminal semiconductor device is used to amplify or switch electrical signals?",
       "answer": "transistor",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "1496ef66e2a89fef",
-      "question": "True or False: The transistor is classified as a passive electrical component.",
-      "answer": "False (It is an active electronic component; resistors and capacitors are passive)",
       "category": "Science & Nature"
     },
     {
@@ -3214,7 +2764,7 @@
     },
     {
       "id": "45def26b5797a6d2",
-      "question": "What is the atomic number of Uranium",
+      "question": "What is the atomic number of Uranium?",
       "answer": "92",
       "category": "Science & Nature"
     },
@@ -3366,12 +2916,6 @@
       "id": "ae8f7813a0c2b5e9",
       "question": "In physics, both conservation of energy and conservation of momentum arise as consequences of which mathematical theorem?",
       "answer": "Noether's Theorem",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "6a629ffe8c08da53",
-      "question": "True or False: \"Drop-slide\" is a recognized seismological fault slip classification for earthquakes.",
-      "answer": "False (Standard slip categories include strike-slip, normal, and reverse/thrust)",
       "category": "Science & Nature"
     },
     {
@@ -3585,12 +3129,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "ffa46b274d408322",
-      "question": "True or False: Beryllium is a liquid metal at or near room temperature.",
-      "answer": "False (Beryllium is a hard, brittle solid metal; mercury and gallium are liquid or near-liquid)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "25601aab6b57c047",
       "question": "What term is best associated with Sigmund Freud?",
       "answer": "Psychoanalysis",
@@ -3682,7 +3220,7 @@
     },
     {
       "id": "36eb436506a36f89",
-      "question": "The biggest distinction between a eukaryotic cell and a prokaryotic cell is:",
+      "question": "What is the defining structural difference between a eukaryotic cell and a prokaryotic cell?",
       "answer": "The presence or absence of a nucleus",
       "category": "Science & Nature"
     },
@@ -3705,12 +3243,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "878930183f38b748",
-      "question": "What cell organelle is known as \"the powerhouse of the cell?\"",
-      "answer": "Mitochondria",
-      "category": "Science & Nature"
-    },
-    {
       "id": "5d925c120df1b9dd",
       "question": "Which chemical element has the lowest boiling point?",
       "answer": "Helium",
@@ -3730,7 +3262,7 @@
     },
     {
       "id": "74100d44d4de9cb1",
-      "question": "This element, when overcome with extreme heat and pressure, creates diamonds.",
+      "question": "Which chemical element forms diamonds under extreme temperature and pressure?",
       "answer": "Carbon",
       "category": "Science & Nature"
     },
@@ -3795,18 +3327,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "bbe5ee39400794ef",
-      "question": "True or False: NASA's Mariner 4 planetary probe touched down on the Moon.",
-      "answer": "False (Mariner 4 performed the first successful flyby of Mars in 1965)",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "6fcaad7e6f9098a5",
-      "question": "What is the hottest planet in the solar system",
-      "answer": "Venus",
-      "category": "Science & Nature"
-    },
-    {
       "id": "193584505c228dd5",
       "question": "How many hearts does an octopus have?",
       "answer": "Three",
@@ -3861,12 +3381,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "6c2dc789bc04062b",
-      "question": "True or False: Sulfuric acid is one of the primary digestive acids secreted naturally in human gastric acid.",
-      "answer": "False (Gastric acid is composed primarily of hydrochloric acid)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "ee5aeb30e57c126e",
       "question": "What is Hypernatremia?",
       "answer": "Increase in blood sodium",
@@ -3894,12 +3408,6 @@
       "id": "6e98f8667e701ea8",
       "question": "The human right lung has how many lobes?",
       "answer": "3",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "10a2bf2e8496cfb3",
-      "question": "True or False: Haplogroup U is a human genetic haplogroup shared between both Y-chromosome and mtDNA lineages.",
-      "answer": "False (Haplogroup U is strictly a mitochondrial DNA maternal haplogroup)",
       "category": "Science & Nature"
     },
     {
@@ -4017,21 +3525,9 @@
       "category": "Science & Nature"
     },
     {
-      "id": "fba6250cab39c22b",
-      "question": "True or False: \"Diplophase\" is recognized as one of the standard phases of mitotic cell division.",
-      "answer": "False (Standard mitosis stages are prophase, prometaphase, metaphase, anaphase, telophase)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "a9e64d6269b7826a",
       "question": "What causes the sound of a heartbeat?",
       "answer": "Closure of the heart valves",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "2b62a1c8d64e95ac",
-      "question": "True or False: \"Vitrainium\" is an official element on the modern periodic table.",
-      "answer": "False",
       "category": "Science & Nature"
     },
     {
@@ -4071,12 +3567,6 @@
       "category": "Technology & Computing"
     },
     {
-      "id": "4a7a5109c25d141e",
-      "question": "True or False: Industrial designer Sir Jony Ive was one of the original co-founders of Apple Inc. in 1976.",
-      "answer": "False (Apple was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne; Ive joined Apple in 1992)",
-      "category": "Technology & Computing"
-    },
-    {
       "id": "d03f45e7cf9acacd",
       "question": "What does the term MIME stand for, in regards to computing?",
       "answer": "Multipurpose Internet Mail Extensions",
@@ -4084,7 +3574,7 @@
     },
     {
       "id": "344cd33be573e22a",
-      "question": "Moore's law originally stated that the number of transistors on a microprocessor chip would double every...",
+      "question": "Moore's law originally predicted that the number of transistors on a microchip would double every what?",
       "answer": "Year",
       "category": "Technology & Computing"
     },
@@ -4174,7 +3664,7 @@
     },
     {
       "id": "7c4139d433427dea",
-      "question": "Whistler was the codename of this Microsoft Operating System.",
+      "question": "Which Microsoft operating system was developed under the codename \"Whistler\"?",
       "answer": "Windows XP",
       "category": "Technology & Computing"
     },
@@ -4192,7 +3682,7 @@
     },
     {
       "id": "20e084abd3f6a349",
-      "question": "If you were to code software in this language you'd only be able to type 0's and 1's.",
+      "question": "What foundational computing language consists entirely of 0s and 1s?",
       "answer": "Binary",
       "category": "Technology & Computing"
     },
@@ -4305,12 +3795,6 @@
       "category": "Technology & Computing"
     },
     {
-      "id": "d9342c2ba2016b63",
-      "question": "True or False: \"Mystic Mansion\" was an official development codename for a release of Ubuntu Linux.",
-      "answer": "False (Ubuntu codenames use an adjective and an animal name with alliteration, e.g. Focal Fossa)",
-      "category": "Technology & Computing"
-    },
-    {
       "id": "a94a975cf449dd07",
       "question": "What did the name of the Tor Anonymity Network orignially stand for?",
       "answer": "The Onion Router",
@@ -4342,8 +3826,8 @@
     },
     {
       "id": "58aa852964766f9c",
-      "question": "The numbering system with a radix of 16 is more commonly referred to as",
-      "answer": "Hexidecimal",
+      "question": "What base-16 numbering system uses digits 0–9 and letters A–F?",
+      "answer": "Hexadecimal",
       "category": "Technology & Computing"
     },
     {
@@ -4462,7 +3946,7 @@
     },
     {
       "id": "e44e4c741de10624",
-      "question": "In the server hosting industry IaaS stands for...",
+      "question": "In cloud computing, what does the acronym IaaS stand for?",
       "answer": "Infrastructure as a Service",
       "category": "Technology & Computing"
     },
@@ -4575,12 +4059,6 @@
       "category": "Technology & Computing"
     },
     {
-      "id": "2db9e159376d246e",
-      "question": "True or False: The open-source graphic design program Inkscape is classified as a raster graphics editor.",
-      "answer": "False (Inkscape is a vector graphics editor; GIMP and Photoshop are raster editors)",
-      "category": "Technology & Computing"
-    },
-    {
       "id": "9ceb9b48f1842dd1",
       "question": "Which internet company began life as an online bookstore called 'Cadabra'?",
       "answer": "Amazon",
@@ -4620,12 +4098,6 @@
       "id": "aaf0c23d313788c0",
       "question": "How many bits are commonly in a single byte?",
       "answer": "Eight bits",
-      "category": "Technology & Computing"
-    },
-    {
-      "id": "039a5f691f544a61",
-      "question": "True or False: In CSS, \"center\" is a valid value for the \"position\" property.",
-      "answer": "False (Valid position values are static, relative, absolute, fixed, and sticky)",
       "category": "Technology & Computing"
     },
     {
@@ -4672,7 +4144,7 @@
     },
     {
       "id": "67552c754773a676",
-      "question": "According to DeMorgan's Theorem, the Boolean expression (AB)' is equivalent to:",
+      "question": "According to De Morgan's laws, what is the complement of the conjunction (A AND B)'?",
       "answer": "A' + B'",
       "category": "Technology & Computing"
     },
@@ -4702,7 +4174,7 @@
     },
     {
       "id": "f9ab28a18134bb34",
-      "question": "The series of the Intel HD graphics generation succeeding that of the 5000 and 6000 series (Broadwell) is called:",
+      "question": "Which Intel integrated graphics series succeeded Broadwell's 5000 and 6000 generations?",
       "answer": "HD Graphics 500",
       "category": "Technology & Computing"
     },
@@ -4716,12 +4188,6 @@
       "id": "9dc764ad69163ef6",
       "question": "In HTML, which non-standard tag used to be be used to make elements scroll across the viewport?",
       "answer": "<marquee></marquee>",
-      "category": "Technology & Computing"
-    },
-    {
-      "id": "fb7563e1753e23ff",
-      "question": "True or False: \"Float Sort\" is a recognized computer science sorting algorithm.",
-      "answer": "False",
       "category": "Technology & Computing"
     },
     {
@@ -4750,7 +4216,7 @@
     },
     {
       "id": "6553d39856a20138",
-      "question": "The C programming language was created by this American computer scientist.",
+      "question": "Which American computer scientist designed and implemented the C programming language at Bell Labs?",
       "answer": "Dennis Ritchie",
       "category": "Technology & Computing"
     },
@@ -4768,7 +4234,7 @@
     },
     {
       "id": "be73671937443c5c",
-      "question": "This mobile OS held the largest market share in 2012.",
+      "question": "Which mobile operating system held the largest global market share in 2012?",
       "answer": "iOS",
       "category": "Technology & Computing"
     },
@@ -4782,12 +4248,6 @@
       "id": "ce0efcbf812d4fb1",
       "question": "Which primary programming language is utilized for gameplay scripting in the Unity 3D game engine?",
       "answer": "C#",
-      "category": "Technology & Computing"
-    },
-    {
-      "id": "42a71313eab70aaa",
-      "question": "True or False: Cryptographer Ron Rivest invented the secret sharing cryptographic scheme.",
-      "answer": "False (Secret sharing was independently formulated by Adi Shamir and George Blakley; Rivest co-invented RSA and RC4)",
       "category": "Technology & Computing"
     },
     {
@@ -4899,12 +4359,6 @@
       "category": "Technology & Computing"
     },
     {
-      "id": "045874dc4b58a054",
-      "question": "True or False: The \"Connection Layer\" is one of the seven formal layers in the OSI network reference model.",
-      "answer": "False (The seven layers are Physical, Data Link, Network, Transport, Session, Presentation, Application)",
-      "category": "Technology & Computing"
-    },
-    {
       "id": "1e4744d5d1efc4ac",
       "question": "Sold via RadioShack starting in 1977, which microcomputer made by Tandy was part of the \"1977 Trinity\"?",
       "answer": "TRS-80",
@@ -4914,12 +4368,6 @@
       "id": "071015e8fac2c284",
       "question": "Which computer hardware device provides an interface for all other connected devices to communicate?",
       "answer": "Motherboard",
-      "category": "Technology & Computing"
-    },
-    {
-      "id": "270381a74f7b94e1",
-      "question": "True or False: Prioritizing comprehensive documentation over working software is one of the 4 core values of the Agile Manifesto.",
-      "answer": "False (The Agile Manifesto prioritizes working software over comprehensive documentation)",
       "category": "Technology & Computing"
     },
     {
@@ -4938,12 +4386,6 @@
       "id": "f939dfe7f4b21c17",
       "question": "What is the first Mersenne prime exponent over 1000?",
       "answer": "1279",
-      "category": "Mathematics & Logic"
-    },
-    {
-      "id": "bc66df7bb49a658c",
-      "question": "True or False: The normal (Gaussian) distribution is an example of a discrete probability distribution.",
-      "answer": "False (The normal distribution is a continuous probability distribution)",
       "category": "Mathematics & Logic"
     },
     {
@@ -5014,7 +4456,7 @@
     },
     {
       "id": "933f8210b3107218",
-      "question": "What is the derivative of sin(x)",
+      "question": "In calculus, what is the derivative of sin(x)?",
       "answer": "cos(x)",
       "category": "Mathematics & Logic"
     },
@@ -5022,12 +4464,6 @@
       "id": "f443e7b9f9e9afe2",
       "question": "In the complex plane, multiplying a given function by i rotates it anti-clockwise by how many degrees?",
       "answer": "90",
-      "category": "Mathematics & Logic"
-    },
-    {
-      "id": "cacbb40e3cef73c0",
-      "question": "True or False: A standard 10-sided gaming die (d10, pentagonal trapezohedron) is one of the five geometric Platonic solids.",
-      "answer": "False (The five Platonic solids are tetrahedron, cube, octahedron, dodecahedron, and icosahedron)",
       "category": "Mathematics & Logic"
     },
     {
@@ -5136,18 +4572,6 @@
       "id": "229fb1df90154436",
       "question": "In Roman Numerals, what does XL equate to?",
       "answer": "40",
-      "category": "Mathematics & Logic"
-    },
-    {
-      "id": "51d1f821ec8f6928",
-      "question": "True or False: The \"Naviér conjecture\" is one of the Clay Mathematics Institute's seven Millennium Prize Problems.",
-      "answer": "False (The relevant Millennium Problem is Navier–Stokes existence and smoothness)",
-      "category": "Mathematics & Logic"
-    },
-    {
-      "id": "73197861f0e891ed",
-      "question": "True or False: Swiss polymath Leonhard Euler developed the modern Fast Fourier Transform (FFT) algorithm.",
-      "answer": "False (The FFT was developed by Gauss, with the modern algorithm published by Cooley and Tukey in 1965)",
       "category": "Mathematics & Logic"
     },
     {
@@ -5266,7 +4690,7 @@
     },
     {
       "id": "555ab79d0c4d2180",
-      "question": "How many Millibars (mbar) to 1 Inch of Mercury (inHg)",
+      "question": "How many millibars (mbar) are approximately equivalent to 1 inch of mercury (inHg)?",
       "answer": "33.9",
       "category": "Mathematics & Logic"
     },
@@ -5293,354 +4717,6 @@
       "question": "What type of angle is greater than 90°?",
       "answer": "Obtuse",
       "category": "Mathematics & Logic"
-    },
-    {
-      "id": "fc97c28a6eff2d46",
-      "question": "The Nike apparel and footwear brand takes it's name from the Greek goddess of what?",
-      "answer": "Victory",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "2b8d39571fa7167d",
-      "question": "In Greek mythology, Persephone must return to the underworld because she had eaten what kind of seeds?",
-      "answer": "Pomegranate",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "c45132a62cc742a7",
-      "question": "What was the name of the ancient Roman god of war and agricultural guardian?",
-      "answer": "Mars",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "bc21e3e834455798",
-      "question": "What is the name of the first human being in Norse mythology?",
-      "answer": "Ask",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "b4583d4c174a1b41",
-      "question": "The Maori hold that which island nation was founded by Kupe, who discovered it under a long white cloud?",
-      "answer": "New Zealand",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "2e7ae101c92a90bf",
-      "question": "What mytological creatures have women's faces and vultures' bodies?",
-      "answer": "Harpies",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "cb2050ffeb5014f2",
-      "question": "How many heads does Cerberus have?",
-      "answer": "3",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "b043aa2985fa20db",
-      "question": "True or False: In the Epic of Gilgamesh, Enkidu is portrayed as an immortal patron god.",
-      "answer": "False (Enkidu was created by Aruru from clay as a wild mortal companion to Gilgamesh)",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "d369532f1ac69396",
-      "question": "True or False: \"Jens\" is the name of a prominent god in Norse mythology.",
-      "answer": "False",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "1de7c97be9c662a9",
-      "question": "In Norse mythology, what is the name of the serpent which eats the roots of the ash tree Yggdrasil?",
-      "answer": "Nidhogg",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "c9c05bd69a36f02b",
-      "question": "What mythological creature from classical Greek legend features the upper body of a human and the lower body of a horse?",
-      "answer": "Centaur",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "a534085ec54d5b64",
-      "question": "Who was the only god from Greece who did not get a name change in Rome?",
-      "answer": "Apollo",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "de2a50bd619197c2",
-      "question": "What weakpoint of Achilles was expoited by the Trojan prince, Paris?",
-      "answer": "Heel",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "df67bb06ba6b79e9",
-      "question": "Which greek god/goddess tossed a golden apple with the words \"for the fairest\" into the middle of the feast of the gods?",
-      "answer": "Eris",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "fc53035d035c2f1a",
-      "question": "True or False: In Greek mythology, Narcissus is counted as one of the three Fates (Moirai).",
-      "answer": "False (The three Fates are Clotho, Lachesis, and Atropos)",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "6bb2d6d5560685a3",
-      "question": "What is the name of the Greek god of peaceful deaths?",
-      "answer": "Thanatos",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "66d5b43be9705ef5",
-      "question": "Which figure from Greek mythology traveled to the underworld to return his wife Eurydice to the land of the living?",
-      "answer": "Orpheus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "81f657af7e740bf1",
-      "question": "Who is the god of war in Polynesian mythology?",
-      "answer": "'Oro",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "164a1fb251723857",
-      "question": "This Greek goddess's name was chosen for the dwarf planet responsible for discord on Pluto's classification amongst astronomers.",
-      "answer": "Eris",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "1f58c74a31ed8f6b",
-      "question": "Who was the King of Gods in Ancient Greek mythology?",
-      "answer": "Zeus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "afbd3e8b4e85c621",
-      "question": "What immense structure is referred to in Norse Mythology as the Yggdrasil.",
-      "answer": "Tree",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "30589ef18df7ff13",
-      "question": "In Greek Mythology, who killed Achilles?",
-      "answer": "Paris",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "5e54159975b99572",
-      "question": "Which Roman two-faced god of beginnings, gates, and transitions uniquely lacked a direct equivalent in Greek mythology?",
-      "answer": "Janus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "757a83ebdc02f8f2",
-      "question": "In Norse Mythology, what is the name of the symbol commonly referred to as the \"Tree of Life\"?",
-      "answer": "Yggdrasil",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "1ec6a3c22945f29e",
-      "question": "True or False: In Greek mythology, the blind Theban prophet Tiresias sailed with Jason and the Argonauts on the Argo.",
-      "answer": "False",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "9ed5347662b86b4a",
-      "question": "Which Norse God has a horse named Sleipnir?",
-      "answer": "Odin",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "525de7c98d68b1b4",
-      "question": "Who was the Roman god of fire?",
-      "answer": "Vulcan",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "4f18762bec05fdec",
-      "question": "The greek god Poseidon was the god of what?",
-      "answer": "The Sea",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "3434631dc69d7290",
-      "question": "Which Greek & Roman god was known as the god of music, truth and prophecy, healing, the sun and light, plague, poetry, and more?",
-      "answer": "Apollo",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "cddf57563a5177a7",
-      "question": "In Norse Mythology, Baldr was killed by Loki with a magical spear made from what plant?",
-      "answer": "Mistletoe",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "f78f49f12ff6ba85",
-      "question": "This Greek mythological figure is the god/goddess of battle strategy (among other things).",
-      "answer": "Athena",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "e7dcf82b48b2e513",
-      "question": "Who did Hippomenes defeat in a footrace?",
-      "answer": "Atalanta",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "ac5c2f4c6a617a83",
-      "question": "An Ankh is the Egyptian Hieroglyph for what?",
-      "answer": "Life",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "1b8b18be148ab241",
-      "question": "Neptune's greek name was...",
-      "answer": "Poseidon",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "c878d6529a0f9b13",
-      "question": "Who is the God Loki's son?",
-      "answer": "Fenrir",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "92beb01bf3c8c9b6",
-      "question": "The Norse god Odin has two pet crows named \"Huginn\" and \"Muninn\". What do their names mean?",
-      "answer": "Thought & Memory",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "d6f3c1d6bfe23bcd",
-      "question": "According to Algonquian folklore, how does one transform into a Wendigo?",
-      "answer": "Participating in cannibalism.",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "8c7890fe5c0d36ff",
-      "question": "Who is the Egyptian god of reproduction and lettuce?",
-      "answer": "Min",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "f09feb55a1adb39e",
-      "question": "Talos, the mythical giant bronze man, was the protector of which island?",
-      "answer": "Crete",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "ec05cd7594ec35d5",
-      "question": "The Hippogriff, not to be confused with the Griffon, is a magical creature with the front half of an eagle, and the back half of what?",
-      "answer": "A Horse",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "0b655bdaf16581b5",
-      "question": "In most traditions, who was the wife of Zeus?",
-      "answer": "Hera",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "eece1d79fa88d7c2",
-      "question": "Hel was the daughter of which Norse Mythological figure?",
-      "answer": "Loki",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "d8225b705c50012f",
-      "question": "What was the punishment for Sysiphus's craftiness?",
-      "answer": "Cursed to roll a boulder up a hill for eternity.",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "7b15cec70b7f43d0",
-      "question": "In African mythology, Anansi is a trickster and storyteller who takes the shape of which animal?",
-      "answer": "Spider",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "072b13191e7a8fec",
-      "question": "Who is a minor god that is protector and creator of various arts, such as cheese making and bee keeping.",
-      "answer": "Aristaeus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "cb606ce9287f9a30",
-      "question": "What animal did Queen Pasipahe sleep with before she gave birth to the Minotaur in Greek Mythology?",
-      "answer": "Bull",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "354fde6121b3c0fb",
-      "question": "Hera is god of...",
-      "answer": "Marriage",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "2fbbcf38b5afe57a",
-      "question": "What is the name of the Greek god of blacksmiths?",
-      "answer": "Hephaestus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "0feb1353ec535a6e",
-      "question": "Who is the father of Icarus, who flew too close to the sun?",
-      "answer": "Daedalus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "715b15630a74ce77",
-      "question": "What is the name of the wildman that Gilgamesh befriends and goes on adventures with?",
-      "answer": "Enkidu",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "b46f0d77ae7d60fe",
-      "question": "What mythology did the god \"Apollo\" come from?",
-      "answer": "Greek and Roman",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "3fae1e899a670fe2",
-      "question": "Nidhogg is a mythical creature from what mythology?",
-      "answer": "Norse",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "a5d32a8db2ad745d",
-      "question": "In Greek Mythology, who was the daughter of King Minos?",
-      "answer": "Ariadne",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "ab8735d8d7d4cdc1",
-      "question": "A minotaur is half human half what?",
-      "answer": "Bull",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "58a773d5b9adfd9f",
-      "question": "According to the Egyptian Myth of Osiris, who murdered Osiris?",
-      "answer": "Set",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "2417ee89c38be07d",
-      "question": "In Greek mythology, who is the god of wine?",
-      "answer": "Dionysus",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "62ac03c445ebe5e4",
-      "question": "According to Japanese folklore, what is the favorite food of the Kappa.",
-      "answer": "Cucumbers",
-      "category": "Mythology & Folklore"
-    },
-    {
-      "id": "90500cf2495774f0",
-      "question": "Who in Greek mythology, who led the Argonauts in search of the Golden Fleece?",
-      "answer": "Jason",
-      "category": "Mythology & Folklore"
     },
     {
       "id": "d0c1b8e1733cc755",
@@ -5670,12 +4746,6 @@
       "id": "2595e8c052a2e25d",
       "question": "What is the capital of Romania?",
       "answer": "Bucharest",
-      "category": "Geography"
-    },
-    {
-      "id": "b13963a6697c2dc5",
-      "question": "True or False: The self-governing South Pacific island country of Niue is an official United Nations member state.",
-      "answer": "False (Niue is in free association with New Zealand and is not a member of the UN)",
       "category": "Geography"
     },
     {
@@ -5763,21 +4833,9 @@
       "category": "Geography"
     },
     {
-      "id": "17854ab20ee3c4bc",
-      "question": "Which is the smallest country in the world?",
-      "answer": "Vatican City",
-      "category": "Geography"
-    },
-    {
       "id": "b44562a82db0c30a",
       "question": "The formerly East-Prussian city of Königsberg is known as which Russian City today?",
       "answer": "Kaliningrad",
-      "category": "Geography"
-    },
-    {
-      "id": "43a59ef4684681d4",
-      "question": "True or False: The United States maintains official territorial claims to sovereign sectors of Antarctica.",
-      "answer": "False (The US reserves the right to make claims, but makes no territorial claims under the Antarctic Treaty)",
       "category": "Geography"
     },
     {
@@ -5811,12 +4869,6 @@
       "category": "Geography"
     },
     {
-      "id": "edae87700fd57fa8",
-      "question": "True or False: \"Urutora\" is an officially designated settlement village in the Pacific island nation of Kiribati.",
-      "answer": "False (Noted Kiribati settlements on Kiritimati include London, Paris, and Poland)",
-      "category": "Geography"
-    },
-    {
       "id": "3befe9cccb20b1e6",
       "question": "What is the smallest country in the world?",
       "answer": "Vatican City",
@@ -5835,12 +4887,6 @@
       "category": "Geography"
     },
     {
-      "id": "5bf4ed7a3d93a6d3",
-      "question": "True or False: Alberta is an administrative state or territory within the Commonwealth of Australia.",
-      "answer": "False (Alberta is a prairie province of Canada)",
-      "category": "Geography"
-    },
-    {
       "id": "e5b599be36fdbc43",
       "question": "What is the region conjoining Pakistan, India, and China with unknown leadership called?",
       "answer": "Kashmir",
@@ -5856,12 +4902,6 @@
       "id": "9ceea3b601410910",
       "question": "Which city is the capital of Switzerland?",
       "answer": "Bern",
-      "category": "Geography"
-    },
-    {
-      "id": "f4c369e0e6733474",
-      "question": "True or False: The Co-operative Republic of Guyana is a country situated on the African continent.",
-      "answer": "False (Guyana is located on the northern mainland of South America)",
       "category": "Geography"
     },
     {
@@ -5898,12 +4938,6 @@
       "id": "056b9c9acd3c11ca",
       "question": "What is the largest island in Asia, divided among Indonesia, Malaysia, and Brunei?",
       "answer": "Borneo",
-      "category": "Geography"
-    },
-    {
-      "id": "26e89f197f104e56",
-      "question": "True or False: Norway has an estimated national population of under 6 million people.",
-      "answer": "True",
       "category": "Geography"
     },
     {
@@ -5970,12 +5004,6 @@
       "id": "7734af30f86286b1",
       "question": "What is the capital of India?",
       "answer": "New Delhi",
-      "category": "Geography"
-    },
-    {
-      "id": "404c8cdc9192509c",
-      "question": "True or False: The maroon-and-white national flag of Qatar contains all four traditional Pan-Arab colors (black, white, green, red).",
-      "answer": "False (Qatar's flag contains only maroon and white)",
       "category": "Geography"
     },
     {
@@ -6093,12 +5121,6 @@
       "category": "Geography"
     },
     {
-      "id": "7a58f81d3d05a46a",
-      "question": "True or False: The Republic of Suriname is located on the Asian continent.",
-      "answer": "False (Suriname is located on the northeastern Atlantic coast of South America)",
-      "category": "Geography"
-    },
-    {
       "id": "97f00023e7eabaa5",
       "question": "What is the second-largest city in Lithuania?",
       "answer": "Kaunas",
@@ -6190,7 +5212,7 @@
     },
     {
       "id": "76293d5e2614a4be",
-      "question": "How many counties in the Republic of Ireland.",
+      "question": "How many counties are in the Republic of Ireland?",
       "answer": "26",
       "category": "Geography"
     },
@@ -6228,12 +5250,6 @@
       "id": "7eb7580fa83b7e82",
       "question": "Which European city has the highest mileage of canals in the world?",
       "answer": "Birmingham",
-      "category": "Geography"
-    },
-    {
-      "id": "3df2e272d86b3d76",
-      "question": "True or False: In its own native national language, Slovakia is written as \"Slovaško\".",
-      "answer": "False (\"Slovaško\" is Slovenian; in Slovak, the country is written as Slovensko)",
       "category": "Geography"
     },
     {
@@ -6291,18 +5307,6 @@
       "category": "Geography"
     },
     {
-      "id": "7ed139d8d371b776",
-      "question": "True or False: The city of Edinburgh is located within England.",
-      "answer": "False (Edinburgh is the capital of Scotland)",
-      "category": "Geography"
-    },
-    {
-      "id": "adac2a49cff6ff5d",
-      "question": "True or False: The \"Atlantic Plate\" is one of Earth's primary lithospheric tectonic plates.",
-      "answer": "False (The Atlantic Ocean is divided between the North American, South American, Eurasian, and African plates)",
-      "category": "Geography"
-    },
-    {
       "id": "c6e29f6abd8411bd",
       "question": "In which country is the city of Rio de Janeiro?",
       "answer": "Brazil",
@@ -6312,18 +5316,6 @@
       "id": "9d6319726bcb10e8",
       "question": "What is the only state in the United States that does not have a flag in a shape with 4 edges?",
       "answer": "Ohio",
-      "category": "Geography"
-    },
-    {
-      "id": "6021c58012e159f2",
-      "question": "True or False: Sydney is the official capital city of Australia.",
-      "answer": "False (The capital of Australia is Canberra)",
-      "category": "Geography"
-    },
-    {
-      "id": "7662a2a904fc56b8",
-      "question": "True or False: The Samoyedic languages belong directly to the Finno-Ugric sub-branch of Uralic languages.",
-      "answer": "False (Uralic splits into Finno-Ugric and Samoyedic as two sister branches)",
       "category": "Geography"
     },
     {
@@ -6339,12 +5331,6 @@
       "category": "Geography"
     },
     {
-      "id": "3c55f1cf89dc2de7",
-      "question": "True or False: The Spanish province of Murcia is located in the northern region of Spain.",
-      "answer": "False (Murcia is located on the southeastern Mediterranean coast of Spain)",
-      "category": "Geography"
-    },
-    {
       "id": "e95bc4c310b43348",
       "question": "Where is the city of Haarlem located?",
       "answer": "The Netherlands",
@@ -6357,12 +5343,6 @@
       "category": "Geography"
     },
     {
-      "id": "eda6ab1e6e803603",
-      "question": "True or False: Norway is a full sovereign member state of the European Union (EU).",
-      "answer": "False (Norway participates in the EEA single market and Schengen Agreement, but rejected EU membership)",
-      "category": "Geography"
-    },
-    {
       "id": "858be31c595f65d1",
       "question": "What is the capital city of the U.S. state of Texas?",
       "answer": "Austin",
@@ -6372,12 +5352,6 @@
       "id": "88a273977a697e6f",
       "question": "The body of the Egyptian Sphinx was based on which animal?",
       "answer": "Lion",
-      "category": "Geography"
-    },
-    {
-      "id": "53b1de90d831c222",
-      "question": "What is the capital of the U.S. state Texas?",
-      "answer": "Austin",
       "category": "Geography"
     },
     {
@@ -6417,12 +5391,6 @@
       "category": "Geography"
     },
     {
-      "id": "8b7f2a4ea6aa7564",
-      "question": "True or False: Geographically and ethnolinguistically, Finland is strictly considered part of Scandinavia.",
-      "answer": "False (Finland is a Nordic country, but Scandinavia strictly denotes Norway, Sweden, and Denmark)",
-      "category": "Geography"
-    },
-    {
       "id": "06fd77eea88ac6e5",
       "question": "Which small country is located between the borders of France and Spain?",
       "answer": "Andorra",
@@ -6432,12 +5400,6 @@
       "id": "2c929d5bf3c37ae8",
       "question": "The Svalbard Archipelago is a dependency of which country?",
       "answer": "Norway",
-      "category": "Geography"
-    },
-    {
-      "id": "c757177d088a3cb2",
-      "question": "True or False: Thailand is recognized by Conservation International as one of the world's 17 designated \"megadiverse countries\".",
-      "answer": "False",
       "category": "Geography"
     },
     {
@@ -6528,12 +5490,6 @@
       "id": "2845018adc8a4563",
       "question": "How many countries are inside the United Kingdom?",
       "answer": "Four",
-      "category": "Geography"
-    },
-    {
-      "id": "2da8ff702eaae590",
-      "question": "True or False: \"Yangtze\" is an official administrative province of the People's Republic of China.",
-      "answer": "False (The Yangtze is China's longest river, not a province)",
       "category": "Geography"
     },
     {
@@ -6651,12 +5607,6 @@
       "category": "Geography"
     },
     {
-      "id": "1a1d05c81b9018bc",
-      "question": "True or False: Elizabeth Castle is a historic tidal fortress located on the Channel Island of Jersey.",
-      "answer": "True",
-      "category": "Geography"
-    },
-    {
       "id": "381d6d525f6b29e8",
       "question": "What is the name of the Canadian national anthem?",
       "answer": "O Canada",
@@ -6705,12 +5655,6 @@
       "category": "Geography"
     },
     {
-      "id": "3cd4044814b08ec8",
-      "question": "True or False: Pakistan does not officially recognize Armenia as an independent sovereign country.",
-      "answer": "True",
-      "category": "Geography"
-    },
-    {
       "id": "f3f0d0343f148090",
       "question": "Where are the Nazca Lines located?",
       "answer": "Peru",
@@ -6726,12 +5670,6 @@
       "id": "cf396a78781c8184",
       "question": "What is the capital of Chile?",
       "answer": "Santiago",
-      "category": "Geography"
-    },
-    {
-      "id": "d5215763c0e5535e",
-      "question": "True or False: Islamabad is an administrative city located in the Republic of India.",
-      "answer": "False (Islamabad is the federal capital of Pakistan)",
       "category": "Geography"
     },
     {
@@ -6822,12 +5760,6 @@
       "id": "83844345a2a465b5",
       "question": "What is the northernmost human settlement with year round inhabitants?",
       "answer": "Alert, Canada",
-      "category": "Geography"
-    },
-    {
-      "id": "6ecc06ca375408b3",
-      "question": "True or False: The island of Java is part of the Philippine archipelago.",
-      "answer": "False (Java is the most populous island of Indonesia)",
       "category": "Geography"
     },
     {
@@ -6981,24 +5913,6 @@
       "category": "Geography"
     },
     {
-      "id": "be1173c4e7448102",
-      "question": "True or False: Sudan shares a direct international land border with the Democratic Republic of the Congo.",
-      "answer": "False (The two are separated by South Sudan and the Central African Republic)",
-      "category": "Geography"
-    },
-    {
-      "id": "382c26226bbbae3c",
-      "question": "True or False: There is a small rural hamlet named Barcelona located in Cornwall, England.",
-      "answer": "True",
-      "category": "Geography"
-    },
-    {
-      "id": "7b8fbf4772a9163e",
-      "question": "True or False: The Republic of Austria shares a direct international land border with France.",
-      "answer": "False (Austria is separated from France by Switzerland and Germany)",
-      "category": "Geography"
-    },
-    {
       "id": "c2bf89df8f262efd",
       "question": "What mountain range lines the border between Spain and France?",
       "answer": "Pyrenees",
@@ -7006,7 +5920,7 @@
     },
     {
       "id": "2a586fd6c7c6d7ba",
-      "question": "How many countries share a land border with Russia? (Not including disputed territories)",
+      "question": "How many sovereign countries share a land border with Russia?",
       "answer": "14",
       "category": "Geography"
     },
@@ -7023,12 +5937,6 @@
       "category": "Geography"
     },
     {
-      "id": "9de254ad8526a27e",
-      "question": "True or False: Despite its global cultural prominence, the city proper of San Francisco, California has a population under 1,000,000.",
-      "answer": "True (San Francisco's population is around 800,000)",
-      "category": "Geography"
-    },
-    {
       "id": "c435f28c29338bd8",
       "question": "What is the Capital of the United States?",
       "answer": "Washington, D.C.",
@@ -7041,21 +5949,9 @@
       "category": "Geography"
     },
     {
-      "id": "0fcb86f76a0129bb",
-      "question": "True or False: Shikoku is one of the four main home islands of Japan.",
-      "answer": "True",
-      "category": "Geography"
-    },
-    {
       "id": "2ce0e46e2189faa5",
       "question": "What is the name of New Zealand's indigenous people?",
       "answer": "Maori",
-      "category": "Geography"
-    },
-    {
-      "id": "1b6ba8bd0c36c38d",
-      "question": "True or False: Romania was one of the fifteen constituent Soviet Socialist Republics forming the Soviet Union (USSR).",
-      "answer": "False (Romania was an allied Eastern Bloc Warsaw Pact nation, but never part of the USSR)",
       "category": "Geography"
     },
     {
@@ -7068,12 +5964,6 @@
       "id": "41940835d546f496",
       "question": "What is the capital of Scotland?",
       "answer": "Edinburgh",
-      "category": "Geography"
-    },
-    {
-      "id": "3c64ffc1b7d74010",
-      "question": "True or False: The Republic of Suriname is geographically situated in Africa.",
-      "answer": "False (Suriname is located on the northern coast of South America)",
       "category": "Geography"
     },
     {
@@ -7156,14 +6046,8 @@
     },
     {
       "id": "863129601d6724c2",
-      "question": "The Hunua Ranges is located in...",
+      "question": "In which island nation are the Hunua Ranges located?",
       "answer": "New Zealand",
-      "category": "Geography"
-    },
-    {
-      "id": "0deeccd769dfa194",
-      "question": "Where is the fast food chain \"Panda Express\" headquartered?",
-      "answer": "Rosemead, California",
       "category": "Geography"
     },
     {
@@ -7192,7 +6076,7 @@
     },
     {
       "id": "9b62fa3d0de5c0c5",
-      "question": "What is the name of the only remaining Grand Duchy in the world ?",
+      "question": "What is the only remaining sovereign Grand Duchy in the world?",
       "answer": "Luxembourg",
       "category": "Geography"
     },
@@ -7206,12 +6090,6 @@
       "id": "503fe9ac612f4046",
       "question": "What North American tourist attraction is served by the \"Maid of the Mist\" tour company?",
       "answer": "Niagara Falls",
-      "category": "Geography"
-    },
-    {
-      "id": "fb5c8bf31e54c3ce",
-      "question": "True or False: The Kartvelian language Georgian uses the standard 26-letter Latin alphabet.",
-      "answer": "False (Georgian uses its own unique Mkhedruli script)",
       "category": "Geography"
     },
     {
@@ -7266,18 +6144,6 @@
       "id": "d787397567941e15",
       "question": "Which two modern-day countries used to be known as the region of Rhodesia between the 1890s and 1980?",
       "answer": "Zambia & Zimbabwe",
-      "category": "Geography"
-    },
-    {
-      "id": "70f2c5f27adc0175",
-      "question": "True or False: The ultramodern metropolis Dubai is located within the Kingdom of Saudi Arabia.",
-      "answer": "False (Dubai is an emirate and the largest city in the United Arab Emirates)",
-      "category": "Geography"
-    },
-    {
-      "id": "e62509deea899fd5",
-      "question": "True or False: Albania was one of the six constituent republics forming the former Socialist Federal Republic of Yugoslavia.",
-      "answer": "False (Albania maintained complete independence outside Yugoslavia)",
       "category": "Geography"
     },
     {
@@ -7378,7 +6244,7 @@
     },
     {
       "id": "9ac3e384109eacfc",
-      "question": "With which country does France share its largest land border",
+      "question": "With which country does France share its longest continuous land border?",
       "answer": "Brazil",
       "category": "Geography"
     },
@@ -7392,12 +6258,6 @@
       "id": "449428b04330b4f7",
       "question": "Which UK country features a dragon on their flag?",
       "answer": "Wales",
-      "category": "Geography"
-    },
-    {
-      "id": "46edb192e46ff0bb",
-      "question": "What is the largest country in the world ?",
-      "answer": "Russian Federation",
       "category": "Geography"
     },
     {
@@ -7479,12 +6339,6 @@
       "category": "Geography"
     },
     {
-      "id": "cbdea96415b36a65",
-      "question": "What is Laos?",
-      "answer": "Country",
-      "category": "Geography"
-    },
-    {
       "id": "d8750db09109de08",
       "question": "Bikini Atoll is in which country?",
       "answer": "Marshall Islands",
@@ -7524,12 +6378,6 @@
       "id": "6b53451985cdf6af",
       "question": "Which area of Eastern Europe is famous for its association with vampires?",
       "answer": "Transylvania",
-      "category": "Geography"
-    },
-    {
-      "id": "a4b20c823d18fdf8",
-      "question": "True or False: The Channel Islands archipelago is constitutionally part of the United Kingdom.",
-      "answer": "False (They are self-governing British Crown Dependencies, not part of the UK)",
       "category": "Geography"
     },
     {
@@ -7588,7 +6436,7 @@
     },
     {
       "id": "79aeb8d07f87fd60",
-      "question": "Who led France during the \"Reign of Terror\" ?",
+      "question": "Who led the Committee of Public Safety during the Reign of Terror in France?",
       "answer": "Maximilien Robespierre",
       "category": "History"
     },
@@ -7600,14 +6448,8 @@
     },
     {
       "id": "c46e11e177f5744e",
-      "question": "From 1940 to 1942, what was the capital-in-exile of Free France ?",
+      "question": "From 1940 to 1942, which African city served as the capital-in-exile of Free France?",
       "answer": "Brazzaville",
-      "category": "History"
-    },
-    {
-      "id": "a2fdbad6a7651804",
-      "question": "True or False: The ancient cuneiform language Sumerian is classified as a Semitic language.",
-      "answer": "False (Sumerian is an unclassified language isolate; Akkadian, Hebrew, and Arabic are Semitic)",
       "category": "History"
     },
     {
@@ -7791,12 +6633,6 @@
       "category": "History"
     },
     {
-      "id": "1289327283094ce0",
-      "question": "True or False: The Finnish language belongs to the Indo-European language family.",
-      "answer": "False (Finnish belongs to the Uralic / Finno-Ugric language family)",
-      "category": "History"
-    },
-    {
       "id": "5ace722280dc6d56",
       "question": "Who was the first president of the United States?",
       "answer": "George Washington",
@@ -7815,33 +6651,15 @@
       "category": "History"
     },
     {
-      "id": "38d2a1d608c8597c",
-      "question": "True or False: The Great Wall of China was included in the classical canonical list of the Seven Wonders of the Ancient World.",
-      "answer": "False (The classical Hellenic list consisted only of Mediterranean/Middle Eastern structures)",
-      "category": "History"
-    },
-    {
       "id": "f5d54ef74424034d",
       "question": "What was the name of the national hero of the Philippines who inspired and lead the Philippine Revolution against colonial Spain?",
       "answer": "José Rizal",
       "category": "History"
     },
     {
-      "id": "8bbceaade332387d",
-      "question": "True or False: \"Silver Beach\" was one of the five Allied amphibious landing zones on D-Day in the 1944 Invasion of Normandy.",
-      "answer": "False (The five assault beach sectors were Utah, Omaha, Gold, Juno, and Sword)",
-      "category": "History"
-    },
-    {
       "id": "1be1085fb640937d",
       "question": "What was the name of the first permanent English settlement in America?",
       "answer": "Jamestown",
-      "category": "History"
-    },
-    {
-      "id": "925e7dc71a50801c",
-      "question": "True or False: The classical 23-letter Latin alphabet included the letter X.",
-      "answer": "True",
       "category": "History"
     },
     {
@@ -7869,12 +6687,6 @@
       "category": "History"
     },
     {
-      "id": "5e93b1e7b94ad57f",
-      "question": "In which year did the First World War begin?",
-      "answer": "1914",
-      "category": "History"
-    },
-    {
       "id": "473c24e6cc1fa063",
       "question": "During the Mongolian invasions of Japan, what were the Mongol boats mostly stopped by?",
       "answer": "Typhoons",
@@ -7884,12 +6696,6 @@
       "id": "02c4a92dcccb130f",
       "question": "What year is considered to be the year that the British Empire ended?",
       "answer": "1997",
-      "category": "History"
-    },
-    {
-      "id": "4ce2ab2dd3526116",
-      "question": "Who is the creator of the soft drink, Dr. Pepper?",
-      "answer": "Charles Alderton",
       "category": "History"
     },
     {
@@ -8025,12 +6831,6 @@
       "category": "History"
     },
     {
-      "id": "d2a358d2b72f7d7e",
-      "question": "True or False: Philip V, who acceded to the Spanish throne in 1700, belonged to the Habsburg dynasty.",
-      "answer": "False (He was the grandson of Louis XIV and founded the Spanish House of Bourbon)",
-      "category": "History"
-    },
-    {
       "id": "cccb5e540e0e7fb7",
       "question": "Who was the last Roman emperor in the Year of Four Emperors (69 AD)?",
       "answer": "Vespasian",
@@ -8064,12 +6864,6 @@
       "id": "84c500ad7b442a4b",
       "question": "Who was the first President of the People's Republic of China?",
       "answer": "Mao Zedong",
-      "category": "History"
-    },
-    {
-      "id": "6d13657766bed2dc",
-      "question": "True or False: Spain was a member of the Central Powers military alliance during World War I.",
-      "answer": "False (Spain maintained neutrality throughout the conflict)",
       "category": "History"
     },
     {
@@ -8139,12 +6933,6 @@
       "category": "History"
     },
     {
-      "id": "5c5e953d43520871",
-      "question": "Which Greek god was the god of the Sun?",
-      "answer": "Helios",
-      "category": "History"
-    },
-    {
       "id": "86f62e8c0af9dcdb",
       "question": "When did the Battle of the Somme begin?",
       "answer": "July 1st, 1916",
@@ -8164,7 +6952,7 @@
     },
     {
       "id": "654cb25ba710bfeb",
-      "question": "In 1547 who became the 1st Tsar of Russia",
+      "question": "In 1547, who was crowned as the first Tsar of all Russia?",
       "answer": "Ivan the Terrible",
       "category": "History"
     },
@@ -8184,12 +6972,6 @@
       "id": "745b253d8eb763ad",
       "question": "John Moses Browning, the designer of the M1918 BAR (Browning Automatic Rifle) was a part of which religion?",
       "answer": "Mormon",
-      "category": "History"
-    },
-    {
-      "id": "bc97cdfb48a08850",
-      "question": "True or False: The ancient Illyrian peoples of the western Balkans were classified as Hellenic (Greek) ethnically.",
-      "answer": "False (Illyrian was a distinct Indo-European branch separate from Greek)",
       "category": "History"
     },
     {
@@ -8235,12 +7017,6 @@
       "category": "History"
     },
     {
-      "id": "404c8872b2458485",
-      "question": "True or False: The Kingdom of Portugal established official colonial territory in mainland North America.",
-      "answer": "False (Portugal's primary American empire was concentrated in South America, namely Brazil)",
-      "category": "History"
-    },
-    {
       "id": "d5c1cc98bf9ffbad",
       "question": "How many women joined the United States Armed Services during World War II?",
       "answer": "350,000",
@@ -8280,12 +7056,6 @@
       "id": "9bac0672fa821855",
       "question": "What did the abbreviation \"RMS\" stand for in the RMS Titanic in 1912?",
       "answer": "Royal Mail Ship",
-      "category": "History"
-    },
-    {
-      "id": "7bedfbea2348b3d5",
-      "question": "True or False: Afghanistan was ever incorporated as a constituent Soviet Socialist Republic of the USSR.",
-      "answer": "False",
       "category": "History"
     },
     {
@@ -8346,12 +7116,6 @@
       "id": "6459b8624aee4d9e",
       "question": "In which Danish municipality adjacent to the Lego company headquarters was the original Legoland theme park opened in 1968?",
       "answer": "Billund, Denmark",
-      "category": "History"
-    },
-    {
-      "id": "859c8a7af690ca46",
-      "question": "True or False: Theoretical physicist Murray Gell-Mann worked on the Manhattan Project during World War II.",
-      "answer": "False (Gell-Mann was born in 1929 and was only 15 in 1945; he proposed quarks in 1964)",
       "category": "History"
     },
     {
@@ -8584,7 +7348,7 @@
     },
     {
       "id": "5442c362b5de6094",
-      "question": "The minigun was designed in 1960 by which manufacturer.",
+      "question": "Which company designed and manufactured the M134 Minigun in 1960?",
       "answer": "General Electric",
       "category": "History"
     },
@@ -8634,12 +7398,6 @@
       "id": "46fa3a867e260d1c",
       "question": "In 1453, which important city fell?",
       "answer": "Constantinople",
-      "category": "History"
-    },
-    {
-      "id": "761a311b56c8cc89",
-      "question": "What year was the first Pizza Hut restaurant opened?",
-      "answer": "1958",
       "category": "History"
     },
     {
@@ -8799,12 +7557,6 @@
       "category": "History"
     },
     {
-      "id": "dbcfafd110b0f2cc",
-      "question": "True or False: Assyrian monarch Shamshi-Adad III reigned during the Neo-Assyrian Empire period.",
-      "answer": "False (Shamshi-Adad III reigned during the Old Assyrian period around the 16th century BC)",
-      "category": "History"
-    },
-    {
       "id": "70bb5085b0f0a18a",
       "question": "When did Jamaica receive its independence from England?",
       "answer": "1962",
@@ -8898,12 +7650,6 @@
       "id": "e66d6e5e01080a14",
       "question": "Which famous military commander marched an army, which included war elephants, over the Alps during the Second Punic War?",
       "answer": "Hannibal",
-      "category": "History"
-    },
-    {
-      "id": "951c08707e80d721",
-      "question": "True or False: The Vistula–Oder Offensive was officially counted among \"Stalin's Ten Blows\" of 1944.",
-      "answer": "False (The Vistula–Oder operation took place in January 1945, after the ten blows of 1944)",
       "category": "History"
     },
     {
@@ -9102,12 +7848,6 @@
       "id": "9a81b12aa8d613da",
       "question": "The creator of the Enigma Cypher and Machine was of what nationality?",
       "answer": "German",
-      "category": "History"
-    },
-    {
-      "id": "15540d79e4f605da",
-      "question": "True or False: Polymath Sir Isaac Newton held the post of Surveyor to the City of London after the Great Fire.",
-      "answer": "False (The post was held by polymath Robert Hooke; Newton served as Master of the Royal Mint)",
       "category": "History"
     },
     {
@@ -9310,7 +8050,7 @@
     },
     {
       "id": "4a86a24dd14697c8",
-      "question": "In which year was Nelson Mandela released from prison",
+      "question": "In which year was Nelson Mandela released from Victor Verster Prison?",
       "answer": "1990",
       "category": "History"
     },
@@ -9328,7 +8068,7 @@
     },
     {
       "id": "9f799564110041ee",
-      "question": "Who was the leader of the Communist Party of Yugoslavia ?",
+      "question": "Who served as the paramount leader of Yugoslavia from 1944 until his death in 1980?",
       "answer": "Josip Broz Tito",
       "category": "History"
     },
@@ -9363,12 +8103,6 @@
       "category": "History"
     },
     {
-      "id": "ef178378beded042",
-      "question": "In which country was the Statue of Liberty built and exported to the United States of America?",
-      "answer": "France",
-      "category": "History"
-    },
-    {
       "id": "c83152a8be16e5fe",
       "question": "Pianist Frédéric Chopin was a composer of which musical era?",
       "answer": "Romantic",
@@ -9387,21 +8121,9 @@
       "category": "History"
     },
     {
-      "id": "910fe68d0eae897d",
-      "question": "True or False: Zhai (翟) was one of the seven dominant major powers known as the Seven Warring States of ancient China.",
-      "answer": "False (The Seven Warring States were Qin, Chu, Zhao, Wei, Han, Yan, and Qi)",
-      "category": "History"
-    },
-    {
       "id": "8f7b51137a21013e",
       "question": "In what year did the First World War end?",
       "answer": "1918",
-      "category": "History"
-    },
-    {
-      "id": "20af825401eb4f46",
-      "question": "True or False: The Soviet Union fought as one of the Axis powers in World War II.",
-      "answer": "False (The USSR was one of the Big Three leading the Allied coalition against the Axis)",
       "category": "History"
     },
     {
@@ -9447,12 +8169,6 @@
       "category": "History"
     },
     {
-      "id": "8a0f0c83475ac35a",
-      "question": "Which Nazi General was known as the \"Desert Fox\"?",
-      "answer": "Erwin Rommel",
-      "category": "History"
-    },
-    {
       "id": "dcdb1b2de95d5c00",
       "question": "What battle was the longest in World War I, lasting approximately 303 days?",
       "answer": "Battle of Verdun",
@@ -9462,12 +8178,6 @@
       "id": "5919e763795591ce",
       "question": "When did the United States formally declare war on Japan, entering World War II?",
       "answer": "December 8, 1941",
-      "category": "History"
-    },
-    {
-      "id": "fda6b95352036435",
-      "question": "True or False: The RMS Titanic was fitted with a designated \"fainting room\" on its upper promenade decks.",
-      "answer": "False",
       "category": "History"
     },
     {
@@ -9526,7 +8236,7 @@
     },
     {
       "id": "9c6707d79ec45332",
-      "question": "In relation to the British Occupation in Ireland, what does the IRA stand for.",
+      "question": "In Irish history, what does the paramilitary acronym IRA stand for?",
       "answer": "Irish Republican Army",
       "category": "History"
     },
@@ -9718,7 +8428,7 @@
     },
     {
       "id": "e6342db07da131e6",
-      "question": "The largest consumer market in 2015 was...",
+      "question": "Which country was the world's largest consumer market in 2015?",
       "answer": "The United States of America",
       "category": "Politics & Society"
     },
@@ -9726,12 +8436,6 @@
       "id": "f61c5d073a5419d3",
       "question": "Who is the only US president to serve two non-consecutive terms in office?",
       "answer": "Grover Cleveland",
-      "category": "Politics & Society"
-    },
-    {
-      "id": "90380895c7d4ac05",
-      "question": "Who was the British Prime Minister at the outbreak of the Second World War?",
-      "answer": "Neville Chamberlain",
       "category": "Politics & Society"
     },
     {
@@ -9750,12 +8454,6 @@
       "id": "e3cf5941496bd90b",
       "question": "Who was the only president to not be in office in Washington D.C?",
       "answer": "George Washington",
-      "category": "Politics & Society"
-    },
-    {
-      "id": "af4148f19c9cb938",
-      "question": "The 2014 movie \"The Raid 2: Berandal\" was mainly filmed in which Asian country?",
-      "answer": "Indonesia",
       "category": "Politics & Society"
     },
     {
@@ -9934,7 +8632,7 @@
     },
     {
       "id": "7d4638ffc346a03f",
-      "question": "\"Yes, America Can!\" was this United States politician's de facto campaign slogan in 2004.",
+      "question": "Which U.S. presidential candidate used the campaign slogan \"Yes, America Can!\" in 2004?",
       "answer": "George W. Bush",
       "category": "Politics & Society"
     },
@@ -9942,12 +8640,6 @@
       "id": "2727242b05633ee8",
       "question": "What is centralism?",
       "answer": "Concentration of power and authority in a central organization.",
-      "category": "Politics & Society"
-    },
-    {
-      "id": "a2c7ce5e963844c7",
-      "question": "True or False: Julius is the name of one of Donald Trump's children.",
-      "answer": "False (Donald Trump's five children are Donald Jr., Ivanka, Eric, Tiffany, and Barron)",
       "category": "Politics & Society"
     },
     {
@@ -9999,12 +8691,6 @@
       "category": "Art & Architecture"
     },
     {
-      "id": "0566dc34eaa1c776",
-      "question": "True or False: The color green is featured on the canvas grid of Piet Mondrian's 1943 painting \"Broadway Boogie-Woogie\".",
-      "answer": "False (Mondrian strictly employed the primary colors red, blue, and yellow with white and grey)",
-      "category": "Art & Architecture"
-    },
-    {
       "id": "18f6463c52ebd5aa",
       "question": "Who painted the epic mural Guernica?",
       "answer": "Pablo Picasso",
@@ -10041,12 +8727,6 @@
       "category": "Art & Architecture"
     },
     {
-      "id": "38fdf01ae896854d",
-      "question": "True or False: The celebrated maritime painting \"The Ninth Wave\" was created by Dutch post-impressionist Vincent van Gogh.",
-      "answer": "False (It was painted by Russian maritime master Ivan Aivazovsky in 1850)",
-      "category": "Art & Architecture"
-    },
-    {
       "id": "7ec8db0cd90d84db",
       "question": "What French sculptor designed the Statue of Liberty?",
       "answer": "Frédéric Auguste Bartholdi",
@@ -10066,7 +8746,7 @@
     },
     {
       "id": "b33a9b84c2b1a119",
-      "question": "Albrecht Dürer's birthplace and place of death were in...",
+      "question": "In which German city was Renaissance artist Albrecht Dürer born and buried?",
       "answer": "Nürnberg",
       "category": "Art & Architecture"
     },
@@ -10131,12 +8811,6 @@
       "category": "Art & Architecture"
     },
     {
-      "id": "49227b031b6e5480",
-      "question": "True or False: The dramatic seascape \"The Black Sea\" was painted by German Romantic landscape master Caspar David Friedrich.",
-      "answer": "False (It was painted by Russian-Armenian maritime master Ivan Aivazovsky)",
-      "category": "Art & Architecture"
-    },
-    {
       "id": "3ad7ac904728e6fd",
       "question": "What nationality was the famous artist Pablo Picasso?",
       "answer": "Spanish",
@@ -10149,14 +8823,8 @@
       "category": "Art & Architecture"
     },
     {
-      "id": "b27d2ad3a2e025bb",
-      "question": "True or False: \"Kobicha\" is recognized as a traditional variation shade of the color purple.",
-      "answer": "False (Kobicha is one of the traditional Japanese colors representing kelp/tea brown)",
-      "category": "Art & Architecture"
-    },
-    {
       "id": "3cc65c9cd94cc1a5",
-      "question": "Which time signature is commonly known as “Cut Time?”",
+      "question": "Which time signature is commonly known as cut time?",
       "answer": "2/2",
       "category": "Art & Architecture"
     },
@@ -10164,12 +8832,6 @@
       "id": "c3bcaca7b8848e7f",
       "question": "What is the name of the Japanese art of folding paper into decorative shapes and figures?",
       "answer": "Origami",
-      "category": "Art & Architecture"
-    },
-    {
-      "id": "55d4f8948178820a",
-      "question": "Who painted \"The Starry Night\"?",
-      "answer": "Vincent van Gogh",
       "category": "Art & Architecture"
     },
     {
@@ -10212,12 +8874,6 @@
       "id": "e06e84cc6faf6d8d",
       "question": "The painting \"The Starry Night\" by Vincent van Gogh was part of which art movement?",
       "answer": "Post-Impressionism",
-      "category": "Art & Architecture"
-    },
-    {
-      "id": "ce652247cc3fd492",
-      "question": "True or False: Dutch golden age painter Johannes Vermeer painted the famous baroque masterpiece \"Bacchus\".",
-      "answer": "False (It was painted by Italian master Caravaggio)",
       "category": "Art & Architecture"
     },
     {
@@ -10279,12 +8935,6 @@
       "question": "What is the world's oldest known piece of fiction?",
       "answer": "Epic of Gilgamesh",
       "category": "Art & Architecture"
-    },
-    {
-      "id": "f66dc09a00d398b1",
-      "question": "True or False: The Komodo dragon is an extinct reptile species.",
-      "answer": "False (It is an extant monitor lizard native to Indonesian islands)",
-      "category": "Science & Nature"
     },
     {
       "id": "ea8c80f325fb5943",
@@ -10431,12 +9081,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "0e79271f41a27565",
-      "question": "True or False: The tuatara of New Zealand is classified by herpetologists as a lizard.",
-      "answer": "False (The tuatara belongs to Rhynchocephalia, an ancient reptile order separate from squamate lizards)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "505d88b023d27eb0",
       "question": "What is the national bird of Bahrain?",
       "answer": "Bulbul",
@@ -10452,12 +9096,6 @@
       "id": "b30f4d4601f7f248",
       "question": "How many known living species of hyenas are there?",
       "answer": "4",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "fb938c10415eddb6",
-      "question": "True or False: The Syrian brown bear subspecies is completely extinct.",
-      "answer": "False (It remains an extant endangered subspecies in the Caucasus and parts of the Middle East)",
       "category": "Science & Nature"
     },
     {
@@ -10492,7 +9130,7 @@
     },
     {
       "id": "7015dc03a22d8402",
-      "question": "Which dog breed is named after a region in Croatia",
+      "question": "Which dog breed takes its name from the historical Adriatic region of Dalmatia in Croatia?",
       "answer": "Dalmatian",
       "category": "Science & Nature"
     },
@@ -10518,12 +9156,6 @@
       "id": "3d25623fe48c0494",
       "question": "What is the average lifespan of a domestic rabbit?",
       "answer": "8-12 years",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "6174ac7389d94642",
-      "question": "True or False: The reticulated python is a venomous snake species.",
-      "answer": "False (It is a non-venomous constrictor snake)",
       "category": "Science & Nature"
     },
     {
@@ -10594,14 +9226,8 @@
     },
     {
       "id": "c06c0b15b3569088",
-      "question": "What dog breed is one of the oldest breeds of dog and has flourished since before 400 BCE.",
+      "question": "Which wrinkled, short-muzzled dog breed originated in ancient China around 400 BCE?",
       "answer": "Pugs",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "6ab5e1f93b2480dd",
-      "question": "True or False: Krill are classified within the crustacean order Decapoda (ten-footed crustaceans).",
-      "answer": "False (Krill comprise the distinct order Euphausiacea; crabs, lobsters, and shrimp are decapods)",
       "category": "Science & Nature"
     },
     {
@@ -10641,12 +9267,6 @@
       "category": "Science & Nature"
     },
     {
-      "id": "a9ebd55c6925e995",
-      "question": "True or False: The Nemean Lion was a real, historically cataloged biological species of lion in ancient Greece.",
-      "answer": "False (It was a mythological monster in Greek legend slain by Heracles)",
-      "category": "Science & Nature"
-    },
-    {
       "id": "16db00af4f2886e6",
       "question": "What bird is born with claws on its wing digits?",
       "answer": "Hoatzin",
@@ -10680,12 +9300,6 @@
       "id": "13b8b30351bdde68",
       "question": "What is the name for a male bee that comes from an unfertilized egg?",
       "answer": "Drone",
-      "category": "Science & Nature"
-    },
-    {
-      "id": "92872f078ee7e6de",
-      "question": "What is Grumpy Cat's real name?",
-      "answer": "Tardar Sauce",
       "category": "Science & Nature"
     },
     {
