@@ -3,7 +3,7 @@ import {
     get_all_own_cards,
     get_today_date,
     get_utc_now
-} from "./localdb.js";
+} from "../models/localdb.js";
 
 const max_file_size = 1024 * 1024;
 const max_own_cards = 5000;

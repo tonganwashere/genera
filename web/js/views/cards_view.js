@@ -7,7 +7,7 @@ import {
     get_all_progress_rows,
     get_all_categories,
     set_card_hidden
-} from "./localdb.js";
+} from "../models/localdb.js";
 
 let current_filter = "all";
 let current_category = "all";
@@ -311,33 +311,7 @@ export async function render_cards_view(on_change) {
     }
 }
 
-export function setup_cards_listeners(on_change) {
-    const search_input = document.getElementById("cards-search-input");
-    if (search_input) {
-        search_input.addEventListener("input", (e) => {
-            current_search = e.target.value.trim();
-            current_page = 1;
-            render_cards_view(on_change);
-        });
-    }
-
-    const filter_buttons = document.querySelectorAll(".filter-btn");
-    filter_buttons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            filter_buttons.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            current_filter = btn.dataset.filter;
-            current_page = 1;
-            render_cards_view(on_change);
-        });
-    });
-
-    const category_select = document.getElementById("cards-category-select");
-    if (category_select) {
-        category_select.addEventListener("change", (e) => {
-            current_category = e.target.value;
-            current_page = 1;
-            render_cards_view(on_change);
-        });
-    }
-}
+export function set_cards_filter(val) { current_filter = val; }
+export function set_cards_category(val) { current_category = val; }
+export function set_cards_search(val) { current_search = val; }
+export function set_cards_page(val) { current_page = val; }

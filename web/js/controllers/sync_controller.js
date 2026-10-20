@@ -11,7 +11,7 @@ import {
     merge_local_into_account,
     clear_account_local_data,
     load_catalog_if_needed
-} from "./localdb.js";
+} from "../models/localdb.js";
 
 let is_syncing = false;
 let last_sync_error = null;

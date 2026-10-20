@@ -11,9 +11,10 @@ def send_otp_email(recipient_email, otp_code):
             msg["Subject"] = "Genera Password Reset Code"
             msg["From"] = config.SMTP_FROM
             msg["To"] = recipient_email
+            clean_pass = config.SMTP_PASSWORD.replace(" ", "")
             with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=10) as server:
                 server.starttls(context=ssl.create_default_context())
-                server.login(config.SMTP_USER, config.SMTP_PASSWORD)
+                server.login(config.SMTP_USER, clean_pass)
                 server.sendmail(config.SMTP_FROM, [recipient_email], msg.as_string())
         except Exception as err:
             print(f"[SMTP ERROR] Failed to send OTP to {recipient_email}: {err}", flush=True)
@@ -28,9 +29,10 @@ def send_verification_email(recipient_email, otp_code):
             msg["Subject"] = "Genera Email Verification Code"
             msg["From"] = config.SMTP_FROM
             msg["To"] = recipient_email
+            clean_pass = config.SMTP_PASSWORD.replace(" ", "")
             with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=10) as server:
                 server.starttls(context=ssl.create_default_context())
-                server.login(config.SMTP_USER, config.SMTP_PASSWORD)
+                server.login(config.SMTP_USER, clean_pass)
                 server.sendmail(config.SMTP_FROM, [recipient_email], msg.as_string())
         except Exception as err:
             print(f"[SMTP ERROR] Failed to send verification to {recipient_email}: {err}", flush=True)

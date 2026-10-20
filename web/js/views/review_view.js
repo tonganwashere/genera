@@ -1,45 +1,13 @@
-import { build_session, count_session_cards } from "./session.js";
-import { schedule_card } from "./scheduler.js";
+import { count_session_cards } from "../models/session.js";
 import {
-    save_progress_row,
     get_today_date,
     get_all_catalog_cards,
     get_all_own_cards,
     get_all_progress_rows,
     get_user_settings
-} from "./localdb.js";
+} from "../models/localdb.js";
 
-let current_session = [];
-let current_card_index = 0;
-let is_flipped = false;
-let session_stats = { right: 0, wrong: 0 };
-let current_mode = "everything";
-let is_session_active = false;
-let is_rating = false;
-let session_update_callback = null;
-
-export function init_review_view(on_update) {
-    session_update_callback = on_update;
-    setup_keyboard_shortcuts();
-    render_review_view();
-}
-
-export async function render_review_view() {
-    const container = document.getElementById("review-container");
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (!is_session_active) {
-        await render_start_screen(container);
-    } else if (current_card_index >= current_session.length) {
-        render_finished_screen(container);
-    } else {
-        render_active_card(container);
-    }
-}
-
-async function render_start_screen(container) {
+export async function create_start_screen({ current_mode, on_mode_change, on_start }) {
     const start_card = document.createElement("div");
     start_card.className = "review-start-card";
 
@@ -61,7 +29,7 @@ async function render_start_screen(container) {
     opt_all_radio.value = "everything";
     opt_all_radio.checked = current_mode === "everything";
     opt_all_radio.addEventListener("change", () => {
-        current_mode = "everything";
+        if (on_mode_change) on_mode_change("everything");
     });
     opt_all_label.appendChild(opt_all_radio);
     opt_all_label.appendChild(document.createTextNode("Everything (Official + Mine)"));
@@ -74,7 +42,7 @@ async function render_start_screen(container) {
     opt_mine_radio.value = "only_mine";
     opt_mine_radio.checked = current_mode === "only_mine";
     opt_mine_radio.addEventListener("change", () => {
-        current_mode = "only_mine";
+        if (on_mode_change) on_mode_change("only_mine");
     });
     opt_mine_label.appendChild(opt_mine_radio);
     opt_mine_label.appendChild(document.createTextNode("Only my cards"));
@@ -105,8 +73,7 @@ async function render_start_screen(container) {
         empty_p.textContent = "Your collection has no cards available for review. Check back once catalog is loaded or add your own cards in the Cards tab.";
         empty_card.appendChild(empty_title);
         empty_card.appendChild(empty_p);
-        container.appendChild(empty_card);
-        return;
+        return empty_card;
     }
 
     const eligible_count = counts.due_count + counts.new_left_count + counts.unseen_own_count;
@@ -119,8 +86,7 @@ async function render_start_screen(container) {
         empty_p.textContent = "No cards are due for review right now, and you have reached your daily limit for new cards. Check back tomorrow!";
         empty_card.appendChild(empty_title);
         empty_card.appendChild(empty_p);
-        container.appendChild(empty_card);
-        return;
+        return empty_card;
     }
 
     const info_p = document.createElement("p");
@@ -132,22 +98,7 @@ async function render_start_screen(container) {
     start_btn.className = "btn btn-primary";
     start_btn.textContent = "Start Review";
     start_btn.addEventListener("click", async () => {
-        start_btn.disabled = true;
-        start_btn.textContent = "Building session...";
-        const session = await build_session({ mode: current_mode, today: get_today_date() });
-        if (session.length === 0) {
-            alert("No cards due or eligible for review right now!");
-            start_btn.disabled = false;
-            start_btn.textContent = "Start Review";
-            return;
-        }
-
-        current_session = session;
-        current_card_index = 0;
-        is_flipped = false;
-        session_stats = { right: 0, wrong: 0 };
-        is_session_active = true;
-        render_review_view();
+        if (on_start) await on_start(start_btn);
     });
 
     start_card.appendChild(title);
@@ -155,11 +106,11 @@ async function render_start_screen(container) {
     start_card.appendChild(options_div);
     start_card.appendChild(info_p);
     start_card.appendChild(start_btn);
-    container.appendChild(start_card);
+    return start_card;
 }
 
-function render_active_card(container) {
-    const card = current_session[current_card_index];
+export function create_active_card_elements({ card, index, total, is_flipped, on_quit, on_flip, on_rate }) {
+    const fragment = document.createDocumentFragment();
 
     const header = document.createElement("div");
     header.className = "review-header";
@@ -184,24 +135,19 @@ function render_active_card(container) {
 
     const progress_indicator = document.createElement("div");
     progress_indicator.className = "review-progress-text";
-    progress_indicator.textContent = `${current_card_index + 1} of ${current_session.length}`;
+    progress_indicator.textContent = `${index + 1} of ${total}`;
 
     const quit_btn = document.createElement("button");
     quit_btn.className = "btn btn-sm";
     quit_btn.textContent = "Quit";
     quit_btn.addEventListener("click", () => {
-        if (confirm("Quit review session? Cards already answered will remain saved.")) {
-            is_session_active = false;
-            current_session = [];
-            render_review_view();
-            if (session_update_callback) session_update_callback();
-        }
+        if (on_quit) on_quit();
     });
 
     header.appendChild(badges);
     header.appendChild(progress_indicator);
     header.appendChild(quit_btn);
-    container.appendChild(header);
+    fragment.appendChild(header);
 
     const scene = document.createElement("div");
     scene.className = "flashcard-scene";
@@ -244,34 +190,80 @@ function render_active_card(container) {
     flashcard.appendChild(front);
     flashcard.appendChild(back);
     scene.appendChild(flashcard);
-    container.appendChild(scene);
+    fragment.appendChild(scene);
 
     const actions_bar = document.createElement("div");
     actions_bar.id = "review-actions-bar";
     actions_bar.className = "review-actions-bar";
-    render_actions_bar(actions_bar);
-    container.appendChild(actions_bar);
+    render_actions_bar_content(actions_bar, is_flipped, on_flip, on_rate);
+    fragment.appendChild(actions_bar);
 
     flashcard.addEventListener("click", () => {
-        toggle_flip();
+        if (on_flip) on_flip();
     });
 
     flashcard.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            toggle_flip();
+            if (on_flip) on_flip();
         }
     });
+
+    return fragment;
 }
 
-function render_finished_screen(container) {
+export function render_actions_bar_content(actions_bar, is_flipped, on_flip, on_rate) {
+    actions_bar.innerHTML = "";
+
+    if (!is_flipped) {
+        const flip_btn = document.createElement("button");
+        flip_btn.id = "btn-flip-card";
+        flip_btn.className = "btn btn-primary";
+        flip_btn.textContent = "Flip (Space)";
+        flip_btn.addEventListener("click", () => {
+            if (on_flip) on_flip();
+        });
+        actions_bar.appendChild(flip_btn);
+    } else {
+        const wrong_btn = document.createElement("button");
+        wrong_btn.id = "btn-rate-wrong";
+        wrong_btn.className = "btn btn-danger";
+        wrong_btn.textContent = "Wrong (1)";
+        wrong_btn.addEventListener("click", async () => {
+            if (on_rate) await on_rate(false);
+        });
+
+        const right_btn = document.createElement("button");
+        right_btn.id = "btn-rate-right";
+        right_btn.className = "btn btn-success";
+        right_btn.textContent = "Right (2)";
+        right_btn.addEventListener("click", async () => {
+            if (on_rate) await on_rate(true);
+        });
+
+        const flip_back_btn = document.createElement("button");
+        flip_back_btn.id = "btn-flip-back";
+        flip_back_btn.className = "btn";
+        flip_back_btn.textContent = "Flip Back";
+        flip_back_btn.title = "Flip back to question";
+        flip_back_btn.addEventListener("click", () => {
+            if (on_flip) on_flip();
+        });
+
+        actions_bar.appendChild(wrong_btn);
+        actions_bar.appendChild(right_btn);
+        actions_bar.appendChild(flip_back_btn);
+    }
+}
+
+export function create_finished_screen({ stats, on_done }) {
     const finished_card = document.createElement("div");
     finished_card.className = "review-finished-card";
 
     const title = document.createElement("h2");
     title.textContent = "Session Complete!";
 
-    const total_reviewed = session_stats.right + session_stats.wrong;
+    const total_reviewed = stats.right + stats.wrong;
     const msg = document.createElement("p");
     msg.className = "card-answer";
     msg.textContent = `You reviewed ${total_reviewed} card(s).`;
@@ -282,12 +274,12 @@ function render_finished_screen(container) {
     const right_stat = document.createElement("span");
     right_stat.style.color = "var(--color-green)";
     right_stat.style.fontWeight = "600";
-    right_stat.textContent = `✓ ${session_stats.right} Right`;
+    right_stat.textContent = `✓ ${stats.right} Right`;
 
     const wrong_stat = document.createElement("span");
     wrong_stat.style.color = "var(--color-red)";
     wrong_stat.style.fontWeight = "600";
-    wrong_stat.textContent = `✗ ${session_stats.wrong} Wrong`;
+    wrong_stat.textContent = `✗ ${stats.wrong} Wrong`;
 
     stats_row.appendChild(right_stat);
     stats_row.appendChild(wrong_stat);
@@ -296,135 +288,12 @@ function render_finished_screen(container) {
     action_btn.className = "btn btn-primary";
     action_btn.textContent = "Done";
     action_btn.addEventListener("click", () => {
-        is_session_active = false;
-        current_session = [];
-        render_review_view();
-        if (session_update_callback) session_update_callback();
+        if (on_done) on_done();
     });
 
     finished_card.appendChild(title);
     finished_card.appendChild(msg);
     finished_card.appendChild(stats_row);
     finished_card.appendChild(action_btn);
-    container.appendChild(finished_card);
-}
-
-function render_actions_bar(actions_bar) {
-    actions_bar.innerHTML = "";
-
-    if (!is_flipped) {
-        const flip_btn = document.createElement("button");
-        flip_btn.id = "btn-flip-card";
-        flip_btn.className = "btn btn-primary";
-        flip_btn.textContent = "Flip (Space)";
-        flip_btn.addEventListener("click", () => {
-            toggle_flip();
-        });
-        actions_bar.appendChild(flip_btn);
-    } else {
-        const wrong_btn = document.createElement("button");
-        wrong_btn.id = "btn-rate-wrong";
-        wrong_btn.className = "btn btn-danger";
-        wrong_btn.textContent = "Wrong (1)";
-        wrong_btn.addEventListener("click", async () => {
-            await rate_card(false);
-        });
-
-        const right_btn = document.createElement("button");
-        right_btn.id = "btn-rate-right";
-        right_btn.className = "btn btn-success";
-        right_btn.textContent = "Right (2)";
-        right_btn.addEventListener("click", async () => {
-            await rate_card(true);
-        });
-
-        const flip_back_btn = document.createElement("button");
-        flip_back_btn.id = "btn-flip-back";
-        flip_back_btn.className = "btn";
-        flip_back_btn.textContent = "Flip Back";
-        flip_back_btn.title = "Flip back to question";
-        flip_back_btn.addEventListener("click", () => {
-            toggle_flip();
-        });
-
-        actions_bar.appendChild(wrong_btn);
-        actions_bar.appendChild(right_btn);
-        actions_bar.appendChild(flip_back_btn);
-    }
-}
-
-function toggle_flip() {
-    if (!is_session_active) return;
-    is_flipped = !is_flipped;
-
-    const flashcard = document.getElementById("active-flashcard");
-    if (flashcard) {
-        flashcard.classList.toggle("flipped", is_flipped);
-    }
-
-    const actions_bar = document.getElementById("review-actions-bar");
-    if (actions_bar) {
-        render_actions_bar(actions_bar);
-    }
-}
-
-async function rate_card(was_correct) {
-    if (!is_session_active || !is_flipped || is_rating) return;
-    is_rating = true;
-
-    try {
-        const card = current_session[current_card_index];
-        const today = get_today_date();
-
-        const progress_input = card.progress || {
-            card_kind: card.card_kind,
-            card_id: card.card_id,
-            box: 1,
-            times_right: 0,
-            times_wrong: 0,
-            hidden: 0
-        };
-
-        const updated = schedule_card(progress_input, was_correct, today);
-        await save_progress_row(updated);
-
-        if (was_correct) {
-            session_stats.right += 1;
-        } else {
-            session_stats.wrong += 1;
-        }
-
-        current_card_index += 1;
-        is_flipped = false;
-
-        render_review_view();
-        if (session_update_callback) session_update_callback();
-    } finally {
-        is_rating = false;
-    }
-}
-
-function setup_keyboard_shortcuts() {
-    window.addEventListener("keydown", (e) => {
-        const review_panel = document.getElementById("tab-review");
-        if (!review_panel || review_panel.hidden) return;
-        if (!is_session_active) return;
-        if (current_card_index >= current_session.length) return;
-
-        const tag = e.target.tagName;
-        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
-
-        if (e.code === "Space" || e.key === " ") {
-            e.preventDefault();
-            toggle_flip();
-        } else if (is_flipped) {
-            if (e.key === "1") {
-                e.preventDefault();
-                rate_card(false);
-            } else if (e.key === "2") {
-                e.preventDefault();
-                rate_card(true);
-            }
-        }
-    });
+    return finished_card;
 }

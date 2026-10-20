@@ -1,8 +1,8 @@
 import os
 from flask import Flask, send_from_directory
 from server import config, db
-from server.auth import auth_bp
-from server.sync import sync_bp
+from server.controllers.auth_controller import auth_bp
+from server.controllers.sync_controller import sync_bp
 
 app = Flask(__name__, static_folder="../web", static_url_path="")
 app.config["SECRET_KEY"] = config.SECRET_KEY
@@ -23,4 +23,4 @@ def index():
     return send_from_directory(app.static_folder, "index.html")
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=not is_prod)

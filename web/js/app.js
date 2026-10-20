@@ -8,14 +8,17 @@ import {
     get_meta,
     set_meta,
     load_catalog_if_needed
-} from "./localdb.js";
-import { open_add_modal, populate_category_dropdown, render_cards_view, setup_cards_listeners } from "./cards.js";
-import { process_import_file } from "./importer.js";
-import { init_review_view, render_review_view } from "./review.js";
-import { init_settings_view, render_settings_view, render_account_section } from "./settings.js";
-import { count_session_cards } from "./session.js";
-import { init_sync_engine, update_sync_status_ui, sync_now } from "./sync.js";
-import { init_theme } from "./theme.js";
+} from "./models/localdb.js";
+import { count_session_cards } from "./models/session.js";
+import { open_add_modal, populate_category_dropdown, render_cards_view } from "./views/cards_view.js";
+import { setup_cards_listeners } from "./controllers/cards_controller.js";
+import { render_review_view } from "./views/review_view.js";
+import { init_review_view } from "./controllers/review_controller.js";
+import { render_settings_view, render_account_section } from "./views/settings_view.js";
+import { init_settings_view } from "./controllers/settings_controller.js";
+import { init_sync_engine, update_sync_status_ui, sync_now } from "./controllers/sync_controller.js";
+import { process_import_file } from "./controllers/import_controller.js";
+import { init_theme } from "./controllers/theme_controller.js";
 
 const tabs = document.querySelectorAll(".tab-btn");
 const panels = document.querySelectorAll(".tab-panel");

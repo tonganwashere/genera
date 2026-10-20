@@ -1,4 +1,4 @@
-const cache_name = "genera-v15";
+const cache_name = "genera-v17";
 
 const app_shell_assets = [
   "/",
@@ -9,18 +9,21 @@ const app_shell_assets = [
   "/icons/apple-touch-icon.png",
   "/icons/android-chrome-192x192.png",
   "/icons/android-chrome-512x512.png",
-  "/site.webmanifest",
+  "/icons/site.webmanifest",
   "/css/style.css",
   "/js/app.js",
-  "/js/cards.js",
-  "/js/importer.js",
-  "/js/localdb.js",
-  "/js/review.js",
-  "/js/scheduler.js",
-  "/js/session.js",
-  "/js/settings.js",
-  "/js/sync.js",
-  "/js/theme.js",
+  "/js/models/localdb.js",
+  "/js/models/scheduler.js",
+  "/js/models/session.js",
+  "/js/views/cards_view.js",
+  "/js/views/review_view.js",
+  "/js/views/settings_view.js",
+  "/js/controllers/cards_controller.js",
+  "/js/controllers/import_controller.js",
+  "/js/controllers/review_controller.js",
+  "/js/controllers/settings_controller.js",
+  "/js/controllers/sync_controller.js",
+  "/js/controllers/theme_controller.js",
   "/data/catalog.json",
   "/data/catalog-manifest.json"
 ];
