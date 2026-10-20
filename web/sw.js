@@ -1,4 +1,4 @@
-const cache_name = "genera-v23";
+const cache_name = "genera-v25";
 
 const app_shell_assets = [
   "/",

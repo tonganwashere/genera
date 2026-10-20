@@ -19,6 +19,20 @@ import { init_sync_engine, update_sync_status_ui, sync_now } from "./controllers
 import { process_import_file } from "./controllers/import_controller.js";
 import { init_theme } from "./controllers/theme_controller.js";
 
+export function update_tab_indicator(active_btn, animate = true) {
+    const indicator = document.querySelector(".tab-indicator");
+    if (!indicator || !active_btn) return;
+    if (!animate) {
+        indicator.style.transition = "none";
+    } else {
+        indicator.style.transition = "";
+    }
+    indicator.style.transform = `translateX(${active_btn.offsetLeft}px)`;
+    indicator.style.width = `${active_btn.offsetWidth}px`;
+    indicator.style.height = `${active_btn.offsetHeight}px`;
+    indicator.style.top = `${active_btn.offsetTop}px`;
+}
+
 const tabs = document.querySelectorAll(".tab-btn");
 const panels = document.querySelectorAll(".tab-panel");
 
@@ -28,6 +42,7 @@ tabs.forEach((btn) => {
         panels.forEach((p) => (p.hidden = true));
 
         btn.classList.add("active");
+        update_tab_indicator(btn, true);
         const panel = document.getElementById(`tab-${btn.dataset.tab}`);
         if (panel) {
             panel.hidden = false;
@@ -43,6 +58,23 @@ tabs.forEach((btn) => {
         }
     });
 });
+
+const initial_active_tab = document.querySelector(".tab-btn.active");
+if (initial_active_tab) {
+    update_tab_indicator(initial_active_tab, false);
+}
+
+window.addEventListener("resize", () => {
+    const current = document.querySelector(".tab-btn.active");
+    if (current) update_tab_indicator(current, false);
+});
+
+if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+        const current = document.querySelector(".tab-btn.active");
+        if (current) update_tab_indicator(current, false);
+    });
+}
 
 const logo_btn = document.getElementById("brand-logo");
 if (logo_btn) {
