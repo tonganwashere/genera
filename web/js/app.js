@@ -81,6 +81,14 @@ if (modal_cancel_btn) {
     });
 }
 
+const modal_close_icon = document.getElementById("modal-close-icon");
+if (modal_close_icon) {
+    modal_close_icon.addEventListener("click", () => {
+        const modal = document.getElementById("card-modal");
+        if (modal) modal.close();
+    });
+}
+
 const import_card_btn = document.getElementById("btn-import-card");
 const import_file_input = document.getElementById("import-file-input");
 const import_modal = document.getElementById("import-modal");
@@ -121,6 +129,13 @@ if (import_file_input) {
 
 if (import_modal_close_btn && import_modal) {
     import_modal_close_btn.addEventListener("click", () => {
+        import_modal.close();
+    });
+}
+
+const import_modal_close_icon = document.getElementById("import-modal-close-icon");
+if (import_modal_close_icon && import_modal) {
+    import_modal_close_icon.addEventListener("click", () => {
         import_modal.close();
     });
 }

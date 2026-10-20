@@ -34,6 +34,7 @@ export async function render_review_view() {
             current_mode,
             on_mode_change: (mode) => {
                 current_mode = mode;
+                render_review_view();
             },
             on_start: async (btn) => {
                 btn.disabled = true;

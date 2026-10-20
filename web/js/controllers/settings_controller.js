@@ -127,11 +127,20 @@ function setup_account_listeners() {
     const auth_forgot_btn = document.getElementById("auth-forgot-btn");
     const auth_cancel_btn = document.getElementById("auth-cancel-btn");
     const auth_submit_btn = document.getElementById("auth-submit-btn");
+    const auth_segmented = document.getElementById("auth-segmented-control");
+    const auth_tab_login = document.getElementById("auth-tab-login");
+    const auth_tab_register = document.getElementById("auth-tab-register");
+    const auth_close_btn = document.getElementById("auth-close-btn");
+    const change_pass_close_icon = document.getElementById("change-pass-close-icon");
+    const verify_close_icon = document.getElementById("verify-email-close-icon");
+    const bind_close_icon = document.getElementById("bind-email-close-icon");
+    const delete_close_icon = document.getElementById("delete-account-close-icon");
 
     const open_login_btn = document.getElementById("btn-open-login");
     const open_register_btn = document.getElementById("btn-open-register");
     const sync_btn = document.getElementById("btn-account-sync");
     const logout_btn = document.getElementById("btn-account-logout");
+    const manage_btn = document.getElementById("btn-account-manage");
 
     const s_login_btn = document.getElementById("settings-btn-login");
     const s_register_btn = document.getElementById("settings-btn-register");
@@ -328,50 +337,68 @@ function setup_account_listeners() {
         });
 
         if (mode === "login") {
-            if (auth_title) auth_title.textContent = "Log In";
-            if (auth_user_group) auth_user_group.style.display = "block";
-            if (auth_user_label) auth_user_label.textContent = "Username or Email";
+            if (auth_title) auth_title.textContent = "Sign In";
+            if (auth_segmented) auth_segmented.hidden = false;
+            if (auth_tab_login) {
+                auth_tab_login.classList.add("active");
+                auth_tab_login.setAttribute("aria-selected", "true");
+            }
+            if (auth_tab_register) {
+                auth_tab_register.classList.remove("active");
+                auth_tab_register.setAttribute("aria-selected", "false");
+            }
+            if (auth_user_group) auth_user_group.hidden = false;
+            if (auth_user_label) auth_user_label.textContent = "Username or Gmail";
             if (auth_user_input) {
-                auth_user_input.placeholder = "Username or @gmail.com";
+                auth_user_input.placeholder = "Username or alex@gmail.com";
                 auth_user_input.required = true;
                 auth_user_input.value = "";
                 auth_user_input.autocomplete = "username";
             }
-            if (auth_email_group) auth_email_group.style.display = "none";
+            if (auth_email_group) auth_email_group.hidden = true;
             if (auth_email_input) {
                 auth_email_input.required = false;
                 auth_email_input.readOnly = false;
             }
-            if (auth_pass_group) auth_pass_group.style.display = "block";
+            if (auth_pass_group) auth_pass_group.hidden = false;
             if (auth_pass_input) {
                 auth_pass_input.required = true;
                 auth_pass_input.value = "";
                 auth_pass_input.autocomplete = "current-password";
             }
-            if (auth_confirm_group) auth_confirm_group.style.display = "none";
+            if (auth_forgot_btn) auth_forgot_btn.hidden = false;
+            if (auth_confirm_group) auth_confirm_group.hidden = true;
             if (auth_confirm_input) {
                 auth_confirm_input.required = false;
                 auth_confirm_input.value = "";
             }
-            if (auth_otp_group) auth_otp_group.style.display = "none";
+            if (auth_otp_group) auth_otp_group.hidden = true;
             if (auth_otp_input) {
                 auth_otp_input.required = false;
                 auth_otp_input.value = "";
             }
-            if (auth_new_pass_group) auth_new_pass_group.style.display = "none";
+            if (auth_new_pass_group) auth_new_pass_group.hidden = true;
             if (auth_new_pass_input) {
                 auth_new_pass_input.required = false;
                 auth_new_pass_input.value = "";
             }
             if (auth_toggle_btn) {
                 auth_toggle_btn.textContent = "Need an account? Register";
-                auth_toggle_btn.style.display = "block";
+                auth_toggle_btn.hidden = false;
             }
-            if (auth_forgot_btn) auth_forgot_btn.style.display = "block";
-            if (auth_submit_btn) auth_submit_btn.textContent = "Log In";
+            if (auth_submit_btn) auth_submit_btn.textContent = "Sign In";
         } else if (mode === "register") {
             if (auth_title) auth_title.textContent = "Create Account";
-            if (auth_user_group) auth_user_group.style.display = "block";
+            if (auth_segmented) auth_segmented.hidden = false;
+            if (auth_tab_register) {
+                auth_tab_register.classList.add("active");
+                auth_tab_register.setAttribute("aria-selected", "true");
+            }
+            if (auth_tab_login) {
+                auth_tab_login.classList.remove("active");
+                auth_tab_login.setAttribute("aria-selected", "false");
+            }
+            if (auth_user_group) auth_user_group.hidden = false;
             if (auth_user_label) auth_user_label.textContent = "Username";
             if (auth_user_input) {
                 auth_user_input.placeholder = "e.g. alex_trivia";
@@ -379,106 +406,130 @@ function setup_account_listeners() {
                 auth_user_input.value = "";
                 auth_user_input.autocomplete = "username";
             }
-            if (auth_email_group) auth_email_group.style.display = "block";
+            if (auth_email_group) auth_email_group.hidden = false;
             if (auth_email_input) {
                 auth_email_input.required = true;
                 auth_email_input.readOnly = false;
                 auth_email_input.value = "";
                 auth_email_input.autocomplete = "email";
             }
-            if (auth_pass_group) auth_pass_group.style.display = "block";
+            if (auth_pass_group) auth_pass_group.hidden = false;
             if (auth_pass_input) {
                 auth_pass_input.required = true;
                 auth_pass_input.value = "";
                 auth_pass_input.autocomplete = "new-password";
             }
-            if (auth_confirm_group) auth_confirm_group.style.display = "block";
+            if (auth_forgot_btn) auth_forgot_btn.hidden = true;
+            if (auth_confirm_group) auth_confirm_group.hidden = false;
             if (auth_confirm_input) {
                 auth_confirm_input.required = true;
                 auth_confirm_input.value = "";
                 auth_confirm_input.autocomplete = "new-password";
             }
-            if (auth_otp_group) auth_otp_group.style.display = "none";
+            if (auth_otp_group) auth_otp_group.hidden = true;
             if (auth_otp_input) {
                 auth_otp_input.required = false;
                 auth_otp_input.value = "";
             }
-            if (auth_new_pass_group) auth_new_pass_group.style.display = "none";
+            if (auth_new_pass_group) auth_new_pass_group.hidden = true;
             if (auth_new_pass_input) {
                 auth_new_pass_input.required = false;
                 auth_new_pass_input.value = "";
             }
             if (auth_toggle_btn) {
-                auth_toggle_btn.textContent = "Already have an account? Log In";
-                auth_toggle_btn.style.display = "block";
+                auth_toggle_btn.textContent = "Already have an account? Sign In";
+                auth_toggle_btn.hidden = false;
             }
-            if (auth_forgot_btn) auth_forgot_btn.style.display = "none";
-            if (auth_submit_btn) auth_submit_btn.textContent = "Register";
+            if (auth_submit_btn) auth_submit_btn.textContent = "Create Account";
         } else if (mode === "forgot_request") {
-            if (auth_title) auth_title.textContent = "Forgot Password";
-            if (auth_user_group) auth_user_group.style.display = "none";
+            if (auth_title) auth_title.textContent = "Reset Password";
+            if (auth_segmented) auth_segmented.hidden = true;
+            if (auth_user_group) auth_user_group.hidden = true;
             if (auth_user_input) auth_user_input.required = false;
-            if (auth_email_group) auth_email_group.style.display = "block";
+            if (auth_email_group) auth_email_group.hidden = false;
             if (auth_email_input) {
                 auth_email_input.required = true;
                 auth_email_input.readOnly = false;
                 auth_email_input.value = "";
                 auth_email_input.autocomplete = "email";
             }
-            if (auth_pass_group) auth_pass_group.style.display = "none";
+            if (auth_pass_group) auth_pass_group.hidden = true;
             if (auth_pass_input) auth_pass_input.required = false;
-            if (auth_confirm_group) auth_confirm_group.style.display = "none";
+            if (auth_forgot_btn) auth_forgot_btn.hidden = true;
+            if (auth_confirm_group) auth_confirm_group.hidden = true;
             if (auth_confirm_input) {
                 auth_confirm_input.required = false;
                 auth_confirm_input.value = "";
             }
-            if (auth_otp_group) auth_otp_group.style.display = "none";
+            if (auth_otp_group) auth_otp_group.hidden = true;
             if (auth_otp_input) auth_otp_input.required = false;
-            if (auth_new_pass_group) auth_new_pass_group.style.display = "none";
+            if (auth_new_pass_group) auth_new_pass_group.hidden = true;
             if (auth_new_pass_input) auth_new_pass_input.required = false;
             if (auth_toggle_btn) {
-                auth_toggle_btn.textContent = "Back to Log In";
-                auth_toggle_btn.style.display = "block";
+                auth_toggle_btn.textContent = "Back to Sign In";
+                auth_toggle_btn.hidden = false;
             }
-            if (auth_forgot_btn) auth_forgot_btn.style.display = "none";
             if (auth_submit_btn) auth_submit_btn.textContent = "Send Reset Code";
         } else if (mode === "forgot_verify") {
-            if (auth_title) auth_title.textContent = "Reset Password";
-            if (auth_user_group) auth_user_group.style.display = "none";
+            if (auth_title) auth_title.textContent = "Enter New Password";
+            if (auth_segmented) auth_segmented.hidden = true;
+            if (auth_user_group) auth_user_group.hidden = true;
             if (auth_user_input) auth_user_input.required = false;
-            if (auth_email_group) auth_email_group.style.display = "block";
+            if (auth_email_group) auth_email_group.hidden = false;
             if (auth_email_input) {
                 auth_email_input.required = true;
                 auth_email_input.readOnly = true;
             }
-            if (auth_pass_group) auth_pass_group.style.display = "none";
+            if (auth_pass_group) auth_pass_group.hidden = true;
             if (auth_pass_input) auth_pass_input.required = false;
-            if (auth_otp_group) auth_otp_group.style.display = "block";
+            if (auth_forgot_btn) auth_forgot_btn.hidden = true;
+            if (auth_otp_group) auth_otp_group.hidden = false;
             if (auth_otp_input) {
                 auth_otp_input.required = true;
                 auth_otp_input.value = "";
             }
-            if (auth_new_pass_group) auth_new_pass_group.style.display = "block";
+            if (auth_new_pass_group) auth_new_pass_group.hidden = false;
             if (auth_new_pass_input) {
                 auth_new_pass_input.required = true;
                 auth_new_pass_input.value = "";
                 auth_new_pass_input.autocomplete = "new-password";
             }
-            if (auth_confirm_group) auth_confirm_group.style.display = "block";
+            if (auth_confirm_group) auth_confirm_group.hidden = false;
             if (auth_confirm_input) {
                 auth_confirm_input.required = true;
                 auth_confirm_input.value = "";
                 auth_confirm_input.autocomplete = "new-password";
             }
             if (auth_toggle_btn) {
-                auth_toggle_btn.textContent = "Back to Log In";
-                auth_toggle_btn.style.display = "block";
+                auth_toggle_btn.textContent = "Back to Sign In";
+                auth_toggle_btn.hidden = false;
             }
-            if (auth_forgot_btn) auth_forgot_btn.style.display = "none";
-            if (auth_submit_btn) auth_submit_btn.textContent = "Reset Password";
+            if (auth_submit_btn) auth_submit_btn.textContent = "Update Password";
         }
 
         if (auth_modal) auth_modal.showModal();
+    }
+
+    if (auth_tab_login) {
+        auth_tab_login.addEventListener("click", () => open_modal("login"));
+    }
+    if (auth_tab_register) {
+        auth_tab_register.addEventListener("click", () => open_modal("register"));
+    }
+    if (auth_close_btn && auth_modal) {
+        auth_close_btn.addEventListener("click", () => auth_modal.close());
+    }
+    if (change_pass_close_icon && change_pass_modal) {
+        change_pass_close_icon.addEventListener("click", () => change_pass_modal.close());
+    }
+    if (verify_close_icon && verify_modal) {
+        verify_close_icon.addEventListener("click", () => verify_modal.close());
+    }
+    if (bind_close_icon && bind_modal) {
+        bind_close_icon.addEventListener("click", () => bind_modal.close());
+    }
+    if (delete_close_icon && delete_modal) {
+        delete_close_icon.addEventListener("click", () => delete_modal.close());
     }
 
     if (open_login_btn) {
@@ -529,6 +580,13 @@ function setup_account_listeners() {
     }
     if (s_logout_btn) {
         s_logout_btn.addEventListener("click", trigger_logout);
+    }
+
+    if (manage_btn) {
+        manage_btn.addEventListener("click", () => {
+            const settings_tab_btn = document.querySelector('.tab-btn[data-tab="settings"]');
+            if (settings_tab_btn) settings_tab_btn.click();
+        });
     }
 
     if (open_change_pass_btn && change_pass_modal) {

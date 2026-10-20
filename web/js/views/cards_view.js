@@ -278,7 +278,9 @@ export async function render_cards_view(on_change) {
         if (count_bar) count_bar.textContent = "";
         const empty = document.createElement("div");
         empty.className = "empty-state";
-        empty.textContent = "No cards match the selected filter.";
+        const p = document.createElement("p");
+        p.textContent = "No cards match the selected filter.";
+        empty.appendChild(p);
         container.appendChild(empty);
         return;
     }

@@ -50,6 +50,7 @@ export async function render_account_section() {
     const change_pass_btn = document.getElementById("btn-open-change-password");
     const delete_acc_btn = document.getElementById("btn-open-delete-account");
     const sync_btn = document.getElementById("btn-account-sync");
+    const manage_btn = document.getElementById("btn-account-manage");
     const logout_btn = document.getElementById("btn-account-logout");
     const dropdown_user = document.getElementById("dropdown-username");
     const dropdown_email = document.getElementById("dropdown-email");
@@ -195,8 +196,9 @@ export async function render_account_section() {
 
         if (login_btn) login_btn.style.display = "none";
         if (register_btn) register_btn.style.display = "none";
-        if (change_pass_btn) change_pass_btn.style.display = "inline-block";
-        if (delete_acc_btn) delete_acc_btn.style.display = "inline-block";
+        if (change_pass_btn) change_pass_btn.style.display = "none";
+        if (delete_acc_btn) delete_acc_btn.style.display = "none";
+        if (manage_btn) manage_btn.style.display = "inline-block";
         if (logout_btn) logout_btn.style.display = "inline-block";
         if (s_login_btn) s_login_btn.style.display = "none";
         if (s_register_btn) s_register_btn.style.display = "none";
@@ -227,6 +229,7 @@ export async function render_account_section() {
         if (verify_email_btn) verify_email_btn.style.display = "none";
         if (change_pass_btn) change_pass_btn.style.display = "none";
         if (delete_acc_btn) delete_acc_btn.style.display = "none";
+        if (manage_btn) manage_btn.style.display = "none";
         if (sync_btn) sync_btn.style.display = "none";
         if (logout_btn) logout_btn.style.display = "none";
 

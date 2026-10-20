@@ -15,40 +15,43 @@ export async function create_start_screen({ current_mode, on_mode_change, on_sta
     title.textContent = "Start Review Session";
 
     const desc = document.createElement("p");
-    desc.className = "card-answer";
+    desc.className = "review-start-desc";
     desc.textContent = "Cards are selected based on your Leitner spaced-repetition schedule.";
 
     const options_div = document.createElement("div");
-    options_div.className = "review-options";
+    options_div.className = "segmented-control review-mode-toggle";
+    options_div.setAttribute("role", "tablist");
 
-    const opt_all_label = document.createElement("label");
-    opt_all_label.className = "review-option-label";
-    const opt_all_radio = document.createElement("input");
-    opt_all_radio.type = "radio";
-    opt_all_radio.name = "review_mode";
-    opt_all_radio.value = "everything";
-    opt_all_radio.checked = current_mode === "everything";
-    opt_all_radio.addEventListener("change", () => {
+    const btn_all = document.createElement("button");
+    btn_all.type = "button";
+    btn_all.className = `segmented-btn ${current_mode === "everything" ? "active" : ""}`;
+    btn_all.textContent = "Everything (Official + Mine)";
+    btn_all.setAttribute("role", "tab");
+    btn_all.setAttribute("aria-selected", current_mode === "everything" ? "true" : "false");
+    btn_all.addEventListener("click", () => {
+        btn_all.classList.add("active");
+        btn_all.setAttribute("aria-selected", "true");
+        btn_mine.classList.remove("active");
+        btn_mine.setAttribute("aria-selected", "false");
         if (on_mode_change) on_mode_change("everything");
     });
-    opt_all_label.appendChild(opt_all_radio);
-    opt_all_label.appendChild(document.createTextNode("Everything (Official + Mine)"));
 
-    const opt_mine_label = document.createElement("label");
-    opt_mine_label.className = "review-option-label";
-    const opt_mine_radio = document.createElement("input");
-    opt_mine_radio.type = "radio";
-    opt_mine_radio.name = "review_mode";
-    opt_mine_radio.value = "only_mine";
-    opt_mine_radio.checked = current_mode === "only_mine";
-    opt_mine_radio.addEventListener("change", () => {
+    const btn_mine = document.createElement("button");
+    btn_mine.type = "button";
+    btn_mine.className = `segmented-btn ${current_mode === "only_mine" ? "active" : ""}`;
+    btn_mine.textContent = "Only My Cards";
+    btn_mine.setAttribute("role", "tab");
+    btn_mine.setAttribute("aria-selected", current_mode === "only_mine" ? "true" : "false");
+    btn_mine.addEventListener("click", () => {
+        btn_mine.classList.add("active");
+        btn_mine.setAttribute("aria-selected", "true");
+        btn_all.classList.remove("active");
+        btn_all.setAttribute("aria-selected", "false");
         if (on_mode_change) on_mode_change("only_mine");
     });
-    opt_mine_label.appendChild(opt_mine_radio);
-    opt_mine_label.appendChild(document.createTextNode("Only my cards"));
 
-    options_div.appendChild(opt_all_label);
-    options_div.appendChild(opt_mine_label);
+    options_div.appendChild(btn_all);
+    options_div.appendChild(btn_mine);
 
     const catalog_cards = await get_all_catalog_cards();
     const own_cards = await get_all_own_cards(false);
@@ -57,54 +60,63 @@ export async function create_start_screen({ current_mode, on_mode_change, on_sta
     const today = get_today_date();
 
     const counts = count_session_cards({
-        catalog_cards,
+        catalog_cards: current_mode === "only_mine" ? [] : catalog_cards,
         own_cards,
         progress_rows,
         settings,
         today
     });
 
+    start_card.appendChild(title);
+    start_card.appendChild(desc);
+    start_card.appendChild(options_div);
+
     if (counts.total_visible === 0) {
-        const empty_card = document.createElement("div");
-        empty_card.className = "empty-state";
-        const empty_title = document.createElement("h2");
-        empty_title.textContent = "No Cards Available";
         const empty_p = document.createElement("p");
-        empty_p.textContent = "Your collection has no cards available for review. Check back once catalog is loaded or add your own cards in the Cards tab.";
-        empty_card.appendChild(empty_title);
-        empty_card.appendChild(empty_p);
-        return empty_card;
+        empty_p.className = "review-start-desc";
+        empty_p.style.textAlign = "center";
+        empty_p.style.padding = "var(--space-4) 0";
+        empty_p.textContent = current_mode === "only_mine"
+            ? "You have not created any custom cards yet. Switch to Everything or add cards in the Cards tab."
+            : "Your collection has no cards available for review. Check back once catalog is loaded or add cards in the Cards tab.";
+        start_card.appendChild(empty_p);
+        return start_card;
     }
 
     const eligible_count = counts.due_count + counts.new_left_count + counts.unseen_own_count;
     if (eligible_count === 0) {
-        const empty_card = document.createElement("div");
-        empty_card.className = "empty-state";
-        const empty_title = document.createElement("h2");
-        empty_title.textContent = "All Caught Up!";
         const empty_p = document.createElement("p");
-        empty_p.textContent = "No cards are due for review right now, and you have reached your daily limit for new cards. Check back tomorrow!";
-        empty_card.appendChild(empty_title);
-        empty_card.appendChild(empty_p);
-        return empty_card;
+        empty_p.className = "review-start-desc";
+        empty_p.style.textAlign = "center";
+        empty_p.style.padding = "var(--space-4) 0";
+        empty_p.textContent = "All caught up! No cards are due for review right now, and you have reached your daily limit for new cards. Check back tomorrow!";
+        start_card.appendChild(empty_p);
+        return start_card;
     }
 
-    const info_p = document.createElement("p");
-    info_p.className = "card-answer";
-    info_p.textContent = `Due today: ${counts.due_count} | New cards left today: ${counts.new_left_count + counts.unseen_own_count}`;
+    const stats_row = document.createElement("div");
+    stats_row.className = "review-stats-badge-row";
+
+    const due_badge = document.createElement("span");
+    due_badge.className = "badge badge-mine review-stat-badge";
+    due_badge.textContent = `${counts.due_count} Due Today`;
+
+    const new_badge = document.createElement("span");
+    new_badge.className = "badge badge-official review-stat-badge";
+    new_badge.textContent = `${counts.new_left_count + counts.unseen_own_count} New Ready`;
+
+    stats_row.appendChild(due_badge);
+    stats_row.appendChild(new_badge);
 
     const start_btn = document.createElement("button");
     start_btn.id = "btn-start-session";
-    start_btn.className = "btn btn-primary";
+    start_btn.className = "btn btn-primary btn-block";
     start_btn.textContent = "Start Review";
     start_btn.addEventListener("click", async () => {
         if (on_start) await on_start(start_btn);
     });
 
-    start_card.appendChild(title);
-    start_card.appendChild(desc);
-    start_card.appendChild(options_div);
-    start_card.appendChild(info_p);
+    start_card.appendChild(stats_row);
     start_card.appendChild(start_btn);
     return start_card;
 }
@@ -274,12 +286,12 @@ export function create_finished_screen({ stats, on_done }) {
     const right_stat = document.createElement("span");
     right_stat.style.color = "var(--color-green)";
     right_stat.style.fontWeight = "600";
-    right_stat.textContent = `✓ ${stats.right} Right`;
+    right_stat.textContent = `${stats.right} Right`;
 
     const wrong_stat = document.createElement("span");
     wrong_stat.style.color = "var(--color-red)";
     wrong_stat.style.fontWeight = "600";
-    wrong_stat.textContent = `✗ ${stats.wrong} Wrong`;
+    wrong_stat.textContent = `${stats.wrong} Wrong`;
 
     stats_row.appendChild(right_stat);
     stats_row.appendChild(wrong_stat);

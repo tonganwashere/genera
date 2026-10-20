@@ -60,13 +60,12 @@
             </div>
             <div class="account-dropdown-divider"></div>
             <div class="account-dropdown-actions">
-              <button type="button" id="btn-open-login" class="btn btn-sm btn-primary">Log In</button>
+              <button type="button" id="btn-open-login" class="btn btn-sm btn-primary">Sign In</button>
               <button type="button" id="btn-open-register" class="btn btn-sm">Create Account</button>
               <button type="button" id="btn-open-verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
               <button type="button" id="btn-open-bind-email" class="btn btn-sm btn-primary" style="display: none;">Add Gmail</button>
-              <button type="button" id="btn-open-change-password" class="btn btn-sm" style="display: none;">Change Password</button>
               <button type="button" id="btn-account-sync" class="btn btn-sm" style="display: none;">Sync Now</button>
-              <button type="button" id="btn-open-delete-account" class="btn btn-sm btn-danger" style="display: none;">Delete Account</button>
+              <button type="button" id="btn-account-manage" class="btn btn-sm" style="display: none;">Account Settings</button>
               <button type="button" id="btn-account-logout" class="btn btn-sm" style="display: none;">Log Out</button>
             </div>
           </div>
@@ -159,7 +158,7 @@
             <h3 class="settings-section-title">Account &amp; Email</h3>
             <span id="settings-account-badge" class="badge">Local</span>
           </div>
-          <p id="settings-account-desc" style="font-size: 13px; margin: 0; color: var(--color-text-muted);">
+          <p id="settings-account-desc" class="settings-desc">
             Using local storage. Your cards and study progress are stored only on this browser.
           </p>
           <div id="settings-account-info" class="settings-account-info" style="display: none;">
@@ -174,41 +173,47 @@
             </div>
           </div>
           <div class="settings-account-actions">
-            <button type="button" id="settings-btn-login" class="btn btn-sm btn-primary">Log In</button>
-            <button type="button" id="settings-btn-register" class="btn btn-sm">Create Account</button>
-            <button type="button" id="settings-btn-verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
-            <button type="button" id="settings-btn-bind-email" class="btn btn-sm" style="display: none;">Update Gmail</button>
-            <button type="button" id="settings-btn-change-password" class="btn btn-sm" style="display: none;">Change Password</button>
-            <button type="button" id="settings-btn-sync" class="btn btn-sm" style="display: none;">Sync Now</button>
-            <button type="button" id="settings-btn-delete-account" class="btn btn-sm btn-danger" style="display: none;">Delete Account</button>
-            <button type="button" id="settings-btn-logout" class="btn btn-sm" style="display: none;">Log Out</button>
+            <button type="button" id="settings-btn-login" class="btn btn-primary">Sign In</button>
+            <button type="button" id="settings-btn-register" class="btn">Create Account</button>
+            <button type="button" id="settings-btn-verify-email" class="btn btn-primary" style="display: none;">Verify Email</button>
+            <button type="button" id="settings-btn-bind-email" class="btn" style="display: none;">Update Gmail</button>
+            <button type="button" id="settings-btn-change-password" class="btn" style="display: none;">Change Password</button>
+            <button type="button" id="settings-btn-sync" class="btn" style="display: none;">Sync Now</button>
+            <button type="button" id="settings-btn-delete-account" class="btn btn-danger" style="display: none;">Delete Account</button>
+            <button type="button" id="settings-btn-logout" class="btn" style="display: none;">Log Out</button>
           </div>
         </div>
 
         <form id="settings-form">
           <div class="settings-section">
-            <h3 class="settings-section-title">Study Limits</h3>
-            <div class="form-group">
-              <label for="setting-daily-limit">Daily new cards limit (0–100)</label>
-              <input type="number" id="setting-daily-limit" min="0" max="100" class="search-input" style="max-width: 120px;" required>
-            </div>
-          </div>
-
-          <div class="settings-section">
             <div class="settings-section-header">
-              <h3 class="settings-section-title">Categories</h3>
+              <h3 class="settings-section-title">Study Preferences</h3>
+            </div>
+            
+            <div class="form-group" style="max-width: 240px; margin-bottom: 0;">
+              <label for="setting-daily-limit">Daily new cards limit (0–100)</label>
+              <input type="number" id="setting-daily-limit" min="0" max="100" required>
+            </div>
+
+            <div class="settings-divider"></div>
+
+            <div class="settings-section-header">
+              <div>
+                <h4 class="settings-subsection-title">Categories</h4>
+                <p class="settings-desc" style="margin-top: 4px;">Choose which trivia categories appear in your study sessions.</p>
+              </div>
               <div class="settings-category-actions">
                 <button type="button" id="btn-select-all-categories" class="btn btn-sm">Select All</button>
                 <button type="button" id="btn-deselect-all-categories" class="btn btn-sm">Deselect All</button>
               </div>
             </div>
-            <p style="font-size: 13px; margin: 0; color: var(--color-text-muted);">Choose which trivia categories appear in your study sessions.</p>
-            <div id="settings-categories-list" class="settings-categories-grid"></div>
-          </div>
 
-          <div class="settings-actions">
-            <button type="submit" class="btn btn-primary">Save Settings</button>
-            <span id="settings-saved-msg" class="settings-saved-pill" style="display: none;">Saved</span>
+            <div id="settings-categories-list" class="settings-categories-grid"></div>
+
+            <div class="settings-actions">
+              <button type="submit" class="btn btn-primary">Save Settings</button>
+              <span id="settings-saved-msg" class="settings-saved-pill" style="display: none;">Saved</span>
+            </div>
           </div>
         </form>
 
@@ -217,20 +222,19 @@
             <h3 class="settings-section-title">Appearance</h3>
             <span id="settings-theme-badge" class="badge">System</span>
           </div>
-          <p style="font-size: 13px; margin: 0; color: var(--color-text-muted);">
+          <p class="settings-desc">
             Choose your preferred color theme or match your system settings.
           </p>
-          <div class="settings-category-actions">
-            <button type="button" id="btn-theme-light" class="btn btn-sm">Light</button>
-            <button type="button" id="btn-theme-dark" class="btn btn-sm">Dark</button>
-            <button type="button" id="btn-theme-system" class="btn btn-sm">System</button>
+          <div class="segmented-control" role="tablist" style="max-width: 320px; margin-bottom: 0;">
+            <button type="button" id="btn-theme-light" class="segmented-btn">Light</button>
+            <button type="button" id="btn-theme-dark" class="segmented-btn">Dark</button>
+            <button type="button" id="btn-theme-system" class="segmented-btn">System</button>
           </div>
         </div>
 
-
         <div class="settings-section settings-about-section">
           <h3 class="settings-section-title">About &amp; Attribution</h3>
-          <p style="font-size: 13px; line-height: 1.5; margin: 0; color: var(--color-text-muted);">
+          <p class="settings-desc">
             Trivia questions and categories are sourced from the <a href="https://opentdb.com/" target="_blank" rel="noopener noreferrer">Open Trivia Database</a> (OpenTDB), provided under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.
           </p>
         </div>
@@ -239,8 +243,11 @@
   </main>
 
   <dialog id="card-modal" class="modal">
-    <form id="card-form" method="dialog">
+    <div class="modal-header">
       <h3 id="modal-title">Add Card</h3>
+      <button type="button" class="modal-close-btn" id="modal-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="card-form" method="dialog">
       <input type="hidden" id="card-edit-id">
       <div class="form-group">
         <label for="card-question-input">Question</label>
@@ -262,8 +269,11 @@
   </dialog>
 
   <dialog id="import-modal" class="modal">
-    <div class="import-modal-content">
+    <div class="modal-header">
       <h3 id="import-modal-title">Import Summary</h3>
+      <button type="button" class="modal-close-btn" id="import-modal-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="import-modal-content">
       <p id="import-modal-summary"></p>
       <div id="import-modal-details" class="import-details-box" style="display: none;"></div>
       <div class="modal-actions">
@@ -273,59 +283,69 @@
   </dialog>
 
   <dialog id="auth-modal" class="modal">
+    <div class="modal-header">
+      <h3 id="auth-modal-title">Sign In</h3>
+      <button type="button" class="modal-close-btn" id="auth-close-btn" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="segmented-control" id="auth-segmented-control" role="tablist">
+      <button type="button" class="segmented-btn active" id="auth-tab-login" role="tab" aria-selected="true">Sign In</button>
+      <button type="button" class="segmented-btn" id="auth-tab-register" role="tab" aria-selected="false">Create Account</button>
+    </div>
     <form id="auth-form" method="dialog">
-      <h3 id="auth-modal-title">Log In</h3>
       <div id="auth-error-msg" class="auth-error" style="display: none;"></div>
       <div id="auth-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group" id="auth-username-group">
         <label for="auth-username-input" id="auth-username-label">Username</label>
         <input type="text" id="auth-username-input" autocomplete="username" maxlength="32" placeholder="e.g. alex_trivia" autocapitalize="none" spellcheck="false">
       </div>
-      <div class="form-group" id="auth-email-group" style="display: none;">
+      <div class="form-group" id="auth-email-group" hidden>
         <label for="auth-email-input">Gmail Address</label>
         <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-password-group">
-        <label for="auth-password-input">Password</label>
+        <div class="form-label-row">
+          <label for="auth-password-input">Password</label>
+          <button type="button" id="auth-forgot-btn" class="btn-link">Forgot password?</button>
+        </div>
         <div class="password-input-wrap">
           <input type="password" id="auth-password-input" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
           <button type="button" class="btn-toggle-password" data-target="auth-password-input" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="form-group" id="auth-confirm-password-group" style="display: none;">
+      <div class="form-group" id="auth-confirm-password-group" hidden>
         <label for="auth-confirm-password-input">Confirm Password</label>
         <div class="password-input-wrap">
           <input type="password" id="auth-confirm-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Re-enter password">
           <button type="button" class="btn-toggle-password" data-target="auth-confirm-password-input" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="form-group" id="auth-otp-group" style="display: none;">
+      <div class="form-group" id="auth-otp-group" hidden>
         <label for="auth-otp-input">6-digit Code (OTP)</label>
         <input type="text" id="auth-otp-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456" autocapitalize="none" spellcheck="false">
       </div>
-      <div class="form-group" id="auth-new-password-group" style="display: none;">
+      <div class="form-group" id="auth-new-password-group" hidden>
         <label for="auth-new-password-input">New Password</label>
         <div class="password-input-wrap">
           <input type="password" id="auth-new-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
           <button type="button" class="btn-toggle-password" data-target="auth-new-password-input" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="modal-actions" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
-        <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+      <div class="auth-actions-row">
+        <button type="submit" id="auth-submit-btn" class="btn btn-primary btn-block">Sign In</button>
+        <div class="auth-sublink-row">
           <button type="button" id="auth-toggle-mode-btn" class="btn-link">Need an account? Register</button>
-          <button type="button" id="auth-forgot-btn" class="btn-link">Forgot password?</button>
-        </div>
-        <div style="display: flex; gap: var(--space-2);">
-          <button type="button" id="auth-cancel-btn" class="btn">Cancel</button>
-          <button type="submit" id="auth-submit-btn" class="btn btn-primary">Log In</button>
+          <button type="button" id="auth-cancel-btn" class="btn-link" style="color: var(--color-text-muted);">Cancel</button>
         </div>
       </div>
     </form>
   </dialog>
 
   <dialog id="change-password-modal" class="modal">
-    <form id="change-password-form" method="dialog">
+    <div class="modal-header">
       <h3>Change Password</h3>
+      <button type="button" class="modal-close-btn" id="change-pass-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="change-password-form" method="dialog">
       <div id="change-pass-error-msg" class="auth-error" style="display: none;"></div>
       <div id="change-pass-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group">
@@ -349,7 +369,7 @@
           <button type="button" class="btn-toggle-password" data-target="change-pass-confirm" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+      <div class="modal-actions">
         <button type="button" id="change-pass-cancel-btn" class="btn">Cancel</button>
         <button type="submit" id="change-pass-submit-btn" class="btn btn-primary">Update Password</button>
       </div>
@@ -357,8 +377,11 @@
   </dialog>
 
   <dialog id="verify-email-modal" class="modal">
-    <form id="verify-email-form" method="dialog">
+    <div class="modal-header">
       <h3>Verify Email</h3>
+      <button type="button" class="modal-close-btn" id="verify-email-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="verify-email-form" method="dialog">
       <p id="verify-email-desc" style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
         Enter the 6-digit code sent to <strong id="verify-email-target">your Gmail address</strong>.
       </p>
@@ -382,8 +405,11 @@
   </dialog>
 
   <dialog id="bind-email-modal" class="modal">
-    <form id="bind-email-form" method="dialog">
+    <div class="modal-header">
       <h3 id="bind-email-title">Update Gmail Address</h3>
+      <button type="button" class="modal-close-btn" id="bind-email-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="bind-email-form" method="dialog">
       <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
         Link a Gmail address to your account to enable cloud sync and password recovery.
       </p>
@@ -400,7 +426,7 @@
           <button type="button" class="btn-toggle-password" data-target="bind-email-password" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+      <div class="modal-actions">
         <button type="button" id="bind-email-cancel-btn" class="btn">Cancel</button>
         <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Save Gmail</button>
       </div>
@@ -408,8 +434,11 @@
   </dialog>
 
   <dialog id="delete-account-modal" class="modal">
-    <form id="delete-account-form" method="dialog">
+    <div class="modal-header">
       <h3>Delete Account</h3>
+      <button type="button" class="modal-close-btn" id="delete-account-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="delete-account-form" method="dialog">
       <p style="font-size: 13px; color: var(--color-red); margin-bottom: var(--space-3);">
         This action is permanent and will delete all your cards, study progress, and settings from the server.
       </p>
@@ -421,7 +450,7 @@
           <button type="button" class="btn-toggle-password" data-target="delete-account-password" aria-label="Toggle password visibility">&#128065;</button>
         </div>
       </div>
-      <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
+      <div class="modal-actions">
         <button type="button" id="delete-account-cancel-btn" class="btn">Cancel</button>
         <button type="submit" id="delete-account-submit-btn" class="btn btn-danger">Permanently Delete</button>
       </div>
