@@ -12,8 +12,7 @@ import {
 import { count_session_cards } from "./models/session.js";
 import { open_add_modal, populate_category_dropdown, render_cards_view } from "./views/cards_view.js";
 import { setup_cards_listeners } from "./controllers/cards_controller.js";
-import { render_review_view } from "./views/review_view.js";
-import { init_review_view } from "./controllers/review_controller.js";
+import { init_review_view, render_review_view } from "./controllers/review_controller.js";
 import { render_settings_view, render_account_section } from "./views/settings_view.js";
 import { init_settings_view } from "./controllers/settings_controller.js";
 import { init_sync_engine, update_sync_status_ui, sync_now } from "./controllers/sync_controller.js";
