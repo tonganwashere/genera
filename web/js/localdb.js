@@ -710,3 +710,22 @@ export async function merge_local_into_account({
         tx.onerror = () => reject(tx.error);
     });
 }
+
+export async function clear_account_local_data() {
+    const db = await open_db();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(["own_cards", "progress", "settings", "meta"], "readwrite");
+        tx.objectStore("own_cards").clear();
+        tx.objectStore("progress").clear();
+        tx.objectStore("settings").clear();
+        const meta_store = tx.objectStore("meta");
+        meta_store.put({ key: "mode", value: "local" });
+        meta_store.put({ key: "username", value: null });
+        meta_store.put({ key: "email", value: null });
+        meta_store.put({ key: "email_verified", value: 0 });
+        meta_store.put({ key: "csrf_token", value: null });
+        meta_store.put({ key: "lastSyncVersion", value: 0 });
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+    });
+}

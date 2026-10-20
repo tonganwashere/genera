@@ -5,6 +5,8 @@ import {
     get_all_progress_rows,
     get_today_date,
     get_user_settings,
+    get_meta,
+    set_meta,
     load_catalog_if_needed
 } from "./localdb.js";
 import { open_add_modal, populate_category_dropdown, render_cards_view, setup_cards_listeners } from "./cards.js";
@@ -253,6 +255,29 @@ async function init_app() {
             await update_sync_status_ui();
             await render_account_section();
         });
+
+        if (navigator.onLine) {
+            try {
+                const me_res = await fetch("/api/me");
+                if (me_res.ok) {
+                    const me_data = await me_res.json();
+                    await set_meta("mode", "account");
+                    await set_meta("username", me_data.username);
+                    await set_meta("email", me_data.email || null);
+                    await set_meta("email_verified", me_data.email_verified || 0);
+                    await set_meta("csrf_token", me_data.csrf_token || null);
+                } else if (me_res.status === 401) {
+                    const current_mode = await get_meta("mode");
+                    if (current_mode === "account") {
+                        await set_meta("mode", "local");
+                        await set_meta("username", null);
+                        await set_meta("email", null);
+                        await set_meta("email_verified", 0);
+                        await set_meta("csrf_token", null);
+                    }
+                }
+            } catch (_) {}
+        }
 
         await update_sync_status_ui();
         await render_account_section();

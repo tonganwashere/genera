@@ -154,6 +154,37 @@
 
     <section id="tab-settings" class="tab-panel" hidden>
       <div class="settings-view">
+        <div class="settings-section settings-account-section">
+          <div class="settings-section-header">
+            <h3 class="settings-section-title">Account &amp; Email</h3>
+            <span id="settings-account-badge" class="badge">Local</span>
+          </div>
+          <p id="settings-account-desc" style="font-size: 13px; margin: 0; color: var(--color-text-muted);">
+            Using local storage. Your cards and study progress are stored only on this browser.
+          </p>
+          <div id="settings-account-info" class="settings-account-info" style="display: none;">
+            <div class="settings-account-row">
+              <span class="settings-account-label">Username:</span>
+              <strong id="settings-info-username"></strong>
+            </div>
+            <div class="settings-account-row">
+              <span class="settings-account-label">Gmail:</span>
+              <span id="settings-info-email"></span>
+              <span id="settings-info-email-badge" class="badge badge-mine" style="margin-left: 6px;">Unverified</span>
+            </div>
+          </div>
+          <div class="settings-account-actions">
+            <button type="button" id="settings-btn-login" class="btn btn-sm btn-primary">Log In</button>
+            <button type="button" id="settings-btn-register" class="btn btn-sm">Create Account</button>
+            <button type="button" id="settings-btn-verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
+            <button type="button" id="settings-btn-bind-email" class="btn btn-sm" style="display: none;">Update Gmail</button>
+            <button type="button" id="settings-btn-change-password" class="btn btn-sm" style="display: none;">Change Password</button>
+            <button type="button" id="settings-btn-sync" class="btn btn-sm" style="display: none;">Sync Now</button>
+            <button type="button" id="settings-btn-delete-account" class="btn btn-sm btn-danger" style="display: none;">Delete Account</button>
+            <button type="button" id="settings-btn-logout" class="btn btn-sm" style="display: none;">Log Out</button>
+          </div>
+        </div>
+
         <form id="settings-form">
           <div class="settings-section">
             <h3 class="settings-section-title">Study Limits</h3>
@@ -248,23 +279,36 @@
       <div id="auth-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group" id="auth-username-group">
         <label for="auth-username-input" id="auth-username-label">Username</label>
-        <input type="text" id="auth-username-input" autocomplete="username" maxlength="32" placeholder="e.g. alex_trivia">
+        <input type="text" id="auth-username-input" autocomplete="username" maxlength="32" placeholder="e.g. alex_trivia" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-email-group" style="display: none;">
         <label for="auth-email-input">Gmail Address</label>
-        <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com">
+        <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-password-group">
         <label for="auth-password-input">Password</label>
-        <input type="password" id="auth-password-input" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+        <div class="password-input-wrap">
+          <input type="password" id="auth-password-input" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+          <button type="button" class="btn-toggle-password" data-target="auth-password-input" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
+      </div>
+      <div class="form-group" id="auth-confirm-password-group" style="display: none;">
+        <label for="auth-confirm-password-input">Confirm Password</label>
+        <div class="password-input-wrap">
+          <input type="password" id="auth-confirm-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Re-enter password">
+          <button type="button" class="btn-toggle-password" data-target="auth-confirm-password-input" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="form-group" id="auth-otp-group" style="display: none;">
         <label for="auth-otp-input">6-digit Code (OTP)</label>
-        <input type="text" id="auth-otp-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456">
+        <input type="text" id="auth-otp-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-new-password-group" style="display: none;">
         <label for="auth-new-password-input">New Password</label>
-        <input type="password" id="auth-new-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+        <div class="password-input-wrap">
+          <input type="password" id="auth-new-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+          <button type="button" class="btn-toggle-password" data-target="auth-new-password-input" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="modal-actions" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
         <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
@@ -286,15 +330,24 @@
       <div id="change-pass-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group">
         <label for="change-pass-current">Current Password</label>
-        <input type="password" id="change-pass-current" autocomplete="current-password" required minlength="8" maxlength="128">
+        <div class="password-input-wrap">
+          <input type="password" id="change-pass-current" autocomplete="current-password" required minlength="8" maxlength="128">
+          <button type="button" class="btn-toggle-password" data-target="change-pass-current" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="form-group">
         <label for="change-pass-new">New Password</label>
-        <input type="password" id="change-pass-new" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+        <div class="password-input-wrap">
+          <input type="password" id="change-pass-new" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
+          <button type="button" class="btn-toggle-password" data-target="change-pass-new" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="form-group">
         <label for="change-pass-confirm">Confirm New Password</label>
-        <input type="password" id="change-pass-confirm" autocomplete="new-password" required minlength="8" maxlength="128">
+        <div class="password-input-wrap">
+          <input type="password" id="change-pass-confirm" autocomplete="new-password" required minlength="8" maxlength="128">
+          <button type="button" class="btn-toggle-password" data-target="change-pass-confirm" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
         <button type="button" id="change-pass-cancel-btn" class="btn">Cancel</button>
@@ -307,16 +360,19 @@
     <form id="verify-email-form" method="dialog">
       <h3>Verify Email</h3>
       <p id="verify-email-desc" style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
-        Enter the 6-digit code sent to your Gmail address.
+        Enter the 6-digit code sent to <strong id="verify-email-target">your Gmail address</strong>.
       </p>
       <div id="verify-email-error-msg" class="auth-error" style="display: none;"></div>
       <div id="verify-email-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group">
         <label for="verify-email-otp">6-digit Code (OTP)</label>
-        <input type="text" id="verify-email-otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456" required>
+        <input type="text" id="verify-email-otp" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="e.g. 123456" autocapitalize="none" spellcheck="false" required>
       </div>
       <div class="modal-actions" style="justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-2);">
-        <button type="button" id="verify-email-resend-btn" class="btn-link">Resend Code</button>
+        <div style="display: flex; gap: var(--space-2); align-items: center;">
+          <button type="button" id="verify-email-resend-btn" class="btn-link">Resend Code</button>
+          <button type="button" id="verify-email-change-btn" class="btn-link">Wrong email?</button>
+        </div>
         <div style="display: flex; gap: var(--space-2);">
           <button type="button" id="verify-email-cancel-btn" class="btn">Close</button>
           <button type="submit" id="verify-email-submit-btn" class="btn btn-primary">Verify Email</button>
@@ -327,7 +383,7 @@
 
   <dialog id="bind-email-modal" class="modal">
     <form id="bind-email-form" method="dialog">
-      <h3>Add Gmail Address</h3>
+      <h3 id="bind-email-title">Update Gmail Address</h3>
       <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
         Link a Gmail address to your account to enable cloud sync and password recovery.
       </p>
@@ -335,11 +391,18 @@
       <div id="bind-email-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group">
         <label for="bind-email-input">Gmail Address</label>
-        <input type="email" id="bind-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" required>
+        <input type="email" id="bind-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" autocapitalize="none" spellcheck="false" required>
+      </div>
+      <div class="form-group">
+        <label for="bind-email-password">Current Password</label>
+        <div class="password-input-wrap">
+          <input type="password" id="bind-email-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter current password">
+          <button type="button" class="btn-toggle-password" data-target="bind-email-password" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
         <button type="button" id="bind-email-cancel-btn" class="btn">Cancel</button>
-        <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Link Gmail</button>
+        <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Save Gmail</button>
       </div>
     </form>
   </dialog>
@@ -353,7 +416,10 @@
       <div id="delete-account-error-msg" class="auth-error" style="display: none;"></div>
       <div class="form-group">
         <label for="delete-account-password">Confirm Password</label>
-        <input type="password" id="delete-account-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter your current password">
+        <div class="password-input-wrap">
+          <input type="password" id="delete-account-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter your current password">
+          <button type="button" class="btn-toggle-password" data-target="delete-account-password" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
       </div>
       <div class="modal-actions" style="justify-content: flex-end; gap: var(--space-2);">
         <button type="button" id="delete-account-cancel-btn" class="btn">Cancel</button>

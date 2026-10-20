@@ -43,7 +43,7 @@ def is_rate_limited(conn, ip, identifier):
     user_key = f"user:{identifier.lower()}"
     ip_count = conn.execute("SELECT COUNT(*) FROM rate_limits WHERE key = ? AND created_at >= ?", (ip_key, cutoff)).fetchone()[0]
     user_count = conn.execute("SELECT COUNT(*) FROM rate_limits WHERE key = ? AND created_at >= ?", (user_key, cutoff)).fetchone()[0]
-    return ip_count >= 5 or user_count >= 5
+    return ip_count >= 20 or user_count >= 5
 
 def record_failure(conn, ip, identifier):
     now = int(time.time())
@@ -65,7 +65,7 @@ def is_otp_rate_limited(conn, ip, email):
     email_key = f"otp_email:{email.lower()}"
     ip_count = conn.execute("SELECT COUNT(*) FROM rate_limits WHERE key = ? AND created_at >= ?", (ip_key, cutoff)).fetchone()[0]
     email_count = conn.execute("SELECT COUNT(*) FROM rate_limits WHERE key = ? AND created_at >= ?", (email_key, cutoff)).fetchone()[0]
-    return ip_count >= 1 or email_count >= 1
+    return ip_count >= 5 or email_count >= 1
 
 def record_otp_request(conn, ip, email):
     now = int(time.time())
@@ -76,6 +76,7 @@ def record_otp_request(conn, ip, email):
     conn.commit()
 
 def create_verification_otp(conn, user_id, email):
+    conn.execute("UPDATE email_verification_otps SET used = 1 WHERE user_id = ? AND used = 0", (user_id,))
     otp_code = f"{secrets.randbelow(1000000):06d}"
     otp_hash = hashlib.sha256(otp_code.encode("utf-8")).hexdigest()
     now_utc = datetime.now(timezone.utc)
@@ -146,6 +147,7 @@ def register():
 
     csrf_token = secrets.token_hex(16)
     session.clear()
+    session.permanent = True
     session["user_id"] = user_id
     session["username"] = username
     session["email"] = email
@@ -196,6 +198,7 @@ def login():
     clear_failures(conn, client_ip, clean_ident)
     csrf_token = secrets.token_hex(16)
     session.clear()
+    session.permanent = True
     session["user_id"] = user["id"]
     session["username"] = user["username"]
     session["email"] = user["email"]
@@ -237,6 +240,9 @@ def verify_email():
     user = get_current_user()
     if not user:
         return jsonify({"error": "Not logged in."}), 401
+
+    if user["email_verified"] == 1:
+        return jsonify({"message": "Email is already verified.", "email_verified": 1}), 200
 
     if not validate_csrf():
         return jsonify({"error": "Invalid or missing CSRF token."}), 403
@@ -323,7 +329,18 @@ def bind_email():
     if not valid_email:
         return jsonify({"error": email_err, "field": "email"}), 400
 
+    password = data.get("password", "")
+    if not password:
+        return jsonify({"error": "Current password is required to update email.", "field": "password"}), 400
+
+    if user["email"] and email == user["email"].lower():
+        return jsonify({"error": "This Gmail address is already linked to your account.", "field": "email"}), 400
+
     conn = db.get_db()
+    db_user = conn.execute("SELECT password_hash FROM users WHERE id = ?", (user["id"],)).fetchone()
+    if not db_user or not check_password_hash(db_user["password_hash"], password):
+        return jsonify({"error": "Current password is incorrect.", "field": "password"}), 400
+
     existing = conn.execute("SELECT id FROM users WHERE email = ? AND id != ?", (email, user["id"])).fetchone()
     if existing:
         return jsonify({"error": "Email is already registered to another account.", "field": "email"}), 409
@@ -334,7 +351,7 @@ def bind_email():
     session["email"] = email
     create_verification_otp(conn, user["id"], email)
 
-    return jsonify({"message": "Email linked. Please verify your email.", "email": email, "email_verified": 0}), 200
+    return jsonify({"message": "Email updated. Please verify your new address.", "email": email, "email_verified": 0}), 200
 
 @auth_bp.route("/change-password", methods=["POST"])
 def change_password():
@@ -357,6 +374,9 @@ def change_password():
 
     if not current_password or not new_password:
         return jsonify({"error": "Current password and new password are required."}), 400
+
+    if current_password == new_password:
+        return jsonify({"error": "New password cannot be the same as your current password.", "field": "new_password"}), 400
 
     valid_pass, pass_err = validate_password(new_password)
     if not valid_pass:
@@ -433,7 +453,8 @@ def request_otp():
     record_otp_request(conn, client_ip, email)
     user = conn.execute("SELECT id, email_verified FROM users WHERE email = ?", (email,)).fetchone()
 
-    if user and user["email_verified"] == 1:
+    if user:
+        conn.execute("UPDATE password_reset_otps SET used = 1 WHERE user_id = ? AND used = 0", (user["id"],))
         otp_code = f"{secrets.randbelow(1000000):06d}"
         otp_hash = hashlib.sha256(otp_code.encode("utf-8")).hexdigest()
         now_utc = datetime.now(timezone.utc)
@@ -447,7 +468,7 @@ def request_otp():
         conn.commit()
         send_otp_email(email, otp_code)
 
-    return jsonify({"message": "If this email is registered and verified, a password reset code has been sent."}), 200
+    return jsonify({"message": "If this email is registered, a password reset code has been sent."}), 200
 
 @auth_bp.route("/forgot-password/reset", methods=["POST"])
 def reset_password():
@@ -476,7 +497,7 @@ def reset_password():
 
     conn = db.get_db()
     user = conn.execute("SELECT id, email_verified FROM users WHERE email = ?", (email,)).fetchone()
-    if not user or user["email_verified"] != 1:
+    if not user:
         return jsonify({"error": "Invalid email or expired code."}), 400
 
     record = conn.execute(
@@ -498,7 +519,7 @@ def reset_password():
     conn.execute("UPDATE password_reset_otps SET used = 1 WHERE id = ?", (record["id"],))
     new_hash = generate_password_hash(new_password)
     conn.execute(
-        "UPDATE users SET password_hash = ?, token_version = token_version + 1 WHERE id = ?",
+        "UPDATE users SET password_hash = ?, token_version = token_version + 1, email_verified = 1 WHERE id = ?",
         (new_hash, user["id"])
     )
     conn.commit()

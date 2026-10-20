@@ -79,6 +79,21 @@ export async function render_account_section() {
     const dropdown_user = document.getElementById("dropdown-username");
     const dropdown_email = document.getElementById("dropdown-email");
 
+    const s_badge = document.getElementById("settings-account-badge");
+    const s_desc = document.getElementById("settings-account-desc");
+    const s_info = document.getElementById("settings-account-info");
+    const s_user = document.getElementById("settings-info-username");
+    const s_email = document.getElementById("settings-info-email");
+    const s_email_badge = document.getElementById("settings-info-email-badge");
+    const s_login_btn = document.getElementById("settings-btn-login");
+    const s_register_btn = document.getElementById("settings-btn-register");
+    const s_verify_email_btn = document.getElementById("settings-btn-verify-email");
+    const s_bind_email_btn = document.getElementById("settings-btn-bind-email");
+    const s_change_pass_btn = document.getElementById("settings-btn-change-password");
+    const s_delete_acc_btn = document.getElementById("settings-btn-delete-account");
+    const s_sync_btn = document.getElementById("settings-btn-sync");
+    const s_logout_btn = document.getElementById("settings-btn-logout");
+
     if (!badge || !text) return;
 
     const mode = await get_meta("mode");
@@ -92,47 +107,115 @@ export async function render_account_section() {
             dropdown_email.textContent = email || "No email linked";
             dropdown_email.style.display = "block";
         }
+        if (s_info) s_info.style.display = "flex";
+        if (s_user) s_user.textContent = username || "User";
+        if (s_email) s_email.textContent = email || "None";
 
         if (!email) {
+            const status_text = `Logged in as ${username || "user"}. Please add your Gmail to enable sync and account recovery.`;
             badge.textContent = "Email needed";
             badge.className = "badge badge-hidden";
-            text.textContent = `Logged in as ${username || "user"}. Please add your Gmail to enable sync and account recovery.`;
+            text.textContent = status_text;
+            if (s_badge) {
+                s_badge.textContent = "Email needed";
+                s_badge.className = "badge badge-hidden";
+            }
+            if (s_desc) s_desc.textContent = status_text;
+            if (s_email_badge) s_email_badge.style.display = "none";
             if (bind_email_btn) bind_email_btn.style.display = "inline-block";
             if (verify_email_btn) verify_email_btn.style.display = "none";
             if (sync_btn) sync_btn.style.display = "none";
+            if (s_bind_email_btn) {
+                s_bind_email_btn.style.display = "inline-block";
+                s_bind_email_btn.textContent = "Add Gmail";
+            }
+            if (s_verify_email_btn) s_verify_email_btn.style.display = "none";
+            if (s_sync_btn) s_sync_btn.style.display = "none";
         } else if (!email_verified) {
+            const status_text = `Logged in as ${username || "user"}. Please verify your email (${email}) to enable sync.`;
             badge.textContent = "Unverified";
             badge.className = "badge badge-mine";
-            text.textContent = `Logged in as ${username || "user"}. Please verify your email (${email}) to enable sync.`;
+            text.textContent = status_text;
+            if (s_badge) {
+                s_badge.textContent = "Unverified";
+                s_badge.className = "badge badge-mine";
+            }
+            if (s_desc) s_desc.textContent = status_text;
+            if (s_email_badge) {
+                s_email_badge.style.display = "inline-block";
+                s_email_badge.textContent = "Unverified";
+                s_email_badge.className = "badge badge-mine";
+            }
             if (bind_email_btn) bind_email_btn.style.display = "none";
             if (verify_email_btn) verify_email_btn.style.display = "inline-block";
             if (sync_btn) sync_btn.style.display = "none";
+            if (s_bind_email_btn) {
+                s_bind_email_btn.style.display = "inline-block";
+                s_bind_email_btn.textContent = "Update Gmail";
+            }
+            if (s_verify_email_btn) s_verify_email_btn.style.display = "inline-block";
+            if (s_sync_btn) s_sync_btn.style.display = "none";
         } else if (!navigator.onLine) {
+            const status_text = `Logged in as ${username || "user"}. You are currently offline.`;
             badge.textContent = "Offline";
             badge.className = "badge";
-            text.textContent = `Logged in as ${username || "user"}. You are currently offline.`;
-            if (bind_email_btn) bind_email_btn.style.display = "none";
-            if (verify_email_btn) verify_email_btn.style.display = "none";
-            if (sync_btn) sync_btn.style.display = "inline-block";
-        } else {
-            const last_err = get_last_sync_error();
-            const dirty_count = await count_dirty_rows();
-            if (last_err) {
-                badge.textContent = "Sync failed";
-                badge.className = "badge badge-hidden";
-                text.textContent = `Logged in as ${username || "user"}. Sync failed (${last_err}).`;
-            } else if (dirty_count > 0) {
-                badge.textContent = `${dirty_count} unsynced`;
-                badge.className = "badge badge-mine";
-                text.textContent = `Logged in as ${username || "user"}. ${dirty_count} local change(s) pending sync.`;
-            } else {
-                badge.textContent = "Synced";
-                badge.className = "badge badge-official";
-                text.textContent = `Logged in as ${username || "user"}. Syncing enabled across your devices.`;
+            text.textContent = status_text;
+            if (s_badge) {
+                s_badge.textContent = "Offline";
+                s_badge.className = "badge";
+            }
+            if (s_desc) s_desc.textContent = status_text;
+            if (s_email_badge) {
+                s_email_badge.style.display = "inline-block";
+                s_email_badge.textContent = "Verified";
+                s_email_badge.className = "badge badge-official";
             }
             if (bind_email_btn) bind_email_btn.style.display = "none";
             if (verify_email_btn) verify_email_btn.style.display = "none";
             if (sync_btn) sync_btn.style.display = "inline-block";
+            if (s_bind_email_btn) {
+                s_bind_email_btn.style.display = "inline-block";
+                s_bind_email_btn.textContent = "Update Gmail";
+            }
+            if (s_verify_email_btn) s_verify_email_btn.style.display = "none";
+            if (s_sync_btn) s_sync_btn.style.display = "inline-block";
+        } else {
+            const last_err = get_last_sync_error();
+            const dirty_count = await count_dirty_rows();
+            let status_label = "Synced";
+            let status_class = "badge badge-official";
+            let status_desc = `Logged in as ${username || "user"}. Syncing enabled across your devices.`;
+            if (last_err) {
+                status_label = "Sync failed";
+                status_class = "badge badge-hidden";
+                status_desc = `Logged in as ${username || "user"}. Sync failed (${last_err}).`;
+            } else if (dirty_count > 0) {
+                status_label = `${dirty_count} unsynced`;
+                status_class = "badge badge-mine";
+                status_desc = `Logged in as ${username || "user"}. ${dirty_count} local change(s) pending sync.`;
+            }
+            badge.textContent = status_label;
+            badge.className = status_class;
+            text.textContent = status_desc;
+            if (s_badge) {
+                s_badge.textContent = status_label;
+                s_badge.className = status_class;
+            }
+            if (s_desc) s_desc.textContent = status_desc;
+            if (s_email_badge) {
+                s_email_badge.style.display = "inline-block";
+                s_email_badge.textContent = "Verified";
+                s_email_badge.className = "badge badge-official";
+            }
+            if (bind_email_btn) bind_email_btn.style.display = "none";
+            if (verify_email_btn) verify_email_btn.style.display = "none";
+            if (sync_btn) sync_btn.style.display = "inline-block";
+            if (s_bind_email_btn) {
+                s_bind_email_btn.style.display = "inline-block";
+                s_bind_email_btn.textContent = "Update Gmail";
+            }
+            if (s_verify_email_btn) s_verify_email_btn.style.display = "none";
+            if (s_sync_btn) s_sync_btn.style.display = "inline-block";
         }
 
         if (login_btn) login_btn.style.display = "none";
@@ -140,6 +223,11 @@ export async function render_account_section() {
         if (change_pass_btn) change_pass_btn.style.display = "inline-block";
         if (delete_acc_btn) delete_acc_btn.style.display = "inline-block";
         if (logout_btn) logout_btn.style.display = "inline-block";
+        if (s_login_btn) s_login_btn.style.display = "none";
+        if (s_register_btn) s_register_btn.style.display = "none";
+        if (s_change_pass_btn) s_change_pass_btn.style.display = "inline-block";
+        if (s_delete_acc_btn) s_delete_acc_btn.style.display = "inline-block";
+        if (s_logout_btn) s_logout_btn.style.display = "inline-block";
     } else {
         if (dropdown_user) dropdown_user.textContent = "Local Mode";
         if (dropdown_email) {
@@ -149,6 +237,14 @@ export async function render_account_section() {
         badge.textContent = "Local";
         badge.className = "badge";
         text.textContent = "Using local storage. Your cards and study progress are stored only on this browser.";
+        if (s_badge) {
+            s_badge.textContent = "Local";
+            s_badge.className = "badge";
+        }
+        if (s_desc) {
+            s_desc.textContent = "Using local storage. Your cards and study progress are stored only on this browser.";
+        }
+        if (s_info) s_info.style.display = "none";
 
         if (login_btn) login_btn.style.display = "inline-block";
         if (register_btn) register_btn.style.display = "inline-block";
@@ -158,6 +254,15 @@ export async function render_account_section() {
         if (delete_acc_btn) delete_acc_btn.style.display = "none";
         if (sync_btn) sync_btn.style.display = "none";
         if (logout_btn) logout_btn.style.display = "none";
+
+        if (s_login_btn) s_login_btn.style.display = "inline-block";
+        if (s_register_btn) s_register_btn.style.display = "inline-block";
+        if (s_bind_email_btn) s_bind_email_btn.style.display = "none";
+        if (s_verify_email_btn) s_verify_email_btn.style.display = "none";
+        if (s_change_pass_btn) s_change_pass_btn.style.display = "none";
+        if (s_delete_acc_btn) s_delete_acc_btn.style.display = "none";
+        if (s_sync_btn) s_sync_btn.style.display = "none";
+        if (s_logout_btn) s_logout_btn.style.display = "none";
     }
 }
 
@@ -244,6 +349,8 @@ function setup_account_listeners() {
     const auth_email_input = document.getElementById("auth-email-input");
     const auth_pass_group = document.getElementById("auth-password-group");
     const auth_pass_input = document.getElementById("auth-password-input");
+    const auth_confirm_group = document.getElementById("auth-confirm-password-group");
+    const auth_confirm_input = document.getElementById("auth-confirm-password-input");
     const auth_otp_group = document.getElementById("auth-otp-group");
     const auth_otp_input = document.getElementById("auth-otp-input");
     const auth_new_pass_group = document.getElementById("auth-new-password-group");
@@ -258,6 +365,15 @@ function setup_account_listeners() {
     const sync_btn = document.getElementById("btn-account-sync");
     const logout_btn = document.getElementById("btn-account-logout");
 
+    const s_login_btn = document.getElementById("settings-btn-login");
+    const s_register_btn = document.getElementById("settings-btn-register");
+    const s_verify_btn = document.getElementById("settings-btn-verify-email");
+    const s_bind_btn = document.getElementById("settings-btn-bind-email");
+    const s_change_pass_btn = document.getElementById("settings-btn-change-password");
+    const s_delete_acc_btn = document.getElementById("settings-btn-delete-account");
+    const s_sync_btn = document.getElementById("settings-btn-sync");
+    const s_logout_btn = document.getElementById("settings-btn-logout");
+
     const change_pass_modal = document.getElementById("change-password-modal");
     const change_pass_form = document.getElementById("change-password-form");
     const change_pass_error = document.getElementById("change-pass-error-msg");
@@ -268,6 +384,160 @@ function setup_account_listeners() {
     const open_change_pass_btn = document.getElementById("btn-open-change-password");
     const change_pass_cancel_btn = document.getElementById("change-pass-cancel-btn");
     const change_pass_submit_btn = document.getElementById("change-pass-submit-btn");
+
+    const open_verify_btn = document.getElementById("btn-open-verify-email");
+    const verify_modal = document.getElementById("verify-email-modal");
+    const verify_form = document.getElementById("verify-email-form");
+    const verify_otp_input = document.getElementById("verify-email-otp");
+    const verify_resend_btn = document.getElementById("verify-email-resend-btn");
+    const verify_change_btn = document.getElementById("verify-email-change-btn");
+    const verify_cancel_btn = document.getElementById("verify-email-cancel-btn");
+    const verify_error = document.getElementById("verify-email-error-msg");
+    const verify_success = document.getElementById("verify-email-success-msg");
+    const verify_email_target = document.getElementById("verify-email-target");
+
+    const open_bind_btn = document.getElementById("btn-open-bind-email");
+    const bind_modal = document.getElementById("bind-email-modal");
+    const bind_form = document.getElementById("bind-email-form");
+    const bind_title = document.getElementById("bind-email-title");
+    const bind_input = document.getElementById("bind-email-input");
+    const bind_pass_input = document.getElementById("bind-email-password");
+    const bind_cancel_btn = document.getElementById("bind-email-cancel-btn");
+    const bind_submit_btn = document.getElementById("bind-email-submit-btn");
+    const bind_error = document.getElementById("bind-email-error-msg");
+
+    const open_delete_btn = document.getElementById("btn-open-delete-account");
+    const delete_modal = document.getElementById("delete-account-modal");
+    const delete_form = document.getElementById("delete-account-form");
+    const delete_pass_input = document.getElementById("delete-account-password");
+    const delete_cancel_btn = document.getElementById("delete-account-cancel-btn");
+    const delete_submit_btn = document.getElementById("delete-account-submit-btn");
+    const delete_error = document.getElementById("delete-account-error-msg");
+
+    document.querySelectorAll(".btn-toggle-password").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const target_id = btn.getAttribute("data-target");
+            if (!target_id) return;
+            const input = document.getElementById(target_id);
+            if (!input) return;
+            input.type = input.type === "password" ? "text" : "password";
+        });
+    });
+
+    let resend_cooldown_timer = null;
+    function start_resend_cooldown(seconds = 60) {
+        if (!verify_resend_btn) return;
+        if (resend_cooldown_timer) clearInterval(resend_cooldown_timer);
+        verify_resend_btn.disabled = true;
+        let remaining = seconds;
+        verify_resend_btn.textContent = `Resend Code (${remaining}s)`;
+        resend_cooldown_timer = setInterval(() => {
+            remaining -= 1;
+            if (remaining <= 0) {
+                clearInterval(resend_cooldown_timer);
+                resend_cooldown_timer = null;
+                verify_resend_btn.disabled = false;
+                verify_resend_btn.textContent = "Resend Code";
+            } else {
+                verify_resend_btn.textContent = `Resend Code (${remaining}s)`;
+            }
+        }, 1000);
+    }
+
+    async function open_verify_modal() {
+        const container = document.getElementById("account-menu-container");
+        if (container) container.classList.remove("open");
+        if (verify_error) {
+            verify_error.style.display = "none";
+            verify_error.textContent = "";
+        }
+        if (verify_success) {
+            verify_success.style.display = "none";
+            verify_success.textContent = "";
+        }
+        if (verify_otp_input) verify_otp_input.value = "";
+        const email = await get_meta("email");
+        if (verify_email_target) verify_email_target.textContent = email || "your Gmail address";
+        if (verify_modal) verify_modal.showModal();
+    }
+
+    async function open_bind_modal() {
+        const container = document.getElementById("account-menu-container");
+        if (container) container.classList.remove("open");
+        if (bind_error) {
+            bind_error.style.display = "none";
+            bind_error.textContent = "";
+        }
+        const curr_email = await get_meta("email");
+        if (bind_title) {
+            bind_title.textContent = curr_email ? "Update Gmail Address" : "Add Gmail Address";
+        }
+        if (bind_submit_btn) {
+            bind_submit_btn.textContent = curr_email ? "Update Gmail" : "Save Gmail";
+        }
+        if (bind_input) bind_input.value = curr_email || "";
+        if (bind_pass_input) bind_pass_input.value = "";
+        if (bind_modal) bind_modal.showModal();
+    }
+
+    function open_change_pass_modal() {
+        const container = document.getElementById("account-menu-container");
+        if (container) container.classList.remove("open");
+        if (change_pass_error) {
+            change_pass_error.style.display = "none";
+            change_pass_error.textContent = "";
+        }
+        if (change_pass_success) {
+            change_pass_success.style.display = "none";
+            change_pass_success.textContent = "";
+        }
+        if (change_pass_current) change_pass_current.value = "";
+        if (change_pass_new) change_pass_new.value = "";
+        if (change_pass_confirm) change_pass_confirm.value = "";
+        if (change_pass_modal) change_pass_modal.showModal();
+    }
+
+    function open_delete_modal() {
+        const container = document.getElementById("account-menu-container");
+        if (container) container.classList.remove("open");
+        if (delete_error) {
+            delete_error.style.display = "none";
+            delete_error.textContent = "";
+        }
+        if (delete_pass_input) delete_pass_input.value = "";
+        if (delete_modal) delete_modal.showModal();
+    }
+
+    async function trigger_sync() {
+        if (sync_btn) {
+            sync_btn.disabled = true;
+            sync_btn.textContent = "Syncing...";
+        }
+        if (s_sync_btn) {
+            s_sync_btn.disabled = true;
+            s_sync_btn.textContent = "Syncing...";
+        }
+        try {
+            await sync_now(on_change_callback);
+        } finally {
+            if (sync_btn) {
+                sync_btn.disabled = false;
+                sync_btn.textContent = "Sync Now";
+            }
+            if (s_sync_btn) {
+                s_sync_btn.disabled = false;
+                s_sync_btn.textContent = "Sync Now";
+            }
+            await render_account_section();
+        }
+    }
+
+    async function trigger_logout() {
+        if (confirm("Log out of your account? This device will return to local mode.")) {
+            await perform_account_logout(on_change_callback);
+            await render_account_section();
+        }
+    }
 
     function open_modal(mode, preserve_messages = false) {
         const container = document.getElementById("account-menu-container");
@@ -285,6 +555,10 @@ function setup_account_listeners() {
             }
         }
 
+        document.querySelectorAll(".password-input-wrap input").forEach((input) => {
+            input.type = "password";
+        });
+
         if (mode === "login") {
             if (auth_title) auth_title.textContent = "Log In";
             if (auth_user_group) auth_user_group.style.display = "block";
@@ -293,6 +567,7 @@ function setup_account_listeners() {
                 auth_user_input.placeholder = "Username or @gmail.com";
                 auth_user_input.required = true;
                 auth_user_input.value = "";
+                auth_user_input.autocomplete = "username";
             }
             if (auth_email_group) auth_email_group.style.display = "none";
             if (auth_email_input) {
@@ -303,6 +578,12 @@ function setup_account_listeners() {
             if (auth_pass_input) {
                 auth_pass_input.required = true;
                 auth_pass_input.value = "";
+                auth_pass_input.autocomplete = "current-password";
+            }
+            if (auth_confirm_group) auth_confirm_group.style.display = "none";
+            if (auth_confirm_input) {
+                auth_confirm_input.required = false;
+                auth_confirm_input.value = "";
             }
             if (auth_otp_group) auth_otp_group.style.display = "none";
             if (auth_otp_input) {
@@ -328,17 +609,26 @@ function setup_account_listeners() {
                 auth_user_input.placeholder = "e.g. alex_trivia";
                 auth_user_input.required = true;
                 auth_user_input.value = "";
+                auth_user_input.autocomplete = "username";
             }
             if (auth_email_group) auth_email_group.style.display = "block";
             if (auth_email_input) {
                 auth_email_input.required = true;
                 auth_email_input.readOnly = false;
                 auth_email_input.value = "";
+                auth_email_input.autocomplete = "email";
             }
             if (auth_pass_group) auth_pass_group.style.display = "block";
             if (auth_pass_input) {
                 auth_pass_input.required = true;
                 auth_pass_input.value = "";
+                auth_pass_input.autocomplete = "new-password";
+            }
+            if (auth_confirm_group) auth_confirm_group.style.display = "block";
+            if (auth_confirm_input) {
+                auth_confirm_input.required = true;
+                auth_confirm_input.value = "";
+                auth_confirm_input.autocomplete = "new-password";
             }
             if (auth_otp_group) auth_otp_group.style.display = "none";
             if (auth_otp_input) {
@@ -365,9 +655,15 @@ function setup_account_listeners() {
                 auth_email_input.required = true;
                 auth_email_input.readOnly = false;
                 auth_email_input.value = "";
+                auth_email_input.autocomplete = "email";
             }
             if (auth_pass_group) auth_pass_group.style.display = "none";
             if (auth_pass_input) auth_pass_input.required = false;
+            if (auth_confirm_group) auth_confirm_group.style.display = "none";
+            if (auth_confirm_input) {
+                auth_confirm_input.required = false;
+                auth_confirm_input.value = "";
+            }
             if (auth_otp_group) auth_otp_group.style.display = "none";
             if (auth_otp_input) auth_otp_input.required = false;
             if (auth_new_pass_group) auth_new_pass_group.style.display = "none";
@@ -398,6 +694,13 @@ function setup_account_listeners() {
             if (auth_new_pass_input) {
                 auth_new_pass_input.required = true;
                 auth_new_pass_input.value = "";
+                auth_new_pass_input.autocomplete = "new-password";
+            }
+            if (auth_confirm_group) auth_confirm_group.style.display = "block";
+            if (auth_confirm_input) {
+                auth_confirm_input.required = true;
+                auth_confirm_input.value = "";
+                auth_confirm_input.autocomplete = "new-password";
             }
             if (auth_toggle_btn) {
                 auth_toggle_btn.textContent = "Back to Log In";
@@ -413,9 +716,15 @@ function setup_account_listeners() {
     if (open_login_btn) {
         open_login_btn.addEventListener("click", () => open_modal("login"));
     }
+    if (s_login_btn) {
+        s_login_btn.addEventListener("click", () => open_modal("login"));
+    }
 
     if (open_register_btn) {
         open_register_btn.addEventListener("click", () => open_modal("register"));
+    }
+    if (s_register_btn) {
+        s_register_btn.addEventListener("click", () => open_modal("register"));
     }
 
     if (auth_toggle_btn) {
@@ -441,45 +750,24 @@ function setup_account_listeners() {
     }
 
     if (sync_btn) {
-        sync_btn.addEventListener("click", async () => {
-            sync_btn.disabled = true;
-            sync_btn.textContent = "Syncing...";
-            try {
-                await sync_now(on_change_callback);
-            } finally {
-                sync_btn.disabled = false;
-                sync_btn.textContent = "Sync Now";
-                await render_account_section();
-            }
-        });
+        sync_btn.addEventListener("click", trigger_sync);
+    }
+    if (s_sync_btn) {
+        s_sync_btn.addEventListener("click", trigger_sync);
     }
 
     if (logout_btn) {
-        logout_btn.addEventListener("click", async () => {
-            if (confirm("Log out of your account? This device will return to local mode.")) {
-                await perform_account_logout(on_change_callback);
-                await render_account_section();
-            }
-        });
+        logout_btn.addEventListener("click", trigger_logout);
+    }
+    if (s_logout_btn) {
+        s_logout_btn.addEventListener("click", trigger_logout);
     }
 
     if (open_change_pass_btn && change_pass_modal) {
-        open_change_pass_btn.addEventListener("click", () => {
-            const container = document.getElementById("account-menu-container");
-            if (container) container.classList.remove("open");
-            if (change_pass_error) {
-                change_pass_error.style.display = "none";
-                change_pass_error.textContent = "";
-            }
-            if (change_pass_success) {
-                change_pass_success.style.display = "none";
-                change_pass_success.textContent = "";
-            }
-            if (change_pass_current) change_pass_current.value = "";
-            if (change_pass_new) change_pass_new.value = "";
-            if (change_pass_confirm) change_pass_confirm.value = "";
-            change_pass_modal.showModal();
-        });
+        open_change_pass_btn.addEventListener("click", open_change_pass_modal);
+    }
+    if (s_change_pass_btn && change_pass_modal) {
+        s_change_pass_btn.addEventListener("click", open_change_pass_modal);
     }
 
     if (change_pass_cancel_btn && change_pass_modal) {
@@ -548,6 +836,24 @@ function setup_account_listeners() {
                 auth_error.textContent = "";
             }
 
+            if (current_auth_mode === "register") {
+                if (auth_confirm_input && auth_pass_input.value !== auth_confirm_input.value) {
+                    if (auth_error) {
+                        auth_error.textContent = "Passwords do not match.";
+                        auth_error.style.display = "block";
+                    }
+                    return;
+                }
+            } else if (current_auth_mode === "forgot_verify") {
+                if (auth_confirm_input && auth_new_pass_input.value !== auth_confirm_input.value) {
+                    if (auth_error) {
+                        auth_error.textContent = "Passwords do not match.";
+                        auth_error.style.display = "block";
+                    }
+                    return;
+                }
+            }
+
             const original_text = auth_submit_btn ? auth_submit_btn.textContent : "";
             if (auth_submit_btn) {
                 auth_submit_btn.disabled = true;
@@ -580,12 +886,7 @@ function setup_account_listeners() {
                     if (on_change_callback) {
                         await on_change_callback();
                     }
-                    const v_modal = document.getElementById("verify-email-modal");
-                    if (v_modal) {
-                        const v_otp = document.getElementById("verify-email-otp");
-                        if (v_otp) v_otp.value = "";
-                        v_modal.showModal();
-                    }
+                    await open_verify_modal();
                 } else if (current_auth_mode === "forgot_request") {
                     const email = auth_email_input.value.trim();
                     const res = await request_password_reset_otp(email);
@@ -625,35 +926,23 @@ function setup_account_listeners() {
         });
     }
 
-    const open_verify_btn = document.getElementById("btn-open-verify-email");
-    const verify_modal = document.getElementById("verify-email-modal");
-    const verify_form = document.getElementById("verify-email-form");
-    const verify_otp_input = document.getElementById("verify-email-otp");
-    const verify_resend_btn = document.getElementById("verify-email-resend-btn");
-    const verify_cancel_btn = document.getElementById("verify-email-cancel-btn");
-    const verify_error = document.getElementById("verify-email-error-msg");
-    const verify_success = document.getElementById("verify-email-success-msg");
-
-    if (open_verify_btn && verify_modal) {
-        open_verify_btn.addEventListener("click", () => {
-            const container = document.getElementById("account-menu-container");
-            if (container) container.classList.remove("open");
-            if (verify_error) {
-                verify_error.style.display = "none";
-                verify_error.textContent = "";
-            }
-            if (verify_success) {
-                verify_success.style.display = "none";
-                verify_success.textContent = "";
-            }
-            if (verify_otp_input) verify_otp_input.value = "";
-            verify_modal.showModal();
-        });
+    if (open_verify_btn) {
+        open_verify_btn.addEventListener("click", open_verify_modal);
+    }
+    if (s_verify_btn) {
+        s_verify_btn.addEventListener("click", open_verify_modal);
     }
 
     if (verify_cancel_btn && verify_modal) {
         verify_cancel_btn.addEventListener("click", () => {
             verify_modal.close();
+        });
+    }
+
+    if (verify_change_btn) {
+        verify_change_btn.addEventListener("click", async () => {
+            if (verify_modal) verify_modal.close();
+            await open_bind_modal();
         });
     }
 
@@ -669,6 +958,7 @@ function setup_account_listeners() {
             }
             try {
                 const res = await resend_account_verification();
+                start_resend_cooldown(60);
                 if (verify_success) {
                     verify_success.textContent = res.message || "Verification code sent!";
                     verify_success.style.display = "block";
@@ -726,24 +1016,12 @@ function setup_account_listeners() {
         });
     }
 
-    const open_bind_btn = document.getElementById("btn-open-bind-email");
-    const bind_modal = document.getElementById("bind-email-modal");
-    const bind_form = document.getElementById("bind-email-form");
-    const bind_input = document.getElementById("bind-email-input");
-    const bind_cancel_btn = document.getElementById("bind-email-cancel-btn");
-    const bind_error = document.getElementById("bind-email-error-msg");
 
-    if (open_bind_btn && bind_modal) {
-        open_bind_btn.addEventListener("click", () => {
-            const container = document.getElementById("account-menu-container");
-            if (container) container.classList.remove("open");
-            if (bind_error) {
-                bind_error.style.display = "none";
-                bind_error.textContent = "";
-            }
-            if (bind_input) bind_input.value = "";
-            bind_modal.showModal();
-        });
+    if (open_bind_btn) {
+        open_bind_btn.addEventListener("click", open_bind_modal);
+    }
+    if (s_bind_btn) {
+        s_bind_btn.addEventListener("click", open_bind_modal);
     }
 
     if (bind_cancel_btn && bind_modal) {
@@ -760,22 +1038,21 @@ function setup_account_listeners() {
                 bind_error.textContent = "";
             }
             const email = bind_input.value.trim();
+            const password = bind_pass_input ? bind_pass_input.value : "";
             const submit_btn = document.getElementById("bind-email-submit-btn");
             if (submit_btn) {
                 submit_btn.disabled = true;
                 submit_btn.textContent = "Linking...";
             }
             try {
-                await bind_account_email(email);
+                await bind_account_email({ email, password });
                 if (bind_modal) bind_modal.close();
                 await render_account_section();
-                if (verify_modal) {
-                    if (verify_otp_input) verify_otp_input.value = "";
-                    if (verify_success) {
-                        verify_success.textContent = "Code sent! Check your inbox.";
-                        verify_success.style.display = "block";
-                    }
-                    verify_modal.showModal();
+                await open_verify_modal();
+                const v_success = document.getElementById("verify-email-success-msg");
+                if (v_success) {
+                    v_success.textContent = "Code sent! Check your inbox.";
+                    v_success.style.display = "block";
                 }
             } catch (err) {
                 if (bind_error) {
@@ -785,30 +1062,18 @@ function setup_account_listeners() {
             } finally {
                 if (submit_btn) {
                     submit_btn.disabled = false;
-                    submit_btn.textContent = "Link Gmail";
+                    const curr_email = await get_meta("email");
+                    submit_btn.textContent = curr_email ? "Update Gmail" : "Save Gmail";
                 }
             }
         });
     }
 
-    const open_delete_btn = document.getElementById("btn-open-delete-account");
-    const delete_modal = document.getElementById("delete-account-modal");
-    const delete_form = document.getElementById("delete-account-form");
-    const delete_pass_input = document.getElementById("delete-account-password");
-    const delete_cancel_btn = document.getElementById("delete-account-cancel-btn");
-    const delete_error = document.getElementById("delete-account-error-msg");
-
-    if (open_delete_btn && delete_modal) {
-        open_delete_btn.addEventListener("click", () => {
-            const container = document.getElementById("account-menu-container");
-            if (container) container.classList.remove("open");
-            if (delete_error) {
-                delete_error.style.display = "none";
-                delete_error.textContent = "";
-            }
-            if (delete_pass_input) delete_pass_input.value = "";
-            delete_modal.showModal();
-        });
+    if (open_delete_btn) {
+        open_delete_btn.addEventListener("click", open_delete_modal);
+    }
+    if (s_delete_acc_btn) {
+        s_delete_acc_btn.addEventListener("click", open_delete_modal);
     }
 
     if (delete_cancel_btn && delete_modal) {

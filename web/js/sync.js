@@ -9,6 +9,7 @@ import {
     count_dirty_rows,
     apply_sync_batch,
     merge_local_into_account,
+    clear_account_local_data,
     load_catalog_if_needed
 } from "./localdb.js";
 
@@ -161,31 +162,14 @@ export async function sync_now(on_update) {
 
     const mode = await get_meta("mode");
     if (mode !== "account") {
-        try {
-            const me_res = await fetch("/api/me");
-            if (me_res.ok) {
-                const me_data = await me_res.json();
-                await set_meta("mode", "account");
-                if (me_data && me_data.username) {
-                    await set_meta("username", me_data.username);
-                }
-                if (me_data && me_data.email) {
-                    await set_meta("email", me_data.email);
-                }
-                if (me_data && me_data.email_verified !== undefined) {
-                    await set_meta("email_verified", me_data.email_verified);
-                }
-                if (me_data && me_data.csrf_token) {
-                    await set_meta("csrf_token", me_data.csrf_token);
-                }
-            } else {
-                await set_sync_status("status-gray");
-                return false;
-            }
-        } catch (_) {
-            await set_sync_status("status-gray");
-            return false;
-        }
+        return false;
+    }
+
+    const email_verified = (await get_meta("email_verified")) || 0;
+    if (!email_verified) {
+        last_sync_error = null;
+        await set_sync_status("status-gray");
+        return false;
     }
 
     is_syncing = true;
@@ -231,9 +215,11 @@ export async function sync_now(on_update) {
             });
 
             if (response.status === 401) {
-                await set_meta("mode", "local");
+                await clear_account_local_data();
+                last_sync_error = null;
                 await set_sync_status("status-gray");
                 is_syncing = false;
+                if (on_update) await on_update();
                 return false;
             }
 
@@ -353,10 +339,13 @@ export async function perform_account_login({ username, email, password, is_regi
     const user_data = await res.json();
     const current_mode = await get_meta("mode");
 
-    if (current_mode === "local") {
+    if (current_mode === "local" && user_data.email_verified === 1) {
         const pull_res = await fetch("/api/sync", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": user_data.csrf_token || ""
+            },
             body: JSON.stringify({
                 since: 0,
                 own_cards: [],
@@ -410,7 +399,12 @@ export async function perform_account_login({ username, email, password, is_regi
         }
     }
 
-    await sync_now(on_update);
+    if (user_data.email_verified === 1) {
+        await sync_now(on_update);
+    } else {
+        last_sync_error = null;
+        await update_sync_status_ui();
+    }
     return user_data;
 }
 
@@ -419,11 +413,8 @@ export async function perform_account_logout(on_update = null) {
         await fetch("/api/logout", { method: "POST" });
     } catch (_) {}
 
-    await set_meta("mode", "local");
-    await set_meta("username", null);
-    await set_meta("email", null);
-    await set_meta("email_verified", 0);
-    await set_meta("csrf_token", null);
+    await clear_account_local_data();
+    last_sync_error = null;
     await update_sync_status_ui();
 
     if (on_update) {
@@ -475,6 +466,8 @@ export async function verify_account_email(otp) {
     }
 
     await set_meta("email_verified", 1);
+    last_sync_error = null;
+    await sync_now();
     return await res.json();
 }
 
@@ -500,7 +493,7 @@ export async function resend_account_verification() {
     return await res.json();
 }
 
-export async function bind_account_email(email) {
+export async function bind_account_email({ email, password }) {
     const csrf_token = await get_meta("csrf_token");
     const res = await fetch("/api/bind-email", {
         method: "POST",
@@ -508,7 +501,7 @@ export async function bind_account_email(email) {
             "Content-Type": "application/json",
             "X-CSRF-Token": csrf_token || ""
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email, password })
     });
 
     if (!res.ok) {
@@ -523,6 +516,7 @@ export async function bind_account_email(email) {
     const data = await res.json();
     await set_meta("email", email);
     await set_meta("email_verified", 0);
+    last_sync_error = null;
     return data;
 }
 
@@ -546,11 +540,8 @@ export async function delete_user_account(password) {
         throw new Error(err_msg);
     }
 
-    await set_meta("mode", "local");
-    await set_meta("username", null);
-    await set_meta("email", null);
-    await set_meta("email_verified", 0);
-    await set_meta("csrf_token", null);
+    await clear_account_local_data();
+    last_sync_error = null;
     await update_sync_status_ui();
 
     return await res.json();
