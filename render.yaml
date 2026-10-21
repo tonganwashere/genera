@@ -4,14 +4,18 @@ services:
     plan: free
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn server.app:app
+    startCommand: gunicorn --bind 0.0.0.0:$PORT server.app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      - key: ENVIRONMENT
+        value: production
       - key: SECRET_KEY
         generateValue: true
       - key: DATABASE_PATH
         value: genera.db
+      - key: TRUST_PROXY_HEADERS
+        value: "true"
       - key: RESEND_API_KEY
         sync: false
       - key: EMAIL_FROM

@@ -6,6 +6,7 @@ from server import config
 schema_path = Path(__file__).resolve().parent / "schema.sql"
 
 def get_db_connection():
+    Path(config.DATABASE_PATH).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(config.DATABASE_PATH, timeout=30.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON;")
