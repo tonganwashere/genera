@@ -183,7 +183,8 @@ body {
   gap: var(--space-2);
   background: none;
   border: none;
-  padding: var(--space-1) var(--space-2);
+  height: 38px;
+  padding: 0 var(--space-2);
   margin-left: calc(-1 * var(--space-2));
   border-radius: var(--radius);
   font-family: inherit;
@@ -192,6 +193,7 @@ body {
   letter-spacing: -0.02em;
   color: var(--color-text);
   cursor: pointer;
+  box-sizing: border-box;
   transition: background-color 0.15s, opacity 0.15s;
 }
 
@@ -240,7 +242,8 @@ body {
   z-index: 2;
   background: transparent;
   border: none;
-  padding: 8px 18px;
+  height: 38px;
+  padding: 0 18px;
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text-muted);
@@ -251,6 +254,7 @@ body {
   align-items: center;
   justify-content: center;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .tab-btn:hover {
@@ -279,16 +283,15 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   padding: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background-color: var(--color-surface);
   color: var(--color-text);
-  font-size: 16px;
-  line-height: 1;
   cursor: pointer;
+  box-sizing: border-box;
   transition: background-color 0.15s, border-color 0.15s, color 0.15s;
 }
 
@@ -296,10 +299,32 @@ body {
   background-color: var(--color-surface-hover);
 }
 
+.theme-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+.theme-icon-moon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
 .status-pill {
-  font-size: 13px;
-  padding: 3px 8px;
-  border-radius: 999px;
+  font-size: 14px;
+  border-radius: var(--radius);
   border: 1px solid var(--color-border);
   background-color: var(--color-surface);
 }
@@ -318,17 +343,20 @@ body {
 
 .account-btn {
   font-family: inherit;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-text);
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 4px 10px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: var(--radius);
+  box-sizing: border-box;
   cursor: pointer;
   transition: background-color 0.15s, border-color 0.15s;
   user-select: none;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .account-btn:hover,
@@ -1649,7 +1677,7 @@ body {
     flex: 1;
     min-width: 0;
     height: 38px;
-    padding: 8px 4px;
+    padding: 0 4px;
     font-size: 13.5px;
     text-align: center;
     justify-content: center;
