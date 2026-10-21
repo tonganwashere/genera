@@ -9,7 +9,8 @@ from server import config, db
 from server.models.user import (
     get_user_by_id, get_user_by_identifier,
     create_user, update_user_password, update_user_email,
-    reset_user_password_and_verify, delete_user_account, is_email_taken, mark_email_verified
+    reset_user_password_and_verify, delete_user_account, is_email_taken, mark_email_verified,
+    is_username_taken, update_user_username
 )
 from server.models.otp import create_otp, verify_otp
 from server.models.rate_limit import (
@@ -275,6 +276,36 @@ def change_password(user):
     session["token_version"] = new_token_version
 
     return json_success({"message": "Password updated successfully."}, status=200)
+
+@auth_bp.route("/change-username", methods=["POST"])
+@require_login
+def change_username(user):
+    data, err = get_json_body(request)
+    if err:
+        return err
+
+    new_username = data.get("username", "").strip()
+    valid_user, user_err, field = validate_username(new_username)
+    if not valid_user:
+        return json_error(user_err, field=field, status=400)
+
+    password = data.get("password", "")
+    if not password:
+        return json_error("Current password is required to update username.", field="password", status=400)
+
+    if new_username.lower() == user["username"].lower():
+        return json_error("New username must be different from your current username.", field="username", status=400)
+
+    conn = db.get_db()
+    if not check_password_hash(user["password_hash"], password):
+        return json_error("Current password is incorrect.", field="password", status=400)
+
+    if is_username_taken(conn, new_username, exclude_user_id=user["id"]):
+        return json_error("Username is already taken.", field="username", status=409)
+
+    update_user_username(conn, user["id"], new_username)
+    session["username"] = new_username
+    return json_success({"message": "Username updated successfully.", "username": new_username}, status=200)
 
 @auth_bp.route("/account", methods=["DELETE"])
 @require_login

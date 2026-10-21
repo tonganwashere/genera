@@ -193,6 +193,7 @@
             <button type="button" id="settings-btn-register" data-account-action="register" class="btn">Create Account</button>
             <button type="button" id="settings-btn-verify-email" data-account-action="verify-email" class="btn btn-primary" style="display: none;">Verify Email</button>
             <button type="button" id="settings-btn-bind-email" data-account-action="bind-email" class="btn" style="display: none;">Update Email</button>
+            <button type="button" id="settings-btn-change-username" data-account-action="change-username" class="btn" style="display: none;">Change Username</button>
             <button type="button" id="settings-btn-change-password" data-account-action="change-password" class="btn" style="display: none;">Change Password</button>
             <button type="button" id="settings-btn-sync" data-account-action="sync" class="btn" style="display: none;">Sync Now</button>
             <button type="button" id="settings-btn-delete-account" data-account-action="delete-account" class="btn btn-danger" style="display: none;">Delete Account</button>
@@ -352,6 +353,32 @@
           <button type="button" id="auth-toggle-mode-btn" class="btn-link">Need an account? Register</button>
           <button type="button" id="auth-cancel-btn" class="btn-link" style="color: var(--color-text-muted);">Cancel</button>
         </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="change-username-modal" class="modal">
+    <div class="modal-header">
+      <h3>Change Username</h3>
+      <button type="button" class="modal-close-btn" id="change-username-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="change-username-form" method="dialog">
+      <div id="change-username-error-msg" class="auth-error" style="display: none;"></div>
+      <div id="change-username-success-msg" class="auth-success" style="display: none;"></div>
+      <div class="form-group">
+        <label for="change-username-new">New Username</label>
+        <input type="text" id="change-username-new" autocomplete="username" required minlength="3" maxlength="32" placeholder="3–32 letters, digits, underscores" autocapitalize="none" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label for="change-username-password">Current Password</label>
+        <div class="password-input-wrap">
+          <input type="password" id="change-username-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter current password">
+          <button type="button" class="btn-toggle-password" data-target="change-username-password" aria-label="Toggle password visibility">&#128065;</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="change-username-cancel-btn" class="btn">Cancel</button>
+        <button type="submit" id="change-username-submit-btn" class="btn btn-primary">Update Username</button>
       </div>
     </form>
   </dialog>

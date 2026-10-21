@@ -89,6 +89,15 @@ export async function bind_account_email({ email, password }) {
     return data;
 }
 
+export async function update_user_username({ username, password }) {
+    const data = await api_request("/api/change-username", {
+        body: { username, password },
+        require_csrf: true
+    });
+    await set_meta("username", data.username);
+    return data;
+}
+
 export async function delete_user_account(password) {
     const data = await api_request("/api/account", {
         method: "DELETE",

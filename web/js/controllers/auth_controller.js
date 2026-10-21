@@ -5,6 +5,7 @@ import {
     perform_account_logout,
     verify_account_email,
     bind_account_email,
+    update_user_username,
     delete_user_account
 } from "../models/auth.js";
 import { sync_now, update_sync_status_ui } from "./sync_controller.js";
@@ -13,6 +14,50 @@ import { render_account_section } from "../views/settings_view.js";
 let on_change_callback = null;
 let current_auth_mode = "login";
 let resend_timer = null;
+
+function validate_client_username(username) {
+    if (!username || typeof username !== "string") {
+        return "Username is required.";
+    }
+    const clean = username.trim();
+    if (clean.length < 3 || clean.length > 32) {
+        return "Username must be between 3 and 32 characters.";
+    }
+    if (!/^[a-zA-Z0-9_]+$/.test(clean)) {
+        return "Username may only contain letters, digits, and underscores.";
+    }
+    return null;
+}
+
+function validate_client_email(email) {
+    if (!email || typeof email !== "string") {
+        return "Email is required.";
+    }
+    const clean = email.trim();
+    if (!clean.includes("@")) {
+        return "Email must contain an '@' symbol.";
+    }
+    if (clean.length > 254 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(clean)) {
+        return "Please enter a valid email address (e.g. alex@example.com).";
+    }
+    return null;
+}
+
+function validate_client_password(password) {
+    if (!password || typeof password !== "string") {
+        return "Password is required.";
+    }
+    if (password.length < 8 || password.length > 128) {
+        return "Password must be between 8 and 128 characters.";
+    }
+    const has_upper = /[A-Z]/.test(password);
+    const has_lower = /[a-z]/.test(password);
+    const has_digit = /[0-9]/.test(password);
+    if (!has_upper || !has_lower || !has_digit) {
+        return "Password must contain uppercase, lowercase, and numeric characters.";
+    }
+    return null;
+}
 
 const AUTH_MODES = {
     login: {
@@ -72,7 +117,7 @@ const AUTH_MODES = {
         email_read_only: true,
         show_pass: false,
         show_forgot: false,
-        show_confirm: false,
+        show_confirm: true,
         show_otp: true,
         show_new_pass: true
     }
@@ -148,6 +193,15 @@ function setup_account_listeners() {
     const auth_tab_login = document.getElementById("auth-tab-login");
     const auth_tab_register = document.getElementById("auth-tab-register");
 
+    const change_user_modal = document.getElementById("change-username-modal");
+    const change_user_form = document.getElementById("change-username-form");
+    const change_user_error = document.getElementById("change-username-error-msg");
+    const change_user_success = document.getElementById("change-username-success-msg");
+    const change_user_new = document.getElementById("change-username-new");
+    const change_user_password = document.getElementById("change-username-password");
+    const change_user_cancel_btn = document.getElementById("change-username-cancel-btn");
+    const change_user_submit_btn = document.getElementById("change-username-submit-btn");
+
     const change_pass_modal = document.getElementById("change-password-modal");
     const change_pass_form = document.getElementById("change-password-form");
     const change_pass_error = document.getElementById("change-pass-error-msg");
@@ -204,7 +258,7 @@ function setup_account_listeners() {
         btn.addEventListener("click", () => close_dialog(btn.closest("dialog")));
     });
 
-    [auth_cancel_btn, change_pass_cancel_btn, verify_cancel_btn, bind_cancel_btn, delete_cancel_btn].forEach((btn) => {
+    [auth_cancel_btn, change_user_cancel_btn, change_pass_cancel_btn, verify_cancel_btn, bind_cancel_btn, delete_cancel_btn].forEach((btn) => {
         if (btn) btn.addEventListener("click", () => close_dialog(btn.closest("dialog")));
     });
 
@@ -291,6 +345,7 @@ function setup_account_listeners() {
         else if (action === "logout") handle_logout();
         else if (action === "verify-email") open_verify_modal();
         else if (action === "bind-email") open_bind_modal();
+        else if (action === "change-username") open_change_user_modal();
         else if (action === "change-password") open_change_pass_modal();
         else if (action === "delete-account") open_delete_modal();
         else if (action === "manage") {
@@ -396,6 +451,15 @@ function setup_account_listeners() {
         auth_forgot_btn.addEventListener("click", () => open_modal("forgot_request"));
     }
 
+    async function open_change_user_modal() {
+        if (change_user_error) { change_user_error.style.display = "none"; change_user_error.textContent = ""; }
+        if (change_user_success) { change_user_success.style.display = "none"; change_user_success.textContent = ""; }
+        const curr_username = await get_meta("username");
+        if (change_user_new) change_user_new.value = curr_username || "";
+        if (change_user_password) change_user_password.value = "";
+        if (change_user_modal && !change_user_modal.open) change_user_modal.showModal();
+    }
+
     async function open_change_pass_modal() {
         if (change_pass_error) { change_pass_error.style.display = "none"; change_pass_error.textContent = ""; }
         if (change_pass_success) { change_pass_success.style.display = "none"; change_pass_success.textContent = ""; }
@@ -431,12 +495,79 @@ function setup_account_listeners() {
         if (delete_modal && !delete_modal.open) delete_modal.showModal();
     }
 
+    if (change_user_form) {
+        change_user_form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const new_username = change_user_new.value.trim();
+            const password = change_user_password.value;
+
+            const user_err = validate_client_username(new_username);
+            if (user_err) {
+                if (change_user_error) {
+                    change_user_error.textContent = user_err;
+                    change_user_error.style.display = "block";
+                }
+                return;
+            }
+
+            if (!password) {
+                if (change_user_error) {
+                    change_user_error.textContent = "Current password is required.";
+                    change_user_error.style.display = "block";
+                }
+                return;
+            }
+
+            handle_form_submit({
+                submit_btn: change_user_submit_btn,
+                loading_text: "Updating...",
+                default_text: "Update Username",
+                error_el: change_user_error,
+                success_el: change_user_success,
+                action: async () => {
+                    const res = await update_user_username({ username: new_username, password });
+                    if (change_user_success) {
+                        change_user_success.textContent = res.message || "Username updated successfully!";
+                        change_user_success.style.display = "block";
+                    }
+                    await refresh_ui();
+                    setTimeout(() => close_dialog(change_user_modal), 1200);
+                }
+            });
+        });
+    }
+
     if (change_pass_form) {
         change_pass_form.addEventListener("submit", (e) => {
             e.preventDefault();
             const current_password = change_pass_current.value;
             const new_password = change_pass_new.value;
             const confirm_password = change_pass_confirm.value;
+
+            if (!current_password) {
+                if (change_pass_error) {
+                    change_pass_error.textContent = "Current password is required.";
+                    change_pass_error.style.display = "block";
+                }
+                return;
+            }
+
+            const pass_err = validate_client_password(new_password);
+            if (pass_err) {
+                if (change_pass_error) {
+                    change_pass_error.textContent = pass_err;
+                    change_pass_error.style.display = "block";
+                }
+                return;
+            }
+
+            if (new_password === current_password) {
+                if (change_pass_error) {
+                    change_pass_error.textContent = "New password cannot be the same as your current password.";
+                    change_pass_error.style.display = "block";
+                }
+                return;
+            }
 
             if (new_password !== confirm_password) {
                 if (change_pass_error) {
@@ -471,11 +602,43 @@ function setup_account_listeners() {
         auth_form.addEventListener("submit", (e) => {
             e.preventDefault();
             if (current_auth_mode === "register") {
-                const pass = auth_pass_input.value;
-                const confirm = auth_confirm_input.value;
-                if (pass !== confirm) {
+                const user_err = validate_client_username(auth_user_input.value);
+                if (user_err) {
+                    if (auth_error) { auth_error.textContent = user_err; auth_error.style.display = "block"; }
+                    return;
+                }
+                const email_err = validate_client_email(auth_email_input.value);
+                if (email_err) {
+                    if (auth_error) { auth_error.textContent = email_err; auth_error.style.display = "block"; }
+                    return;
+                }
+                const pass_err = validate_client_password(auth_pass_input.value);
+                if (pass_err) {
+                    if (auth_error) { auth_error.textContent = pass_err; auth_error.style.display = "block"; }
+                    return;
+                }
+                if (auth_pass_input.value !== auth_confirm_input.value) {
                     if (auth_error) {
                         auth_error.textContent = "Passwords do not match.";
+                        auth_error.style.display = "block";
+                    }
+                    return;
+                }
+            } else if (current_auth_mode === "forgot_request") {
+                const email_err = validate_client_email(auth_email_input.value);
+                if (email_err) {
+                    if (auth_error) { auth_error.textContent = email_err; auth_error.style.display = "block"; }
+                    return;
+                }
+            } else if (current_auth_mode === "forgot_verify") {
+                const pass_err = validate_client_password(auth_new_pass_input.value);
+                if (pass_err) {
+                    if (auth_error) { auth_error.textContent = pass_err; auth_error.style.display = "block"; }
+                    return;
+                }
+                if (auth_new_pass_input.value !== auth_confirm_input.value) {
+                    if (auth_error) {
+                        auth_error.textContent = "New passwords do not match.";
                         auth_error.style.display = "block";
                     }
                     return;
@@ -597,6 +760,23 @@ function setup_account_listeners() {
             const email = bind_input.value.trim();
             const password = bind_pass_input ? bind_pass_input.value : "";
             const submit_btn = document.getElementById("bind-email-submit-btn");
+
+            const email_err = validate_client_email(email);
+            if (email_err) {
+                if (bind_error) {
+                    bind_error.textContent = email_err;
+                    bind_error.style.display = "block";
+                }
+                return;
+            }
+
+            if (!password) {
+                if (bind_error) {
+                    bind_error.textContent = "Current password is required.";
+                    bind_error.style.display = "block";
+                }
+                return;
+            }
 
             handle_form_submit({
                 submit_btn,

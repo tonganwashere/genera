@@ -157,7 +157,7 @@ export async function render_account_section() {
     }
 
     toggle('[data-account-action="login"], [data-account-action="register"]', !is_account);
-    toggle('[data-account-action="manage"], [data-account-action="logout"], [data-account-action="change-password"], [data-account-action="delete-account"]', is_account);
+    toggle('[data-account-action="manage"], [data-account-action="logout"], [data-account-action="change-username"], [data-account-action="change-password"], [data-account-action="delete-account"]', is_account);
     toggle('[data-account-action="sync"]', is_account && can_sync);
     toggle('[data-account-action="verify-email"]', is_account && show_verify);
     document.querySelectorAll('[data-account-action="bind-email"]').forEach((b) => {

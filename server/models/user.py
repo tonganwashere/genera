@@ -17,6 +17,9 @@ def get_user_by_identifier(conn, identifier):
 def is_email_taken(conn, email, exclude_user_id):
     return bool(conn.execute("SELECT 1 FROM users WHERE email = ? AND id != ?", (email.strip().lower(), exclude_user_id)).fetchone())
 
+def is_username_taken(conn, username, exclude_user_id):
+    return bool(conn.execute("SELECT 1 FROM users WHERE username = ? COLLATE NOCASE AND id != ?", (username.strip(), exclude_user_id)).fetchone())
+
 def create_user(conn, username, email, password):
     clean_user = username.strip()
     clean_email = email.strip().lower()
@@ -45,6 +48,11 @@ def update_user_password(conn, user_id, new_password, new_token_version):
 def update_user_email(conn, user_id, email):
     clean_email = email.strip().lower()
     conn.execute("UPDATE users SET email = ?, email_verified = 0 WHERE id = ?", (clean_email, user_id))
+    conn.commit()
+
+def update_user_username(conn, user_id, new_username):
+    clean_user = new_username.strip()
+    conn.execute("UPDATE users SET username = ? WHERE id = ?", (clean_user, user_id))
     conn.commit()
 
 def mark_email_verified(conn, user_id):
