@@ -1,4 +1,5 @@
 import {
+    save_own_card,
     add_own_card,
     update_own_card,
     delete_own_card,
@@ -14,8 +15,23 @@ let current_category = "all";
 let current_search = "";
 let current_page = 1;
 const page_size = 50;
+let cached_merged_cards = null;
 
-export function create_card_element(card, is_official, is_hidden, on_change) {
+export function invalidate_cards_cache() {
+    cached_merged_cards = null;
+}
+
+export function create_card_element(card, is_official_or_cb, is_hidden_or_cb, on_change_cb) {
+    let is_official = card.is_official ?? false;
+    let is_hidden = card.is_hidden ?? false;
+    let on_change = on_change_cb;
+
+    if (typeof is_official_or_cb === "function") {
+        on_change = is_official_or_cb;
+    } else {
+        if (typeof is_official_or_cb === "boolean") is_official = is_official_or_cb;
+        if (typeof is_hidden_or_cb === "boolean") is_hidden = is_hidden_or_cb;
+    }
     const row = document.createElement("div");
     row.className = "card-row";
     row.dataset.id = card.id;
@@ -31,19 +47,12 @@ export function create_card_element(card, is_official, is_hidden, on_change) {
     cat_badge.textContent = card.category;
     badge_row.appendChild(cat_badge);
 
-    if (is_official) {
-        const source_badge = document.createElement("span");
-        source_badge.className = "badge badge-official";
-        source_badge.textContent = "Official";
-        badge_row.appendChild(source_badge);
-    } else {
-        const source_badge = document.createElement("span");
-        source_badge.className = "badge badge-mine";
-        source_badge.textContent = "Mine";
-        badge_row.appendChild(source_badge);
-    }
+    const source_badge = document.createElement("span");
+    source_badge.className = card.is_official ? "badge badge-official" : "badge badge-mine";
+    source_badge.textContent = card.is_official ? "Official" : "Mine";
+    badge_row.appendChild(source_badge);
 
-    if (is_hidden) {
+    if (card.is_hidden) {
         const hidden_badge = document.createElement("span");
         hidden_badge.className = "badge badge-hidden";
         hidden_badge.textContent = "Hidden";
@@ -66,22 +75,24 @@ export function create_card_element(card, is_official, is_hidden, on_change) {
     const actions_div = document.createElement("div");
     actions_div.className = "card-actions";
 
-    if (is_official) {
+    if (card.is_official) {
         const hide_btn = document.createElement("button");
         hide_btn.className = "btn btn-sm";
-        hide_btn.textContent = is_hidden ? "Unhide" : "Hide";
+        hide_btn.textContent = card.is_hidden ? "Unhide" : "Hide";
         hide_btn.addEventListener("click", async () => {
-            await set_card_hidden("catalog", card.id, !is_hidden);
+            await set_card_hidden("catalog", card.id, !card.is_hidden);
+            invalidate_cards_cache();
             if (on_change) on_change();
         });
         actions_div.appendChild(hide_btn);
     } else {
-        if (is_hidden) {
+        if (card.is_hidden) {
             const unhide_btn = document.createElement("button");
             unhide_btn.className = "btn btn-sm";
             unhide_btn.textContent = "Unhide";
             unhide_btn.addEventListener("click", async () => {
                 await set_card_hidden("own", card.id, false);
+                invalidate_cards_cache();
                 if (on_change) on_change();
             });
             actions_div.appendChild(unhide_btn);
@@ -91,7 +102,7 @@ export function create_card_element(card, is_official, is_hidden, on_change) {
         edit_btn.className = "btn btn-sm";
         edit_btn.textContent = "Edit";
         edit_btn.addEventListener("click", () => {
-            open_edit_modal(card, on_change);
+            open_card_modal(card, on_change);
         });
 
         const delete_btn = document.createElement("button");
@@ -100,6 +111,7 @@ export function create_card_element(card, is_official, is_hidden, on_change) {
         delete_btn.addEventListener("click", async () => {
             if (confirm("Delete this card?")) {
                 await delete_own_card(card.id);
+                invalidate_cards_cache();
                 if (on_change) on_change();
             }
         });
@@ -112,7 +124,7 @@ export function create_card_element(card, is_official, is_hidden, on_change) {
     return row;
 }
 
-export function open_add_modal(on_saved) {
+export function open_card_modal(card = null, on_saved) {
     const modal = document.getElementById("card-modal");
     const title = document.getElementById("modal-title");
     const edit_id = document.getElementById("card-edit-id");
@@ -120,11 +132,11 @@ export function open_add_modal(on_saved) {
     const a_input = document.getElementById("card-answer-input");
     const c_input = document.getElementById("card-category-input");
 
-    title.textContent = "Add Card";
-    edit_id.value = "";
-    q_input.value = "";
-    a_input.value = "";
-    c_input.value = "";
+    title.textContent = card ? "Edit Card" : "Add Card";
+    edit_id.value = card ? card.id : "";
+    q_input.value = card ? card.question : "";
+    a_input.value = card ? card.answer : "";
+    c_input.value = card ? card.category : "";
 
     modal.showModal();
 
@@ -132,7 +144,13 @@ export function open_add_modal(on_saved) {
     form.onsubmit = async (e) => {
         e.preventDefault();
         try {
-            await add_own_card(q_input.value, a_input.value, c_input.value);
+            await save_own_card({
+                id: card ? card.id : null,
+                question: q_input.value,
+                answer: a_input.value,
+                category: c_input.value
+            });
+            invalidate_cards_cache();
             modal.close();
             if (on_saved) on_saved();
         } catch (err) {
@@ -141,33 +159,12 @@ export function open_add_modal(on_saved) {
     };
 }
 
+export function open_add_modal(on_saved) {
+    return open_card_modal(null, on_saved);
+}
+
 export function open_edit_modal(card, on_saved) {
-    const modal = document.getElementById("card-modal");
-    const title = document.getElementById("modal-title");
-    const edit_id = document.getElementById("card-edit-id");
-    const q_input = document.getElementById("card-question-input");
-    const a_input = document.getElementById("card-answer-input");
-    const c_input = document.getElementById("card-category-input");
-
-    title.textContent = "Edit Card";
-    edit_id.value = card.id;
-    q_input.value = card.question;
-    a_input.value = card.answer;
-    c_input.value = card.category;
-
-    modal.showModal();
-
-    const form = document.getElementById("card-form");
-    form.onsubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await update_own_card(card.id, q_input.value, a_input.value, c_input.value);
-            modal.close();
-            if (on_saved) on_saved();
-        } catch (err) {
-            alert(err.message);
-        }
-    };
+    return open_card_modal(card, on_saved);
 }
 
 export async function populate_category_dropdown() {
@@ -193,84 +190,51 @@ export async function populate_category_dropdown() {
     }
 }
 
-export async function fetch_filtered_cards() {
-    const catalog_cards = await get_all_catalog_cards();
-    const own_cards = await get_all_own_cards(false);
-    const progress_rows = await get_all_progress_rows();
+export async function fetch_filtered_cards(force_reload = false) {
+    if (!cached_merged_cards || force_reload) {
+        const [catalog_cards, own_cards, progress_rows] = await Promise.all([
+            get_all_catalog_cards(),
+            get_all_own_cards(false),
+            get_all_progress_rows()
+        ]);
 
-    const hidden_set = new Set();
-    for (const p of progress_rows) {
-        if (p.hidden === 1) {
-            hidden_set.add(`${p.card_kind}:${p.card_id}`);
-        }
-    }
-
-    const merged = [];
-
-    for (const c of catalog_cards) {
-        const is_hidden = hidden_set.has(`catalog:${c.id}`);
-        merged.push({
-            id: c.id,
-            question: c.question,
-            answer: c.answer,
-            category: c.category,
-            is_official: true,
-            is_hidden: is_hidden
-        });
-    }
-
-    for (const c of own_cards) {
-        const is_hidden = hidden_set.has(`own:${c.id}`);
-        merged.push({
-            id: c.id,
-            question: c.question,
-            answer: c.answer,
-            category: c.category,
-            is_official: false,
-            is_hidden: is_hidden
-        });
-    }
-
-    const filtered = merged.filter((item) => {
-        if (current_filter === "all" && item.is_hidden) {
-            return false;
-        }
-        if (current_filter === "official" && (!item.is_official || item.is_hidden)) {
-            return false;
-        }
-        if (current_filter === "mine" && item.is_official) {
-            return false;
-        }
-        if (current_filter === "hidden" && !item.is_hidden) {
-            return false;
-        }
-
-        if (current_category !== "all" && item.category !== current_category) {
-            return false;
-        }
-
-        if (current_search) {
-            const query = current_search.toLowerCase();
-            const matches_q = item.question.toLowerCase().includes(query);
-            const matches_a = item.answer.toLowerCase().includes(query);
-            if (!matches_q && !matches_a) {
-                return false;
+        const hidden_set = new Set();
+        for (const p of progress_rows) {
+            if (p.hidden === 1) {
+                hidden_set.add(`${p.card_kind}:${p.card_id}`);
             }
+        }
+
+        cached_merged_cards = [
+            ...catalog_cards.map((c) => ({ ...c, is_official: true, is_hidden: hidden_set.has(`catalog:${c.id}`) })),
+            ...own_cards.map((c) => ({ ...c, is_official: false, is_hidden: hidden_set.has(`own:${c.id}`) }))
+        ];
+    }
+
+    const query = current_search.toLowerCase();
+    return cached_merged_cards.filter((item) => {
+        if (current_filter === "all" && item.is_hidden) return false;
+        if (current_filter === "official" && (!item.is_official || item.is_hidden)) return false;
+        if (current_filter === "mine" && item.is_official) return false;
+        if (current_filter === "hidden" && !item.is_hidden) return false;
+
+        if (current_category !== "all" && item.category !== current_category) return false;
+
+        if (query && !item.question.toLowerCase().includes(query) && !item.answer.toLowerCase().includes(query)) {
+            return false;
         }
 
         return true;
     });
-
-    return filtered;
 }
 
-export async function render_cards_view(on_change) {
+export async function render_cards_view(on_change, force_reload = false) {
     const container = document.getElementById("cards-container");
     const count_bar = document.getElementById("cards-count-bar");
     const pagination_bar = document.getElementById("cards-pagination");
     if (!container) return;
 
-    const cards = await fetch_filtered_cards();
+    const cards = await fetch_filtered_cards(force_reload);
     container.innerHTML = "";
     if (pagination_bar) pagination_bar.innerHTML = "";
 
@@ -294,7 +258,8 @@ export async function render_cards_view(on_change) {
     }
 
     for (const card of visible_slice) {
-        const el = create_card_element(card, card.is_official, card.is_hidden, async () => {
+        const el = create_card_element(card, async () => {
+            invalidate_cards_cache();
             await render_cards_view(on_change);
             if (on_change) on_change();
         });

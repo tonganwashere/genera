@@ -1,8 +1,9 @@
 const db_name = "genera";
-const db_version = 1;
+const db_version = 2;
 let db_instance = null;
+let cached_catalog_categories = null;
 
-export function open_db() {
+function open_db() {
     if (db_instance) {
         return Promise.resolve(db_instance);
     }
@@ -15,12 +16,26 @@ export function open_db() {
             if (!db.objectStoreNames.contains("catalog")) {
                 db.createObjectStore("catalog", { keyPath: "id" });
             }
+            let card_store;
             if (!db.objectStoreNames.contains("own_cards")) {
-                db.createObjectStore("own_cards", { keyPath: "id" });
+                card_store = db.createObjectStore("own_cards", { keyPath: "id" });
+            } else {
+                card_store = request.transaction.objectStore("own_cards");
             }
+            if (!card_store.indexNames.contains("dirty")) {
+                card_store.createIndex("dirty", "dirty");
+            }
+
+            let prog_store;
             if (!db.objectStoreNames.contains("progress")) {
-                db.createObjectStore("progress", { keyPath: ["card_kind", "card_id"] });
+                prog_store = db.createObjectStore("progress", { keyPath: ["card_kind", "card_id"] });
+            } else {
+                prog_store = request.transaction.objectStore("progress");
             }
+            if (!prog_store.indexNames.contains("dirty")) {
+                prog_store.createIndex("dirty", "dirty");
+            }
+
             if (!db.objectStoreNames.contains("settings")) {
                 db.createObjectStore("settings", { keyPath: "id" });
             }
@@ -40,115 +55,100 @@ export function open_db() {
     });
 }
 
-export async function get_meta(key) {
-    const db = await open_db();
+function promisify_req(req) {
     return new Promise((resolve, reject) => {
-        const tx = db.transaction("meta", "readonly");
-        const store = tx.objectStore("meta");
-        const req = store.get(key);
-        req.onsuccess = () => resolve(req.result ? req.result.value : null);
-        req.onerror = () => reject(req.error);
-    });
-}
-
-export async function set_meta(key, value) {
-    const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("meta", "readwrite");
-        const store = tx.objectStore("meta");
-        const req = store.put({ key: key, value: value });
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-    });
-}
-
-export async function count_store(store_name) {
-    const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction(store_name, "readonly");
-        const store = tx.objectStore(store_name);
-        const req = store.count();
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
     });
 }
 
-export async function init_defaults() {
-    const mode = await get_meta("mode");
-    if (mode === null) {
-        await set_meta("mode", "local");
-    }
-    const sync_ver = await get_meta("lastSyncVersion");
-    if (sync_ver === null) {
-        await set_meta("lastSyncVersion", 0);
-    }
-    const cat_ver = await get_meta("catalogVersion");
-    if (cat_ver === null) {
-        await set_meta("catalogVersion", 0);
-    }
+export async function get_meta(key) {
+    const db = await open_db();
+    const res = await promisify_req(db.transaction("meta", "readonly").objectStore("meta").get(key));
+    return res ? res.value : null;
+}
+
+export async function set_meta(key, value) {
+    return set_meta_batch({ [key]: value });
+}
+
+export async function set_meta_batch(entries) {
+    const db = await open_db();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction("meta", "readwrite");
+        const store = tx.objectStore("meta");
+        for (const [key, value] of Object.entries(entries)) {
+            store.put({ key, value });
+        }
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+    });
+}
+
+export async function count_store(store_name) {
+    const db = await open_db();
+    return promisify_req(db.transaction(store_name, "readonly").objectStore(store_name).count());
+}
+
+async function store_catalog_data(db, cards, version) {
+    cached_catalog_categories = null;
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(["catalog", "meta"], "readwrite");
+        const catalog_store = tx.objectStore("catalog");
+        const meta_store = tx.objectStore("meta");
+        catalog_store.clear();
+        for (const card of cards) {
+            catalog_store.put(card);
+        }
+        meta_store.put({ key: "catalogVersion", value: version });
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+    });
 }
 
 export async function load_catalog_if_needed() {
     const db = await open_db();
-    await init_defaults();
-
     const current_version = (await get_meta("catalogVersion")) || 0;
     const existing_count = await count_store("catalog");
 
     if (current_version > 0 && existing_count > 0) {
+        const fallback = { downloaded: false, count: existing_count, version: current_version };
         if (!navigator.onLine) {
-            return { downloaded: false, count: existing_count, version: current_version };
+            return fallback;
         }
 
         try {
             const manifest_res = await fetch("/data/catalog-manifest.json", { cache: "no-cache" });
             if (!manifest_res.ok) {
-                return { downloaded: false, count: existing_count, version: current_version };
+                return fallback;
             }
 
             const manifest = await manifest_res.json();
             const manifest_version = typeof manifest.version === "number" ? manifest.version : 0;
 
             if (manifest_version <= current_version) {
-                return { downloaded: false, count: existing_count, version: current_version };
+                return fallback;
             }
 
             const cat_res = await fetch("/data/catalog.json", { cache: "no-cache" });
             if (!cat_res.ok) {
-                console.error("Failed to download catalog update:", cat_res.statusText);
-                return { downloaded: false, count: existing_count, version: current_version };
+                return fallback;
             }
 
             const data = await cat_res.json();
             const cards = data.cards || [];
             const new_version = typeof data.version === "number" ? data.version : manifest_version;
 
-            await new Promise((resolve, reject) => {
-                const tx = db.transaction(["catalog", "meta"], "readwrite");
-                const catalog_store = tx.objectStore("catalog");
-                const meta_store = tx.objectStore("meta");
-
-                catalog_store.clear();
-                for (const card of cards) {
-                    catalog_store.put(card);
-                }
-                meta_store.put({ key: "catalogVersion", value: new_version });
-
-                tx.oncomplete = () => resolve();
-                tx.onerror = () => reject(new Error("Failed to save updated catalog to IndexedDB: " + tx.error));
-            });
-
+            await store_catalog_data(db, cards, new_version);
             return { downloaded: true, count: cards.length, version: new_version };
-        } catch (err) {
-            console.error("Catalog update check failed:", err);
-            return { downloaded: false, count: existing_count, version: current_version };
+        } catch (_) {
+            return fallback;
         }
     }
 
     try {
         const response = await fetch("/data/catalog.json");
         if (!response.ok) {
-            console.error("Failed to download catalog:", response.statusText);
             return { downloaded: false, count: 0, version: 0 };
         }
 
@@ -156,27 +156,9 @@ export async function load_catalog_if_needed() {
         const cards = data.cards || [];
         const initial_version = typeof data.version === "number" ? data.version : 1;
 
-        return new Promise((resolve, reject) => {
-            const tx = db.transaction(["catalog", "meta"], "readwrite");
-            const catalog_store = tx.objectStore("catalog");
-            const meta_store = tx.objectStore("meta");
-
-            for (const card of cards) {
-                catalog_store.put(card);
-            }
-
-            meta_store.put({ key: "catalogVersion", value: initial_version });
-
-            tx.oncomplete = () => {
-                resolve({ downloaded: true, count: cards.length, version: initial_version });
-            };
-
-            tx.onerror = () => {
-                reject(new Error("Failed to save catalog to IndexedDB: " + tx.error));
-            };
-        });
-    } catch (err) {
-        console.error("Initial catalog download failed:", err);
+        await store_catalog_data(db, cards, initial_version);
+        return { downloaded: true, count: cards.length, version: initial_version };
+    } catch (_) {
         return { downloaded: false, count: 0, version: 0 };
     }
 }
@@ -190,165 +172,125 @@ export function get_today_date() {
 }
 
 export function get_utc_now() {
-    const d = new Date();
-    return d.toISOString().replace(/\.\d{3}Z$/, "Z");
+    return new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
 }
 
-export async function add_own_card(question, answer, category) {
-    const db = await open_db();
-    const clean_q = question.trim();
-    const clean_a = answer.trim();
-    const clean_c = category.trim() || "Uncategorized";
+export async function save_own_card({ id = null, question, answer, category }) {
+    const q = (question || "").trim();
+    const a = (answer || "").trim();
+    const c = (category || "").trim() || "Uncategorized";
 
-    const all_existing = await get_all_own_cards(false);
-    const is_dupe = all_existing.some((c) => {
-        return c.question.toLowerCase() === clean_q.toLowerCase() && c.category.toLowerCase() === clean_c.toLowerCase();
-    });
-
-    if (is_dupe) {
-        throw new Error("A card with this question and category already exists.");
+    if (!q || q.length > 500) {
+        throw new Error("Question must be between 1 and 500 characters.");
+    }
+    if (!a || a.length > 500) {
+        throw new Error("Answer must be between 1 and 500 characters.");
+    }
+    if (c.length > 50) {
+        throw new Error("Category must be between 1 and 50 characters.");
     }
 
-    const card = {
-        id: crypto.randomUUID(),
-        question: clean_q,
-        answer: clean_a,
-        category: clean_c,
-        created_at: get_today_date(),
+    const db = await open_db();
+    let existing = null;
+    if (id) {
+        existing = await get_own_card(id);
+        if (!existing || existing.deleted === 1) {
+            throw new Error("Card not found.");
+        }
+    } else {
+        const all_existing = await get_all_own_cards(false);
+        const is_dupe = all_existing.some((card) => {
+            return card.question.trim().toLowerCase() === q.toLowerCase() &&
+                   card.category.trim().toLowerCase() === c.toLowerCase();
+        });
+        if (is_dupe) {
+            throw new Error("A card with this question and category already exists.");
+        }
+    }
+
+    const card_id = id || crypto.randomUUID();
+    const to_save = {
+        id: card_id,
+        question: q,
+        answer: a,
+        category: c,
+        created_at: existing ? existing.created_at : get_today_date(),
         updated_at: get_utc_now(),
         deleted: 0,
         dirty: 1
     };
+    await promisify_req(db.transaction("own_cards", "readwrite").objectStore("own_cards").put(to_save));
+    return to_save;
+}
 
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("own_cards", "readwrite");
-        const store = tx.objectStore("own_cards");
-        const req = store.put(card);
-        req.onsuccess = () => resolve(card);
-        req.onerror = () => reject(req.error);
-    });
+export async function add_own_card(question, answer, category) {
+    return save_own_card({ question, answer, category });
 }
 
 export async function update_own_card(id, question, answer, category) {
+    return save_own_card({ id, question, answer, category });
+}
+
+export async function add_own_cards_batch(cards) {
     const db = await open_db();
-    const clean_q = question.trim();
-    const clean_a = answer.trim();
-    const clean_c = category.trim() || "Uncategorized";
-
-    const existing = await get_own_card(id);
-    if (!existing || existing.deleted === 1) {
-        throw new Error("Card not found.");
-    }
-
-    existing.question = clean_q;
-    existing.answer = clean_a;
-    existing.category = clean_c;
-    existing.updated_at = get_utc_now();
-    existing.dirty = 1;
-
     return new Promise((resolve, reject) => {
         const tx = db.transaction("own_cards", "readwrite");
         const store = tx.objectStore("own_cards");
-        const req = store.put(existing);
-        req.onsuccess = () => resolve(existing);
-        req.onerror = () => reject(req.error);
+        for (const card of cards) {
+            store.put({ ...card, dirty: 1 });
+        }
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
     });
 }
 
 export async function delete_own_card(id) {
     const db = await open_db();
     const existing = await get_own_card(id);
-    if (!existing) {
-        return;
-    }
+    if (!existing) return;
 
     existing.deleted = 1;
     existing.updated_at = get_utc_now();
     existing.dirty = 1;
 
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("own_cards", "readwrite");
-        const store = tx.objectStore("own_cards");
-        const req = store.put(existing);
-        req.onsuccess = () => resolve();
-        req.onerror = () => reject(req.error);
-    });
+    await promisify_req(db.transaction("own_cards", "readwrite").objectStore("own_cards").put(existing));
 }
 
 export async function get_own_card(id) {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("own_cards", "readonly");
-        const store = tx.objectStore("own_cards");
-        const req = store.get(id);
-        req.onsuccess = () => resolve(req.result || null);
-        req.onerror = () => reject(req.error);
-    });
+    return (await promisify_req(db.transaction("own_cards", "readonly").objectStore("own_cards").get(id))) || null;
+}
+
+export async function get_catalog_card(id) {
+    const db = await open_db();
+    const card_id = typeof id === "string" && !isNaN(Number(id)) ? Number(id) : id;
+    return (await promisify_req(db.transaction("catalog", "readonly").objectStore("catalog").get(card_id))) || null;
 }
 
 export async function get_all_own_cards(include_deleted = false) {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("own_cards", "readonly");
-        const store = tx.objectStore("own_cards");
-        const req = store.getAll();
-        req.onsuccess = () => {
-            const all = req.result || [];
-            if (include_deleted) {
-                resolve(all);
-            } else {
-                resolve(all.filter((c) => c.deleted !== 1));
-            }
-        };
-        req.onerror = () => reject(req.error);
-    });
+    const all = (await promisify_req(db.transaction("own_cards", "readonly").objectStore("own_cards").getAll())) || [];
+    return include_deleted ? all : all.filter((c) => c.deleted !== 1);
 }
 
-export async function get_progress(card_kind, card_id) {
+async function get_progress(card_kind, card_id) {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("progress", "readonly");
-        const store = tx.objectStore("progress");
-        const req = store.get([card_kind, card_id]);
-        req.onsuccess = () => resolve(req.result || null);
-        req.onerror = () => reject(req.error);
-    });
+    return (await promisify_req(db.transaction("progress", "readonly").objectStore("progress").get([card_kind, card_id]))) || null;
 }
 
 export async function set_card_hidden(card_kind, card_id, hidden) {
-    const db = await open_db();
-    const existing = await get_progress(card_kind, card_id);
-
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("progress", "readwrite");
-        const store = tx.objectStore("progress");
-
-        if (existing) {
-            existing.hidden = hidden ? 1 : 0;
-            existing.updated_at = get_utc_now();
-            existing.dirty = 1;
-            const req = store.put(existing);
-            req.onsuccess = () => resolve(existing);
-            req.onerror = () => reject(req.error);
-        } else {
-            const row = {
-                card_kind: card_kind,
-                card_id: card_id,
-                box: 1,
-                due_date: get_today_date(),
-                last_reviewed: null,
-                introduced_on: null,
-                times_right: 0,
-                times_wrong: 0,
-                hidden: hidden ? 1 : 0,
-                updated_at: get_utc_now(),
-                dirty: 1
-            };
-            const req = store.put(row);
-            req.onsuccess = () => resolve(row);
-            req.onerror = () => reject(req.error);
-        }
-    });
+    const row = (await get_progress(card_kind, card_id)) || {
+        card_kind,
+        card_id,
+        box: 1,
+        due_date: get_today_date(),
+        last_reviewed: null,
+        introduced_on: null,
+        times_right: 0,
+        times_wrong: 0
+    };
+    row.hidden = hidden ? 1 : 0;
+    return await save_progress_row(row);
 }
 
 export async function save_progress_row(row) {
@@ -358,62 +300,30 @@ export async function save_progress_row(row) {
         updated_at: get_utc_now(),
         dirty: 1
     };
-
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("progress", "readwrite");
-        const store = tx.objectStore("progress");
-        const req = store.put(to_save);
-        req.onsuccess = () => resolve(to_save);
-        req.onerror = () => reject(req.error);
-    });
-}
-
-export async function is_card_hidden(card_kind, card_id) {
-    const row = await get_progress(card_kind, card_id);
-    return row !== null && row.hidden === 1;
+    await promisify_req(db.transaction("progress", "readwrite").objectStore("progress").put(to_save));
+    return to_save;
 }
 
 export async function get_all_catalog_cards() {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("catalog", "readonly");
-        const store = tx.objectStore("catalog");
-        const req = store.getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-    });
-}
-
-export async function get_catalog_card(id) {
-    const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("catalog", "readonly");
-        const store = tx.objectStore("catalog");
-        const card_id = typeof id === "string" && !isNaN(Number(id)) ? Number(id) : id;
-        const req = store.get(card_id);
-        req.onsuccess = () => resolve(req.result || null);
-        req.onerror = () => reject(req.error);
-    });
+    return (await promisify_req(db.transaction("catalog", "readonly").objectStore("catalog").getAll())) || [];
 }
 
 export async function get_all_progress_rows() {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("progress", "readonly");
-        const store = tx.objectStore("progress");
-        const req = store.getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
-    });
+    return (await promisify_req(db.transaction("progress", "readonly").objectStore("progress").getAll())) || [];
 }
 
 export async function get_all_categories() {
-    const catalog_cards = await get_all_catalog_cards();
-    const own_cards = await get_all_own_cards(false);
-    const categories = new Set();
-    for (const c of catalog_cards) {
-        if (c.category) categories.add(c.category);
+    if (!cached_catalog_categories) {
+        const catalog_cards = await get_all_catalog_cards();
+        cached_catalog_categories = new Set();
+        for (const c of catalog_cards) {
+            if (c.category) cached_catalog_categories.add(c.category);
+        }
     }
+    const categories = new Set(cached_catalog_categories);
+    const own_cards = await get_all_own_cards(false);
     for (const c of own_cards) {
         if (c.category) categories.add(c.category);
     }
@@ -422,25 +332,14 @@ export async function get_all_categories() {
 
 export async function get_user_settings() {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("settings", "readonly");
-        const store = tx.objectStore("settings");
-        const req = store.get("user_settings");
-        req.onsuccess = () => {
-            if (req.result) {
-                resolve(req.result);
-            } else {
-                resolve({
-                    id: "user_settings",
-                    daily_new_limit: 10,
-                    enabled_categories: [],
-                    updated_at: get_utc_now(),
-                    dirty: 0
-                });
-            }
-        };
-        req.onerror = () => reject(req.error);
-    });
+    const settings = await promisify_req(db.transaction("settings", "readonly").objectStore("settings").get("user_settings"));
+    return settings || {
+        id: "user_settings",
+        daily_new_limit: 10,
+        enabled_categories: [],
+        updated_at: get_utc_now(),
+        dirty: 0
+    };
 }
 
 export async function save_user_settings(new_settings) {
@@ -453,61 +352,61 @@ export async function save_user_settings(new_settings) {
         updated_at: get_utc_now(),
         dirty: 1
     };
-
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("settings", "readwrite");
-        const store = tx.objectStore("settings");
-        const req = store.put(merged);
-        req.onsuccess = () => resolve(merged);
-        req.onerror = () => reject(req.error);
-    });
+    await promisify_req(db.transaction("settings", "readwrite").objectStore("settings").put(merged));
+    return merged;
 }
 
 export async function get_dirty_own_cards() {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("own_cards", "readonly");
-        const store = tx.objectStore("own_cards");
-        const req = store.getAll();
-        req.onsuccess = () => {
-            const list = (req.result || []).filter((c) => c.dirty === 1);
-            resolve(list);
-        };
-        req.onerror = () => reject(req.error);
-    });
+    const tx = db.transaction("own_cards", "readonly");
+    const store = tx.objectStore("own_cards");
+    return (await promisify_req(store.index("dirty").getAll(IDBKeyRange.only(1)))) || [];
 }
 
 export async function get_dirty_progress_rows() {
     const db = await open_db();
-    return new Promise((resolve, reject) => {
-        const tx = db.transaction("progress", "readonly");
-        const store = tx.objectStore("progress");
-        const req = store.getAll();
-        req.onsuccess = () => {
-            const list = (req.result || []).filter((p) => p.dirty === 1);
-            resolve(list);
-        };
-        req.onerror = () => reject(req.error);
-    });
+    const tx = db.transaction("progress", "readonly");
+    const store = tx.objectStore("progress");
+    return (await promisify_req(store.index("dirty").getAll(IDBKeyRange.only(1)))) || [];
 }
 
 export async function get_dirty_settings() {
     const settings = await get_user_settings();
-    if (settings && settings.dirty === 1) {
-        return {
-            daily_new_limit: settings.daily_new_limit ?? 10,
-            enabled_categories: settings.enabled_categories ?? [],
-            updated_at: settings.updated_at
-        };
-    }
-    return null;
+    if (settings.dirty !== 1) return null;
+    return {
+        daily_new_limit: settings.daily_new_limit,
+        enabled_categories: settings.enabled_categories,
+        updated_at: settings.updated_at
+    };
 }
 
 export async function count_dirty_rows() {
-    const cards = await get_dirty_own_cards();
-    const progress = await get_dirty_progress_rows();
-    const settings = await get_dirty_settings();
-    return cards.length + progress.length + (settings ? 1 : 0);
+    const db = await open_db();
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(["own_cards", "progress", "settings"], "readonly");
+        const store1 = tx.objectStore("own_cards");
+        const store2 = tx.objectStore("progress");
+        const store3 = tx.objectStore("settings");
+
+        let cards_count = 0;
+        let prog_count = 0;
+        let settings_count = 0;
+
+        const req1 = store1.index("dirty").count(IDBKeyRange.only(1));
+        req1.onsuccess = () => { cards_count = req1.result; };
+
+        const req2 = store2.index("dirty").count(IDBKeyRange.only(1));
+        req2.onsuccess = () => { prog_count = req2.result; };
+
+        const req3 = store3.get("user_settings");
+        req3.onsuccess = () => {
+            const s = req3.result;
+            settings_count = s && s.dirty === 1 ? 1 : 0;
+        };
+
+        tx.oncomplete = () => resolve(cards_count + prog_count + settings_count);
+        tx.onerror = () => reject(tx.error);
+    });
 }
 
 export async function apply_sync_batch({
@@ -653,9 +552,9 @@ export async function merge_local_into_account({
             }
         }
 
-        const server_prog_keys = new Set();
+        const server_prog_map = new Map();
         for (const sp of server_progress) {
-            server_prog_keys.add(`${sp.card_kind}:${sp.card_id}`);
+            server_prog_map.set(`${sp.card_kind}:${sp.card_id}`, sp);
             prog_store.put({
                 ...sp,
                 dirty: 0
@@ -663,21 +562,20 @@ export async function merge_local_into_account({
         }
 
         for (const lp of local_progress) {
-            if (lp.card_kind === "own" && remapped_uuids.has(lp.card_id)) {
-                const canonical_id = remapped_uuids.get(lp.card_id);
-                prog_store.delete(["own", lp.card_id]);
+            const is_remapped = lp.card_kind === "own" && remapped_uuids.has(lp.card_id);
+            const target_card_id = is_remapped ? remapped_uuids.get(lp.card_id) : lp.card_id;
 
-                const canonical_key = `own:${canonical_id}`;
-                if (!server_prog_keys.has(canonical_key)) {
-                    prog_store.put({
-                        ...lp,
-                        card_id: canonical_id,
-                        dirty: 1
-                    });
-                }
-            } else {
+            if (is_remapped && lp.card_id !== target_card_id) {
+                prog_store.delete(["own", lp.card_id]);
+            }
+
+            const key = `${lp.card_kind}:${target_card_id}`;
+            const server_prog = server_prog_map.get(key);
+
+            if (!server_prog || lp.updated_at > server_prog.updated_at) {
                 prog_store.put({
                     ...lp,
+                    card_id: target_card_id,
                     dirty: 1
                 });
             }

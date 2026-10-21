@@ -1,5 +1,5 @@
 import {
-    open_db,
+    add_own_cards_batch,
     get_all_own_cards,
     get_today_date,
     get_utc_now
@@ -8,65 +8,40 @@ import {
 const max_file_size = 1024 * 1024;
 const max_own_cards = 5000;
 
-export function parse_csv(csv_text) {
+function parse_csv(csv_text) {
     const rows = [];
     let current_row = [];
     let current_field = "";
     let inside_quotes = false;
-    let i = 0;
-    const len = csv_text.length;
 
-    while (i < len) {
-        const char = csv_text[i];
-
+    for (let i = 0; i < csv_text.length; i++) {
+        const c = csv_text[i];
         if (inside_quotes) {
-            if (char === '"') {
-                if (i + 1 < len && csv_text[i + 1] === '"') {
+            if (c === '"') {
+                if (csv_text[i + 1] === '"') {
                     current_field += '"';
-                    i += 2;
-                    continue;
+                    i++;
                 } else {
                     inside_quotes = false;
-                    i++;
-                    continue;
                 }
             } else {
-                current_field += char;
-                i++;
-                continue;
+                current_field += c;
             }
+        } else if (c === '"') {
+            inside_quotes = true;
+        } else if (c === ',') {
+            current_row.push(current_field);
+            current_field = "";
+        } else if (c === '\n' || c === '\r') {
+            if (c === '\r' && csv_text[i + 1] === '\n') {
+                i++;
+            }
+            current_row.push(current_field);
+            rows.push(current_row);
+            current_row = [];
+            current_field = "";
         } else {
-            if (char === '"') {
-                inside_quotes = true;
-                i++;
-                continue;
-            } else if (char === ',') {
-                current_row.push(current_field);
-                current_field = "";
-                i++;
-                continue;
-            } else if (char === '\r') {
-                if (i + 1 < len && csv_text[i + 1] === '\n') {
-                    i++;
-                }
-                current_row.push(current_field);
-                rows.push(current_row);
-                current_row = [];
-                current_field = "";
-                i++;
-                continue;
-            } else if (char === '\n') {
-                current_row.push(current_field);
-                rows.push(current_row);
-                current_row = [];
-                current_field = "";
-                i++;
-                continue;
-            } else {
-                current_field += char;
-                i++;
-                continue;
-            }
+            current_field += c;
         }
     }
 
@@ -101,9 +76,9 @@ async function validate_and_save_cards(card_rows) {
             continue;
         }
 
-        const question = typeof item.question === "string" ? item.question.trim() : "";
-        const answer = typeof item.answer === "string" ? item.answer.trim() : "";
-        let category = typeof item.category === "string" ? item.category.trim() : "";
+        const question = String(item.question || "").trim();
+        const answer = String(item.answer || "").trim();
+        let category = String(item.category || "").trim();
 
         if (!question || question.length > 500) {
             skipped_reports.push(`Row ${row_num}: question must be between 1 and 500 characters.`);
@@ -146,16 +121,7 @@ async function validate_and_save_cards(card_rows) {
     }
 
     if (valid_cards.length > 0) {
-        const db = await open_db();
-        await new Promise((resolve, reject) => {
-            const tx = db.transaction("own_cards", "readwrite");
-            const store = tx.objectStore("own_cards");
-            for (const card of valid_cards) {
-                store.put(card);
-            }
-            tx.oncomplete = () => resolve();
-            tx.onerror = () => reject(new Error("Failed to save imported cards: " + tx.error));
-        });
+        await add_own_cards_batch(valid_cards);
     }
 
     return {
@@ -165,7 +131,7 @@ async function validate_and_save_cards(card_rows) {
     };
 }
 
-export async function import_json_string(json_string) {
+async function import_json_string(json_string) {
     if (!json_string || json_string.trim() === "") {
         throw new Error("File is empty. Nothing was imported.");
     }
@@ -203,7 +169,7 @@ export async function import_json_string(json_string) {
     return await validate_and_save_cards(card_rows);
 }
 
-export async function import_csv_string(csv_string) {
+async function import_csv_string(csv_string) {
     if (!csv_string || csv_string.trim() === "") {
         throw new Error("File is empty. Nothing was imported.");
     }
@@ -246,7 +212,7 @@ export async function import_csv_string(csv_string) {
     return await validate_and_save_cards(card_rows);
 }
 
-export async function process_import_file(file) {
+async function process_import_file(file) {
     if (file.size > max_file_size) {
         throw new Error("File exceeds 1 MB limit. Nothing was imported.");
     }
@@ -263,5 +229,64 @@ export async function process_import_file(file) {
         return await import_csv_string(content);
     } else {
         throw new Error("Unsupported file format. Please upload a JSON or CSV file.");
+    }
+}
+
+export function init_import_controller(on_imported) {
+    const import_card_btn = document.getElementById("btn-import-card");
+    const import_file_input = document.getElementById("import-file-input");
+    const import_modal = document.getElementById("import-modal");
+    const import_modal_title = document.getElementById("import-modal-title");
+    const import_modal_summary = document.getElementById("import-modal-summary");
+    const import_modal_details = document.getElementById("import-modal-details");
+    const import_modal_close_btn = document.getElementById("import-modal-close-btn");
+
+    if (import_card_btn && import_file_input) {
+        import_card_btn.addEventListener("click", () => {
+            import_file_input.click();
+        });
+    }
+
+    if (import_file_input) {
+        import_file_input.addEventListener("change", async (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            try {
+                const result = await process_import_file(file);
+                show_import_report(
+                    "Import Summary",
+                    `Imported ${result.imported_count} card(s). ${result.skipped_count} row(s) skipped.`,
+                    result.skipped_details
+                );
+                if (on_imported) await on_imported();
+            } catch (err) {
+                show_import_report("Import Failed", err.message, []);
+            } finally {
+                import_file_input.value = "";
+            }
+        });
+    }
+
+    if (import_modal_close_btn && import_modal) {
+        import_modal_close_btn.addEventListener("click", () => {
+            import_modal.close();
+        });
+    }
+
+
+
+    function show_import_report(title, summary, details) {
+        if (!import_modal) return;
+        import_modal_title.textContent = title;
+        import_modal_summary.textContent = summary;
+        if (details && details.length > 0) {
+            import_modal_details.textContent = details.join("\n");
+            import_modal_details.style.display = "block";
+        } else {
+            import_modal_details.textContent = "";
+            import_modal_details.style.display = "none";
+        }
+        import_modal.showModal();
     }
 }

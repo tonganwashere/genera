@@ -17,7 +17,7 @@ let is_session_active = false;
 let is_rating = false;
 let session_update_callback = null;
 
-export function init_review_view(on_update) {
+export function init_review_controller(on_update) {
     session_update_callback = on_update;
     setup_keyboard_shortcuts();
     render_review_view();
@@ -116,14 +116,7 @@ async function rate_card(was_correct) {
         const card = current_session[current_card_index];
         const today = get_today_date();
 
-        const progress_input = card.progress || {
-            card_kind: card.card_kind,
-            card_id: card.card_id,
-            box: 1,
-            times_right: 0,
-            times_wrong: 0,
-            hidden: 0
-        };
+        const progress_input = card.progress || { card_kind: card.card_kind, card_id: card.card_id };
 
         const updated = schedule_card(progress_input, was_correct, today);
         await save_progress_row(updated);

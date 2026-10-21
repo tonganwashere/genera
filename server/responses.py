@@ -21,3 +21,11 @@ def user_view(user, csrf_token):
         "email_verified": user["email_verified"],
         "csrf_token": csrf_token
     }
+
+def get_json_body(request):
+    if not request.is_json:
+        return None, json_error("Request body must be JSON.", status=400)
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return None, json_error("Malformed JSON body.", status=400)
+    return data, None

@@ -61,13 +61,13 @@
             </div>
             <div class="account-dropdown-divider"></div>
             <div class="account-dropdown-actions">
-              <button type="button" id="btn-open-login" class="btn btn-sm btn-primary">Sign In</button>
-              <button type="button" id="btn-open-register" class="btn btn-sm">Create Account</button>
-              <button type="button" id="btn-open-verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
-              <button type="button" id="btn-open-bind-email" class="btn btn-sm btn-primary" style="display: none;">Add Gmail</button>
-              <button type="button" id="btn-account-sync" class="btn btn-sm" style="display: none;">Sync Now</button>
-              <button type="button" id="btn-account-manage" class="btn btn-sm" style="display: none;">Account Settings</button>
-              <button type="button" id="btn-account-logout" class="btn btn-sm" style="display: none;">Log Out</button>
+              <button type="button" id="btn-open-login" data-account-action="login" class="btn btn-sm btn-primary">Sign In</button>
+              <button type="button" id="btn-open-register" data-account-action="register" class="btn btn-sm">Create Account</button>
+              <button type="button" id="btn-open-verify-email" data-account-action="verify-email" class="btn btn-sm btn-primary" style="display: none;">Verify Email</button>
+              <button type="button" id="btn-open-bind-email" data-account-action="bind-email" class="btn btn-sm btn-primary" style="display: none;">Add Email</button>
+              <button type="button" id="btn-account-sync" data-account-action="sync" class="btn btn-sm" style="display: none;">Sync Now</button>
+              <button type="button" id="btn-account-manage" data-account-action="manage" class="btn btn-sm" style="display: none;">Account Settings</button>
+              <button type="button" id="btn-account-logout" data-account-action="logout" class="btn btn-sm" style="display: none;">Log Out</button>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@
 
     <section id="tab-settings" class="tab-panel" hidden>
       <div class="settings-view">
-        <div class="settings-section settings-account-section">
+        <div id="settings-account-section" class="settings-section settings-account-section">
           <div class="settings-section-header">
             <h3 class="settings-section-title">Account &amp; Email</h3>
             <span id="settings-account-badge" class="badge">Local</span>
@@ -168,20 +168,20 @@
               <strong id="settings-info-username"></strong>
             </div>
             <div class="settings-account-row">
-              <span class="settings-account-label">Gmail:</span>
+              <span class="settings-account-label">Email:</span>
               <span id="settings-info-email"></span>
               <span id="settings-info-email-badge" class="badge badge-mine" style="margin-left: 6px;">Unverified</span>
             </div>
           </div>
           <div class="settings-account-actions">
-            <button type="button" id="settings-btn-login" class="btn btn-primary">Sign In</button>
-            <button type="button" id="settings-btn-register" class="btn">Create Account</button>
-            <button type="button" id="settings-btn-verify-email" class="btn btn-primary" style="display: none;">Verify Email</button>
-            <button type="button" id="settings-btn-bind-email" class="btn" style="display: none;">Update Gmail</button>
-            <button type="button" id="settings-btn-change-password" class="btn" style="display: none;">Change Password</button>
-            <button type="button" id="settings-btn-sync" class="btn" style="display: none;">Sync Now</button>
-            <button type="button" id="settings-btn-delete-account" class="btn btn-danger" style="display: none;">Delete Account</button>
-            <button type="button" id="settings-btn-logout" class="btn" style="display: none;">Log Out</button>
+            <button type="button" id="settings-btn-login" data-account-action="login" class="btn btn-primary">Sign In</button>
+            <button type="button" id="settings-btn-register" data-account-action="register" class="btn">Create Account</button>
+            <button type="button" id="settings-btn-verify-email" data-account-action="verify-email" class="btn btn-primary" style="display: none;">Verify Email</button>
+            <button type="button" id="settings-btn-bind-email" data-account-action="bind-email" class="btn" style="display: none;">Update Email</button>
+            <button type="button" id="settings-btn-change-password" data-account-action="change-password" class="btn" style="display: none;">Change Password</button>
+            <button type="button" id="settings-btn-sync" data-account-action="sync" class="btn" style="display: none;">Sync Now</button>
+            <button type="button" id="settings-btn-delete-account" data-account-action="delete-account" class="btn btn-danger" style="display: none;">Delete Account</button>
+            <button type="button" id="settings-btn-logout" data-account-action="logout" class="btn" style="display: none;">Log Out</button>
           </div>
         </div>
 
@@ -300,8 +300,8 @@
         <input type="text" id="auth-username-input" autocomplete="username" maxlength="32" placeholder="e.g. alex_trivia" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-email-group" hidden>
-        <label for="auth-email-input">Gmail Address</label>
-        <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" autocapitalize="none" spellcheck="false">
+        <label for="auth-email-input">Email Address</label>
+        <input type="email" id="auth-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@example.com" autocapitalize="none" spellcheck="false">
       </div>
       <div class="form-group" id="auth-password-group">
         <div class="form-label-row">
@@ -384,7 +384,7 @@
     </div>
     <form id="verify-email-form" method="dialog">
       <p id="verify-email-desc" style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
-        Enter the 6-digit code sent to <strong id="verify-email-target">your Gmail address</strong>.
+        Enter the 6-digit code sent to <strong id="verify-email-target">your email address</strong>.
       </p>
       <div id="verify-email-error-msg" class="auth-error" style="display: none;"></div>
       <div id="verify-email-success-msg" class="auth-success" style="display: none;"></div>
@@ -407,18 +407,18 @@
 
   <dialog id="bind-email-modal" class="modal">
     <div class="modal-header">
-      <h3 id="bind-email-title">Update Gmail Address</h3>
+      <h3 id="bind-email-title">Update Email Address</h3>
       <button type="button" class="modal-close-btn" id="bind-email-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <form id="bind-email-form" method="dialog">
       <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: var(--space-3);">
-        Link a Gmail address to your account to enable cloud sync and password recovery.
+        Link an email address to your account to enable cloud sync and password recovery.
       </p>
       <div id="bind-email-error-msg" class="auth-error" style="display: none;"></div>
       <div id="bind-email-success-msg" class="auth-success" style="display: none;"></div>
       <div class="form-group">
-        <label for="bind-email-input">Gmail Address</label>
-        <input type="email" id="bind-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@gmail.com" autocapitalize="none" spellcheck="false" required>
+        <label for="bind-email-input">Email Address</label>
+        <input type="email" id="bind-email-input" autocomplete="email" maxlength="254" placeholder="e.g. alex@example.com" autocapitalize="none" spellcheck="false" required>
       </div>
       <div class="form-group">
         <label for="bind-email-password">Current Password</label>
@@ -429,7 +429,7 @@
       </div>
       <div class="modal-actions">
         <button type="button" id="bind-email-cancel-btn" class="btn">Cancel</button>
-        <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Save Gmail</button>
+        <button type="submit" id="bind-email-submit-btn" class="btn btn-primary">Save Email</button>
       </div>
     </form>
   </dialog>

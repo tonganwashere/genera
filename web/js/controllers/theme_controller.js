@@ -1,8 +1,8 @@
-export function get_saved_theme_choice() {
+function get_saved_theme_choice() {
     return localStorage.getItem("genera_theme") || "system";
 }
 
-export function get_effective_theme(choice) {
+function get_effective_theme(choice) {
     if (choice === "dark" || choice === "light") {
         return choice;
     }
@@ -10,7 +10,7 @@ export function get_effective_theme(choice) {
     return prefers_dark ? "dark" : "light";
 }
 
-export function apply_theme(choice) {
+function apply_theme(choice) {
     const effective = get_effective_theme(choice);
     document.documentElement.setAttribute("data-theme", effective);
 
@@ -23,7 +23,7 @@ export function apply_theme(choice) {
     update_theme_ui(choice, effective);
 }
 
-export function update_theme_ui(choice, effective) {
+function update_theme_ui(choice, effective) {
     const toggle_btn = document.getElementById("btn-theme-toggle");
     if (toggle_btn) {
         const is_dark = effective === "dark";
@@ -64,19 +64,12 @@ export function init_theme() {
     }
 
     const btn_light = document.getElementById("btn-theme-light");
-    if (btn_light) {
-        btn_light.addEventListener("click", () => apply_theme("light"));
-    }
-
     const btn_dark = document.getElementById("btn-theme-dark");
-    if (btn_dark) {
-        btn_dark.addEventListener("click", () => apply_theme("dark"));
-    }
-
     const btn_system = document.getElementById("btn-theme-system");
-    if (btn_system) {
-        btn_system.addEventListener("click", () => apply_theme("system"));
-    }
+
+    if (btn_light) btn_light.addEventListener("click", () => apply_theme("light"));
+    if (btn_dark) btn_dark.addEventListener("click", () => apply_theme("dark"));
+    if (btn_system) btn_system.addEventListener("click", () => apply_theme("system"));
 
     if (window.matchMedia) {
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {

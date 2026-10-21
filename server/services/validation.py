@@ -1,60 +1,60 @@
 import re
 
+RE_USERNAME = re.compile(r"^[a-zA-Z0-9_]+$")
+RE_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+RE_OTP = re.compile(r"^\d{6}$")
+RE_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+RE_UTC_TS = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
+RE_UUID = re.compile(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+RE_CATALOG_ID = re.compile(r"^[0-9a-fA-F]{16}$")
+
 def validate_username(username):
     if not isinstance(username, str):
-        return False, "Username must be a string."
+        return False, "Username must be a string.", "username"
     username = username.strip()
     if len(username) < 3 or len(username) > 32:
-        return False, "Username must be between 3 and 32 characters."
-    if not re.match(r"^[a-zA-Z0-9_]+$", username):
-        return False, "Username may only contain letters, digits, and underscores."
-    return True, ""
+        return False, "Username must be between 3 and 32 characters.", "username"
+    if not RE_USERNAME.match(username):
+        return False, "Username may only contain letters, digits, and underscores.", "username"
+    return True, "", ""
 
 def validate_email(email):
     if not isinstance(email, str):
-        return False, "Email must be a string."
+        return False, "Email must be a string.", "email"
     email = email.strip().lower()
     if len(email) > 254:
-        return False, "Email must not exceed 254 characters."
-    if not re.match(r"^[a-zA-Z0-9_.+-]+@gmail\.com$", email):
-        return False, "A valid @gmail.com address is required."
-    return True, ""
+        return False, "Email must not exceed 254 characters.", "email"
+    if not RE_EMAIL.match(email):
+        return False, "A valid email address is required.", "email"
+    return True, "", ""
 
 def validate_password(password):
     if not isinstance(password, str):
-        return False, "Password must be a string."
+        return False, "Password must be a string.", "password"
     if len(password) < 8 or len(password) > 128:
-        return False, "Password must be between 8 and 128 characters."
-    if not re.search(r"[A-Z]", password) or not re.search(r"[a-z]", password) or not re.search(r"[0-9]", password):
-        return False, "Password must contain uppercase, lowercase, and numeric characters."
-    return True, ""
+        return False, "Password must be between 8 and 128 characters.", "password"
+    if not any(c.isupper() for c in password) or not any(c.islower() for c in password) or not any(c.isdigit() for c in password):
+        return False, "Password must contain uppercase, lowercase, and numeric characters.", "password"
+    return True, "", ""
 
 def validate_otp(otp):
     if not isinstance(otp, str):
-        return False, "OTP must be a string."
-    if not re.match(r"^\d{6}$", otp.strip()):
-        return False, "OTP must be a 6-digit code."
-    return True, ""
+        return False, "OTP must be a string.", "otp"
+    if not RE_OTP.match(otp.strip()):
+        return False, "OTP must be a 6-digit code.", "otp"
+    return True, "", ""
 
 def is_valid_date(date_str):
-    if not isinstance(date_str, str):
-        return False
-    return bool(re.match(r"^\d{4}-\d{2}-\d{2}$", date_str))
+    return bool(isinstance(date_str, str) and RE_DATE.match(date_str))
 
 def is_valid_utc_timestamp(ts_str):
-    if not isinstance(ts_str, str):
-        return False
-    return bool(re.match(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$", ts_str))
+    return bool(isinstance(ts_str, str) and RE_UTC_TS.match(ts_str))
 
 def is_valid_uuid(val):
-    if not isinstance(val, str):
-        return False
-    return bool(re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", val))
+    return bool(isinstance(val, str) and RE_UUID.match(val))
 
 def is_valid_catalog_id(val):
-    if not isinstance(val, str):
-        return False
-    return bool(re.match(r"^[0-9a-fA-F]{16}$", val))
+    return bool(isinstance(val, str) and RE_CATALOG_ID.match(val))
 
 def validate_own_card(card):
     if not isinstance(card, dict):

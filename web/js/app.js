@@ -1,25 +1,25 @@
 import {
-    count_store,
     get_all_catalog_cards,
     get_all_own_cards,
     get_all_progress_rows,
     get_today_date,
     get_user_settings,
     get_meta,
-    set_meta,
+    set_meta_batch,
     load_catalog_if_needed
 } from "./models/localdb.js";
 import { count_session_cards } from "./models/session.js";
-import { open_add_modal, populate_category_dropdown, render_cards_view } from "./views/cards_view.js";
+import { populate_category_dropdown, render_cards_view } from "./views/cards_view.js";
 import { setup_cards_listeners } from "./controllers/cards_controller.js";
-import { init_review_view, render_review_view } from "./controllers/review_controller.js";
+import { init_review_controller, render_review_view } from "./controllers/review_controller.js";
 import { render_settings_view, render_account_section } from "./views/settings_view.js";
-import { init_settings_view } from "./controllers/settings_controller.js";
+import { init_settings_controller } from "./controllers/settings_controller.js";
+import { init_auth_controller } from "./controllers/auth_controller.js";
 import { init_sync_engine, update_sync_status_ui, sync_now } from "./controllers/sync_controller.js";
-import { process_import_file } from "./controllers/import_controller.js";
+import { init_import_controller } from "./controllers/import_controller.js";
 import { init_theme } from "./controllers/theme_controller.js";
 
-export function update_tab_indicator(active_btn, animate = true) {
+function update_tab_indicator(active_btn, animate = true) {
     const indicator = document.querySelector(".tab-indicator");
     if (!indicator || !active_btn) return;
     if (!animate) {
@@ -83,7 +83,6 @@ if (logo_btn) {
         if (dashboard_tab_btn) {
             dashboard_tab_btn.click();
         }
-        await update_dashboard_stats();
         await update_sync_status_ui();
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -93,110 +92,19 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js");
 }
 
-const add_card_btn = document.getElementById("btn-add-card");
-if (add_card_btn) {
-    add_card_btn.addEventListener("click", () => {
-        open_add_modal(async () => {
-            await refresh_cards_view();
-            await render_review_view();
-            await update_dashboard_stats();
-            await update_sync_status_ui();
-        });
-    });
-}
-
-const modal_cancel_btn = document.getElementById("modal-cancel-btn");
-if (modal_cancel_btn) {
-    modal_cancel_btn.addEventListener("click", () => {
-        const modal = document.getElementById("card-modal");
-        if (modal) modal.close();
-    });
-}
-
-const modal_close_icon = document.getElementById("modal-close-icon");
-if (modal_close_icon) {
-    modal_close_icon.addEventListener("click", () => {
-        const modal = document.getElementById("card-modal");
-        if (modal) modal.close();
-    });
-}
-
-const import_card_btn = document.getElementById("btn-import-card");
-const import_file_input = document.getElementById("import-file-input");
-const import_modal = document.getElementById("import-modal");
-const import_modal_title = document.getElementById("import-modal-title");
-const import_modal_summary = document.getElementById("import-modal-summary");
-const import_modal_details = document.getElementById("import-modal-details");
-const import_modal_close_btn = document.getElementById("import-modal-close-btn");
-
-if (import_card_btn && import_file_input) {
-    import_card_btn.addEventListener("click", () => {
-        import_file_input.click();
-    });
-}
-
-if (import_file_input) {
-    import_file_input.addEventListener("change", async (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-
-        try {
-            const result = await process_import_file(file);
-            show_import_report(
-                "Import Summary",
-                `Imported ${result.imported_count} card(s). ${result.skipped_count} row(s) skipped.`,
-                result.skipped_details
-            );
-            await refresh_cards_view();
-            await render_review_view();
-            await update_dashboard_stats();
-            await update_sync_status_ui();
-        } catch (err) {
-            show_import_report("Import Failed", err.message, []);
-        } finally {
-            import_file_input.value = "";
-        }
-    });
-}
-
-if (import_modal_close_btn && import_modal) {
-    import_modal_close_btn.addEventListener("click", () => {
-        import_modal.close();
-    });
-}
-
-const import_modal_close_icon = document.getElementById("import-modal-close-icon");
-if (import_modal_close_icon && import_modal) {
-    import_modal_close_icon.addEventListener("click", () => {
-        import_modal.close();
-    });
-}
-
-function show_import_report(title, summary, details) {
-    if (!import_modal) return;
-    import_modal_title.textContent = title;
-    import_modal_summary.textContent = summary;
-    if (details && details.length > 0) {
-        import_modal_details.textContent = details.join("\n");
-        import_modal_details.style.display = "block";
-    } else {
-        import_modal_details.textContent = "";
-        import_modal_details.style.display = "none";
-    }
-    import_modal.showModal();
-}
-
 async function refresh_cards_view() {
     await populate_category_dropdown();
-    await render_cards_view(update_dashboard_stats);
+    await render_cards_view(update_dashboard_stats, true);
 }
 
 async function update_dashboard_stats() {
     try {
-        const catalog_cards = await get_all_catalog_cards();
-        const own_cards = await get_all_own_cards(false);
-        const progress_rows = await get_all_progress_rows();
-        const settings = await get_user_settings();
+        const [catalog_cards, own_cards, progress_rows, settings] = await Promise.all([
+            get_all_catalog_cards(),
+            get_all_own_cards(false),
+            get_all_progress_rows(),
+            get_user_settings()
+        ]);
         const today = get_today_date();
 
         const counts = count_session_cards({
@@ -279,50 +187,50 @@ function render_dashboard_message(counts) {
         container.appendChild(action_card);
     }
 }
-
 async function init_app() {
+    async function refresh_all() {
+        await update_dashboard_stats();
+        await refresh_cards_view();
+        await render_review_view();
+        await render_account_section();
+        await update_sync_status_ui();
+    }
+
     try {
         init_theme();
-        setup_cards_listeners(async () => {
+        setup_cards_listeners(refresh_all);
+        init_import_controller(refresh_all);
+        init_review_controller(async () => {
             await update_dashboard_stats();
             await update_sync_status_ui();
             await render_account_section();
+            await sync_now(refresh_all);
         });
-        init_review_view(async () => {
-            await update_dashboard_stats();
-            await update_sync_status_ui();
-            await render_account_section();
-            await sync_now(async () => {
-                await update_dashboard_stats();
-                await refresh_cards_view();
-                await render_account_section();
-            });
-        });
-        init_settings_view(async () => {
-            await render_review_view();
-            await update_dashboard_stats();
-            await update_sync_status_ui();
-            await render_account_section();
-        });
+        init_auth_controller(refresh_all);
+        init_settings_controller(refresh_all);
 
         if (navigator.onLine) {
             try {
                 const me_res = await fetch("/api/me");
                 if (me_res.ok) {
                     const me_data = await me_res.json();
-                    await set_meta("mode", "account");
-                    await set_meta("username", me_data.username);
-                    await set_meta("email", me_data.email || null);
-                    await set_meta("email_verified", me_data.email_verified || 0);
-                    await set_meta("csrf_token", me_data.csrf_token || null);
+                    await set_meta_batch({
+                        mode: "account",
+                        username: me_data.username,
+                        email: me_data.email || null,
+                        email_verified: me_data.email_verified || 0,
+                        csrf_token: me_data.csrf_token || null
+                    });
                 } else if (me_res.status === 401) {
                     const current_mode = await get_meta("mode");
                     if (current_mode === "account") {
-                        await set_meta("mode", "local");
-                        await set_meta("username", null);
-                        await set_meta("email", null);
-                        await set_meta("email_verified", 0);
-                        await set_meta("csrf_token", null);
+                        await set_meta_batch({
+                            mode: "local",
+                            username: null,
+                            email: null,
+                            email_verified: 0,
+                            csrf_token: null
+                        });
                     }
                 }
             } catch (_) {}
@@ -330,13 +238,6 @@ async function init_app() {
 
         await update_sync_status_ui();
         await render_account_section();
-
-        const catalog_count = await count_store("catalog");
-        const own_count = await count_store("own_cards");
-        if (catalog_count > 0 || own_count > 0) {
-            await update_dashboard_stats();
-            await refresh_cards_view();
-        }
 
         try {
             await load_catalog_if_needed();
@@ -346,12 +247,7 @@ async function init_app() {
 
         await update_dashboard_stats();
         await refresh_cards_view();
-        await init_sync_engine(async () => {
-            await update_dashboard_stats();
-            await refresh_cards_view();
-            await render_review_view();
-            await render_account_section();
-        });
+        await init_sync_engine(refresh_all);
     } catch (err) {
         console.error("Initialization failed:", err);
     }

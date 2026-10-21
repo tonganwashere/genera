@@ -1,6 +1,5 @@
 import {
     get_meta,
-    set_meta,
     get_catalog_card,
     get_own_card,
     get_dirty_own_cards,
@@ -8,7 +7,6 @@ import {
     get_dirty_settings,
     count_dirty_rows,
     apply_sync_batch,
-    merge_local_into_account,
     clear_account_local_data,
     load_catalog_if_needed
 } from "../models/localdb.js";
@@ -20,20 +18,7 @@ export function get_last_sync_error() {
     return last_sync_error;
 }
 
-export async function set_sync_status(color = "status-gray") {
-    const el = document.getElementById("sync-status");
-    if (el) {
-        el.className = `status-pill ${color} account-btn`;
-    }
-    const mode = await get_meta("mode");
-    const username = await get_meta("username");
-    const text_el = document.getElementById("account-pill-text");
-    if (text_el) {
-        text_el.textContent = mode === "account" ? (username || "Account") : "Local Mode";
-    }
-}
-
-export async function update_sync_status_ui() {
+export async function update_sync_status_ui(forced_color = null) {
     const mode = await get_meta("mode");
     const username = await get_meta("username");
     const text_el = document.getElementById("account-pill-text");
@@ -43,6 +28,11 @@ export async function update_sync_status_ui() {
 
     const el = document.getElementById("sync-status");
     if (!el) return;
+
+    if (forced_color) {
+        el.className = `status-pill ${forced_color} account-btn`;
+        return;
+    }
 
     if (mode !== "account" || !navigator.onLine) {
         el.className = "status-pill status-gray account-btn";
@@ -156,7 +146,7 @@ export async function sync_now(on_update) {
     }
 
     if (!navigator.onLine) {
-        await set_sync_status("status-gray");
+        await update_sync_status_ui();
         return false;
     }
 
@@ -168,13 +158,13 @@ export async function sync_now(on_update) {
     const email_verified = (await get_meta("email_verified")) || 0;
     if (!email_verified) {
         last_sync_error = null;
-        await set_sync_status("status-gray");
+        await update_sync_status_ui();
         return false;
     }
 
     is_syncing = true;
     last_sync_error = null;
-    await set_sync_status("status-blue");
+    await update_sync_status_ui();
     let total_applied = 0;
     const all_conflicts = [];
 
@@ -186,11 +176,6 @@ export async function sync_now(on_update) {
             const dirty_cards = await get_dirty_own_cards();
             const dirty_progress = await get_dirty_progress_rows();
             const dirty_settings = await get_dirty_settings();
-            const dirty_total = dirty_cards.length + dirty_progress.length + (dirty_settings ? 1 : 0);
-
-            if (dirty_total > 0) {
-                await set_sync_status("status-blue");
-            }
 
             const batch_cards = dirty_cards.slice(0, 500);
             const remaining_slots = 500 - batch_cards.length;
@@ -217,8 +202,8 @@ export async function sync_now(on_update) {
             if (response.status === 401) {
                 await clear_account_local_data();
                 last_sync_error = null;
-                await set_sync_status("status-gray");
                 is_syncing = false;
+                await update_sync_status_ui();
                 if (on_update) await on_update();
                 return false;
             }
@@ -230,8 +215,8 @@ export async function sync_now(on_update) {
                     if (err_data.error) err_msg = err_data.error;
                 } catch (_) {}
                 last_sync_error = err_msg;
-                await set_sync_status("status-red");
                 is_syncing = false;
+                await update_sync_status_ui();
                 return false;
             }
 
@@ -265,9 +250,7 @@ export async function sync_now(on_update) {
             await show_conflict_banner(all_conflicts);
         }
 
-        const remaining = await count_dirty_rows();
         last_sync_error = null;
-        await set_sync_status(remaining === 0 ? "status-green" : "status-blue");
 
         if (on_update && total_applied > 0) {
             await on_update();
@@ -275,11 +258,8 @@ export async function sync_now(on_update) {
 
         return true;
     } catch (err) {
-        if (!navigator.onLine) {
-            await set_sync_status("status-gray");
-        } else {
+        if (navigator.onLine) {
             last_sync_error = err.message;
-            await set_sync_status("status-red");
         }
         return false;
     } finally {
@@ -298,289 +278,9 @@ export async function init_sync_engine(on_update) {
     });
 
     window.addEventListener("offline", () => {
-        set_sync_status("status-gray");
+        update_sync_status_ui();
     });
-
-
-
-    const dismiss_btn = document.getElementById("btn-dismiss-conflict");
-    const banner = document.getElementById("conflict-banner");
-    if (dismiss_btn && banner) {
-        dismiss_btn.addEventListener("click", () => {
-            banner.style.display = "none";
-        });
-    }
 
     await update_sync_status_ui();
     await sync_now(on_update);
-}
-
-export async function perform_account_login({ username, email, password, is_register = false, on_update = null }) {
-    const endpoint = is_register ? "/api/register" : "/api/login";
-    const payload = is_register
-        ? { username, email, password }
-        : { identifier: username, password };
-
-    const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) {
-        let err_msg = "Authentication failed.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    const user_data = await res.json();
-    const current_mode = await get_meta("mode");
-
-    if (current_mode === "local" && user_data.email_verified === 1) {
-        const pull_res = await fetch("/api/sync", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-Token": user_data.csrf_token || ""
-            },
-            body: JSON.stringify({
-                since: 0,
-                own_cards: [],
-                progress: [],
-                settings: null
-            })
-        });
-
-        if (pull_res.ok) {
-            const pull_data = await pull_res.json();
-            await merge_local_into_account({
-                server_cards: pull_data.own_cards || [],
-                server_progress: pull_data.progress || [],
-                server_settings: pull_data.settings || null,
-                server_version: pull_data.version || 0,
-                username: user_data.username
-            });
-            if (user_data.email) {
-                await set_meta("email", user_data.email);
-            }
-            if (user_data.email_verified !== undefined) {
-                await set_meta("email_verified", user_data.email_verified);
-            }
-            if (user_data.csrf_token) {
-                await set_meta("csrf_token", user_data.csrf_token);
-            }
-        } else {
-            await set_meta("mode", "account");
-            await set_meta("username", user_data.username);
-            if (user_data.email) {
-                await set_meta("email", user_data.email);
-            }
-            if (user_data.email_verified !== undefined) {
-                await set_meta("email_verified", user_data.email_verified);
-            }
-            if (user_data.csrf_token) {
-                await set_meta("csrf_token", user_data.csrf_token);
-            }
-        }
-    } else {
-        await set_meta("mode", "account");
-        await set_meta("username", user_data.username);
-        if (user_data.email) {
-            await set_meta("email", user_data.email);
-        }
-        if (user_data.email_verified !== undefined) {
-            await set_meta("email_verified", user_data.email_verified);
-        }
-        if (user_data.csrf_token) {
-            await set_meta("csrf_token", user_data.csrf_token);
-        }
-    }
-
-    if (user_data.email_verified === 1) {
-        await sync_now(on_update);
-    } else {
-        last_sync_error = null;
-        await update_sync_status_ui();
-    }
-    return user_data;
-}
-
-export async function perform_account_logout(on_update = null) {
-    try {
-        await fetch("/api/logout", { method: "POST" });
-    } catch (_) {}
-
-    await clear_account_local_data();
-    last_sync_error = null;
-    await update_sync_status_ui();
-
-    if (on_update) {
-        await on_update();
-    }
-}
-
-export async function change_account_password({ current_password, new_password }) {
-    const csrf_token = await get_meta("csrf_token");
-    const res = await fetch("/api/change-password", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrf_token || ""
-        },
-        body: JSON.stringify({ current_password, new_password })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to update password.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    return await res.json();
-}
-
-export async function verify_account_email(otp) {
-    const csrf_token = await get_meta("csrf_token");
-    const res = await fetch("/api/verify-email", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrf_token || ""
-        },
-        body: JSON.stringify({ otp })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to verify email.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    await set_meta("email_verified", 1);
-    last_sync_error = null;
-    await sync_now();
-    return await res.json();
-}
-
-export async function resend_account_verification() {
-    const csrf_token = await get_meta("csrf_token");
-    const res = await fetch("/api/resend-verification", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrf_token || ""
-        }
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to resend verification code.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    return await res.json();
-}
-
-export async function bind_account_email({ email, password }) {
-    const csrf_token = await get_meta("csrf_token");
-    const res = await fetch("/api/bind-email", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrf_token || ""
-        },
-        body: JSON.stringify({ email, password })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to link email.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    const data = await res.json();
-    await set_meta("email", email);
-    await set_meta("email_verified", 0);
-    last_sync_error = null;
-    return data;
-}
-
-export async function delete_user_account(password) {
-    const csrf_token = await get_meta("csrf_token");
-    const res = await fetch("/api/account", {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrf_token || ""
-        },
-        body: JSON.stringify({ password })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to delete account.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    await clear_account_local_data();
-    last_sync_error = null;
-    await update_sync_status_ui();
-
-    return await res.json();
-}
-
-export async function request_password_reset_otp(email) {
-    const res = await fetch("/api/forgot-password/request-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to request password reset code.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    return await res.json();
-}
-
-export async function reset_password_with_otp({ email, otp, new_password }) {
-    const res = await fetch("/api/forgot-password/reset", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, new_password })
-    });
-
-    if (!res.ok) {
-        let err_msg = "Failed to reset password.";
-        try {
-            const err_data = await res.json();
-            if (err_data.error) err_msg = err_data.error;
-        } catch (_) {}
-        throw new Error(err_msg);
-    }
-
-    return await res.json();
 }

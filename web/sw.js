@@ -1,4 +1,4 @@
-const cache_name = "genera-v25";
+const cache_name = "genera-v29";
 
 const app_shell_assets = [
   "/",
@@ -13,6 +13,7 @@ const app_shell_assets = [
   "/css/style.css",
   "/js/app.js",
   "/js/models/localdb.js",
+  "/js/models/auth.js",
   "/js/models/scheduler.js",
   "/js/models/session.js",
   "/js/views/cards_view.js",
@@ -21,6 +22,7 @@ const app_shell_assets = [
   "/js/controllers/cards_controller.js",
   "/js/controllers/import_controller.js",
   "/js/controllers/review_controller.js",
+  "/js/controllers/auth_controller.js",
   "/js/controllers/settings_controller.js",
   "/js/controllers/sync_controller.js",
   "/js/controllers/theme_controller.js",
@@ -42,15 +44,9 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.map((key) => {
-          if (key !== cache_name) {
-            return caches.delete(key);
-          }
-        })
+        keys.filter((key) => key !== cache_name).map((key) => caches.delete(key))
       );
-    }).then(() => {
-      return self.clients.claim();
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
@@ -65,7 +61,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (url.pathname === "/data/catalog-manifest.json") {
+  if (url.pathname === "/data/catalog-manifest.json" || url.pathname === "/data/catalog.json") {
     event.respondWith(
       fetch(event.request).then((response) => {
         if (response.ok) {
@@ -83,7 +79,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
     event.respondWith(
       caches.match(event.request).then((cached) => {
-        return cached || caches.match("/index.html") || caches.match("/");
+        return cached || caches.match("/index.html");
       }).catch(() => {
         return caches.match("/index.html");
       })

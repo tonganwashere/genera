@@ -29,10 +29,6 @@ export async function create_start_screen({ current_mode, on_mode_change, on_sta
     btn_all.setAttribute("role", "tab");
     btn_all.setAttribute("aria-selected", current_mode === "everything" ? "true" : "false");
     btn_all.addEventListener("click", () => {
-        btn_all.classList.add("active");
-        btn_all.setAttribute("aria-selected", "true");
-        btn_mine.classList.remove("active");
-        btn_mine.setAttribute("aria-selected", "false");
         if (on_mode_change) on_mode_change("everything");
     });
 
@@ -43,20 +39,18 @@ export async function create_start_screen({ current_mode, on_mode_change, on_sta
     btn_mine.setAttribute("role", "tab");
     btn_mine.setAttribute("aria-selected", current_mode === "only_mine" ? "true" : "false");
     btn_mine.addEventListener("click", () => {
-        btn_mine.classList.add("active");
-        btn_mine.setAttribute("aria-selected", "true");
-        btn_all.classList.remove("active");
-        btn_all.setAttribute("aria-selected", "false");
         if (on_mode_change) on_mode_change("only_mine");
     });
 
     options_div.appendChild(btn_all);
     options_div.appendChild(btn_mine);
 
-    const catalog_cards = await get_all_catalog_cards();
-    const own_cards = await get_all_own_cards(false);
-    const progress_rows = await get_all_progress_rows();
-    const settings = await get_user_settings();
+    const [catalog_cards, own_cards, progress_rows, settings] = await Promise.all([
+        get_all_catalog_cards(),
+        get_all_own_cards(false),
+        get_all_progress_rows(),
+        get_user_settings()
+    ]);
     const today = get_today_date();
 
     const counts = count_session_cards({
