@@ -5,7 +5,7 @@ import {
     get_user_settings,
     get_today_date
 } from "./localdb.js";
-
+import { is_due } from "./scheduler.js";
 export function shuffle(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -14,251 +14,178 @@ export function shuffle(array) {
     }
     return arr;
 }
-
-export function build_session_from_data({
+export function build_session_for_mode_from_data({
+    session_type = "study",
+    deck_name = null,
+    categories = null,
+    sub_mode = "scheduled",
+    today,
+    limit = 20,
     catalog_cards = [],
     own_cards = [],
     progress_rows = [],
-    settings = {},
-    mode = "everything",
-    today
+    settings = {}
 }) {
     if (!today || typeof today !== "string") {
         throw new Error("today date string (YYYY-MM-DD) is required.");
     }
-
-    const daily_new_limit = typeof settings.daily_new_limit === "number" ? settings.daily_new_limit : 10;
-    const enabled_categories = Array.isArray(settings.enabled_categories) ? settings.enabled_categories : [];
-
-    function is_category_enabled(cat) {
-        if (!cat) return true;
-        if (enabled_categories.length === 0) return true;
-        return enabled_categories.includes(cat);
+    if (session_type !== "study" && session_type !== "trivia") {
+        throw new Error(`Unsupported session_type: "${session_type}". Must be "study" or "trivia".`);
     }
-
+    if (sub_mode !== "scheduled" && sub_mode !== "freestyle" && sub_mode !== "random") {
+        throw new Error(`Unsupported sub_mode: "${sub_mode}". Must be "scheduled", "freestyle", or "random".`);
+    }
+    const daily_new_limit = typeof settings.daily_new_limit === "number" ? Math.max(0, settings.daily_new_limit) : 10;
+    const effective_deck = (deck_name && String(deck_name).trim().toLowerCase() !== "all") ? String(deck_name).trim() : null;
     const progress_map = new Map();
-    let introduced_today_count = 0;
-
     for (const p of progress_rows) {
-        const key = `${p.card_kind}:${p.card_id}`;
-        progress_map.set(key, p);
-
-        if (p.card_kind === "catalog" && p.introduced_on === today) {
-            introduced_today_count += 1;
-        }
+        progress_map.set(`${p.card_kind}:${p.card_id}`, p);
     }
-
-    const catalog_map = new Map();
-    for (const c of catalog_cards) {
-        catalog_map.set(c.id, c);
-    }
-
-    const own_map = new Map();
-    for (const c of own_cards) {
-        if (c.deleted !== 1) {
-            own_map.set(c.id, c);
-        }
-    }
-
-    const session_cards = [];
-
-    for (const p of progress_rows) {
-        if (p.hidden === 1) {
-            continue;
-        }
-
-        if (!p.due_date || p.due_date > today) {
-            continue;
-        }
-
-        if (mode === "only_mine" && p.card_kind !== "own") {
-            continue;
-        }
-
-        let card_data = null;
-        if (p.card_kind === "catalog") {
-            card_data = catalog_map.get(p.card_id);
-        } else if (p.card_kind === "own") {
-            card_data = own_map.get(p.card_id);
-        }
-
-        if (!card_data) {
-            continue;
-        }
-
-        if (!is_category_enabled(card_data.category)) {
-            continue;
-        }
-
-        session_cards.push({
-            card_kind: p.card_kind,
-            card_id: p.card_id,
-            question: card_data.question,
-            answer: card_data.answer,
-            category: card_data.category,
-            is_new: false,
-            progress: p
-        });
-    }
-
-    if (mode === "everything" && daily_new_limit > 0) {
-        const remaining_quota = Math.max(0, daily_new_limit - introduced_today_count);
-
-        if (remaining_quota > 0) {
-            const unseen_catalog = [];
-            for (const c of catalog_cards) {
-                const key = `catalog:${c.id}`;
-                if (!progress_map.has(key) && is_category_enabled(c.category)) {
-                    unseen_catalog.push(c);
+    let pool = [];
+    let card_kind = "";
+    if (session_type === "study") {
+        card_kind = "own";
+        pool = own_cards.filter((c) => {
+            if (c.deleted === 1) return false;
+            if (effective_deck) {
+                const card_cat = ((c.category || "").trim() || "Uncategorized").toLowerCase();
+                if (card_cat !== effective_deck.toLowerCase()) {
+                    return false;
                 }
             }
-
-            const shuffled_unseen = shuffle(unseen_catalog);
-            const picked_catalog = shuffled_unseen.slice(0, remaining_quota);
-
-            for (const c of picked_catalog) {
-                session_cards.push({
-                    card_kind: "catalog",
+            return true;
+        });
+    } else {
+        card_kind = "catalog";
+        let enabled_set = null;
+        if (Array.isArray(categories)) {
+            if (categories.length > 0) {
+                enabled_set = new Set(categories);
+            }
+        } else if (Array.isArray(settings.enabled_categories) && settings.enabled_categories.length > 0) {
+            enabled_set = new Set(settings.enabled_categories);
+        }
+        pool = catalog_cards.filter((c) => {
+            if (enabled_set && !enabled_set.has(c.category)) return false;
+            return true;
+        });
+    }
+    pool = pool.filter((c) => {
+        const p = progress_map.get(`${card_kind}:${c.id}`);
+        return !p || p.hidden !== 1;
+    });
+    let session_cards = [];
+    if (sub_mode === "scheduled") {
+        const due_cards = [];
+        const unseen_cards = [];
+        let introduced_today_count = 0;
+        const pool_ids = new Set(pool.map((c) => c.id));
+        for (const p of progress_rows) {
+            if (p.card_kind === card_kind && p.introduced_on === today) {
+                if (session_type === "study" && effective_deck) {
+                    if (pool_ids.has(p.card_id)) introduced_today_count += 1;
+                } else if (session_type === "study") {
+                    introduced_today_count += 1;
+                } else if (session_type === "trivia") {
+                    if (pool_ids.has(p.card_id)) {
+                        introduced_today_count += 1;
+                    }
+                }
+            }
+        }
+        for (const c of pool) {
+            const p = progress_map.get(`${card_kind}:${c.id}`);
+            if (p && p.introduced_on) {
+                if (is_due(p, today)) {
+                    due_cards.push({
+                        card_kind,
+                        card_id: c.id,
+                        question: c.question,
+                        answer: c.answer,
+                        category: c.category,
+                        is_new: false,
+                        progress: p
+                    });
+                }
+            } else {
+                unseen_cards.push({
+                    card_kind,
                     card_id: c.id,
                     question: c.question,
                     answer: c.answer,
                     category: c.category,
                     is_new: true,
-                    progress: null
+                    progress: p || null
                 });
             }
         }
-    }
-
-    for (const c of own_cards) {
-        if (c.deleted === 1) {
-            continue;
+        const remaining_quota = Math.max(0, daily_new_limit - introduced_today_count);
+        let picked_new = [];
+        if (remaining_quota > 0 && unseen_cards.length > 0) {
+            picked_new = shuffle(unseen_cards).slice(0, remaining_quota);
         }
-
-        if (!is_category_enabled(c.category)) {
-            continue;
-        }
-
-        const key = `own:${c.id}`;
-        const p = progress_map.get(key);
-
-        if (!p) {
-            session_cards.push({
-                card_kind: "own",
+        session_cards = shuffle([...due_cards, ...picked_new]);
+    } else if (sub_mode === "freestyle") {
+        session_cards = shuffle(pool.map((c) => {
+            const p = progress_map.get(`${card_kind}:${c.id}`);
+            return {
+                card_kind,
                 card_id: c.id,
                 question: c.question,
                 answer: c.answer,
                 category: c.category,
-                is_new: true,
-                progress: null
-            });
-        }
+                is_new: !p || !p.introduced_on,
+                progress: p || null
+            };
+        }));
+    } else if (sub_mode === "random") {
+        const sample_size = (typeof limit === "number" && limit > 0) ? Math.min(limit, pool.length) : Math.min(20, pool.length);
+        const shuffled_pool = shuffle(pool).slice(0, sample_size);
+        session_cards = shuffled_pool.map((c) => {
+            const p = progress_map.get(`${card_kind}:${c.id}`);
+            return {
+                card_kind,
+                card_id: c.id,
+                question: c.question,
+                answer: c.answer,
+                category: c.category,
+                is_new: !p || !p.introduced_on,
+                progress: p || null
+            };
+        });
     }
-
-    return shuffle(session_cards);
-}
-
-export function count_session_cards({
-    catalog_cards = [],
-    own_cards = [],
-    progress_rows = [],
-    settings = {},
-    today
-}) {
-    const daily_new_limit = typeof settings.daily_new_limit === "number" ? settings.daily_new_limit : 10;
-    const enabled_categories = Array.isArray(settings.enabled_categories) ? settings.enabled_categories : [];
-
-    function is_category_enabled(cat) {
-        if (!cat) return true;
-        if (enabled_categories.length === 0) return true;
-        return enabled_categories.includes(cat);
-    }
-
-    const progress_map = new Map();
-    let introduced_today_count = 0;
-    let due_count = 0;
-    const box_counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-
-    const catalog_map = new Map();
-    for (const c of catalog_cards) {
-        catalog_map.set(c.id, c);
-    }
-
-    const own_map = new Map();
-    for (const c of own_cards) {
-        if (c.deleted !== 1) {
-            own_map.set(c.id, c);
-        }
-    }
-
-    for (const p of progress_rows) {
-        const key = `${p.card_kind}:${p.card_id}`;
-        progress_map.set(key, p);
-
-        if (p.card_kind === "catalog" && p.introduced_on === today) {
-            introduced_today_count += 1;
-        }
-
-        if (p.hidden !== 1) {
-            const card_data = p.card_kind === "catalog" ? catalog_map.get(p.card_id) : own_map.get(p.card_id);
-            if (card_data && is_category_enabled(card_data.category)) {
-                if (p.due_date && p.due_date <= today) {
-                    due_count += 1;
-                }
-                const box_num = p.box >= 1 && p.box <= 5 ? p.box : 1;
-                box_counts[box_num] = (box_counts[box_num] || 0) + 1;
-            }
-        }
-    }
-
-    const remaining_new_official = Math.max(0, daily_new_limit - introduced_today_count);
-
-    let unseen_catalog_count = 0;
-    for (const c of catalog_cards) {
-        const key = `catalog:${c.id}`;
-        if (!progress_map.has(key) && is_category_enabled(c.category)) {
-            unseen_catalog_count += 1;
-        }
-    }
-
-    let unseen_own_count = 0;
-    for (const c of own_cards) {
-        if (c.deleted !== 1) {
-            const key = `own:${c.id}`;
-            if (!progress_map.has(key) && is_category_enabled(c.category)) {
-                unseen_own_count += 1;
-            }
-        }
-    }
-
-    const box_total = box_counts[1] + box_counts[2] + box_counts[3] + box_counts[4] + box_counts[5];
-    const total_unseen = unseen_catalog_count + unseen_own_count;
-    const total_visible = box_total + total_unseen;
-
     return {
-        due_count: due_count,
-        introduced_today_count: introduced_today_count,
-        new_left_count: Math.min(remaining_new_official, unseen_catalog_count),
-        unseen_count: total_unseen,
-        unseen_catalog_count: unseen_catalog_count,
-        unseen_own_count: unseen_own_count,
-        total_visible: total_visible,
-        box_counts: box_counts
+        cards: session_cards,
+        session_type,
+        sub_mode,
+        deck_name: session_type === "study" ? effective_deck : null,
+        total_count: session_cards.length
     };
 }
-
-export async function build_session({ mode = "everything", today = get_today_date() } = {}) {
-    const catalog_cards = await get_all_catalog_cards();
-    const own_cards = await get_all_own_cards(false);
-    const progress_rows = await get_all_progress_rows();
-    const settings = await get_user_settings();
-
-    return build_session_from_data({
+export async function build_session_for_mode({
+    session_type = "study",
+    deck_name = null,
+    categories = null,
+    sub_mode = "scheduled",
+    today = get_today_date(),
+    limit = 20
+} = {}) {
+    const [catalog_cards, own_cards, progress_rows, settings] = await Promise.all([
+        get_all_catalog_cards(),
+        get_all_own_cards(false),
+        get_all_progress_rows(),
+        get_user_settings()
+    ]);
+    return build_session_for_mode_from_data({
+        session_type,
+        deck_name,
+        categories,
+        sub_mode,
+        today,
+        limit,
         catalog_cards,
         own_cards,
         progress_rows,
-        settings,
-        mode,
-        today
+        settings
     });
 }

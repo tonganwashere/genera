@@ -41,6 +41,3 @@ def send_otp_email(recipient_email, otp_code, purpose="Verification"):
 
     print(f"[AUTH DEV] {dev_purpose} OTP for {recipient_email}: {otp_code}", flush=True)
     return True
-
-def send_verification_email(recipient_email, otp_code):
-    return send_otp_email(recipient_email, otp_code, purpose="Verification")
