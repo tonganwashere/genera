@@ -152,7 +152,8 @@ def login():
     return json_success(user_view(user, csrf_token), status=200)
 
 @auth_bp.route("/logout", methods=["POST"])
-def logout():
+@require_login
+def logout(user):
     session.clear()
     return json_success({"message": "Logged out successfully."}, status=200)
 
