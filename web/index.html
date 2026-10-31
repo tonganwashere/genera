@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Genera</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
@@ -25,17 +26,17 @@
       <div class="brand">
         <h1 class="logo-wrap">
           <button type="button" id="brand-logo" class="logo-btn" title="Back to Dashboard &amp; Refresh" aria-label="Genera Dashboard">
-            <img src="/icons/apple-touch-icon.png" alt="" class="logo-icon" width="24" height="24">
+            <img src="/logo.svg" alt="Genera" class="logo-icon" width="24" height="24">
             <span class="logo-text">Genera</span>
           </button>
         </h1>
       </div>
-      <nav class="tab-bar" aria-label="Main Navigation">
+      <nav class="tab-bar" role="tablist" aria-label="Main Navigation">
         <div class="tab-indicator" aria-hidden="true"></div>
-        <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
-        <button class="tab-btn" data-tab="review">Review</button>
-        <button class="tab-btn" data-tab="cards">Cards</button>
-        <button class="tab-btn" data-tab="settings">Settings</button>
+        <button class="tab-btn active" data-tab="home" id="tab-btn-home" role="tab" aria-selected="true" aria-controls="tab-home" tabindex="0">Home</button>
+        <button class="tab-btn" data-tab="study" id="tab-btn-study" role="tab" aria-selected="false" aria-controls="tab-study" tabindex="-1">Study</button>
+        <button class="tab-btn" data-tab="trivia" id="tab-btn-trivia" role="tab" aria-selected="false" aria-controls="tab-trivia" tabindex="-1">Trivia</button>
+        <button class="tab-btn" data-tab="settings" id="tab-btn-settings" role="tab" aria-selected="false" aria-controls="tab-settings" tabindex="-1">Settings</button>
       </nav>
       <div class="header-actions">
         <div class="account-menu-container" id="account-menu-container">
@@ -47,7 +48,12 @@
             <div class="account-dropdown-header">
               <div class="account-dropdown-title-row">
                 <div class="account-dropdown-user-wrap">
-                  <span class="account-dropdown-icon" aria-hidden="true">&#128100;</span>
+                  <span class="account-dropdown-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </span>
                   <div>
                     <strong id="dropdown-username" class="account-dropdown-username">Local Mode</strong>
                     <div id="dropdown-email" class="account-dropdown-email" style="display: none;"></div>
@@ -71,7 +77,7 @@
             </div>
           </div>
         </div>
-        <button type="button" id="btn-theme-toggle" class="btn-theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <button type="button" id="btn-theme-toggle" class="btn-theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
           <svg class="theme-icon theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -90,84 +96,30 @@
       </div>
     </div>
   </header>
-
   <div id="conflict-banner" class="conflict-banner" role="alert" style="display: none;">
     <div class="conflict-banner-content">
-      <span class="conflict-banner-icon">&#9888;</span>
+      <span class="conflict-banner-icon" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </span>
       <span id="conflict-banner-message" class="conflict-banner-text"></span>
     </div>
     <button type="button" id="btn-dismiss-conflict" class="conflict-banner-dismiss" aria-label="Dismiss conflict alert">&times;</button>
   </div>
-
   <main class="app-main">
-    <section id="tab-dashboard" class="tab-panel active">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-label">Due Today</span>
-          <span class="stat-value due-count"><span class="spinner-sm" aria-label="Loading"></span></span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">New Left</span>
-          <span class="stat-value new-count"><span class="spinner-sm" aria-label="Loading"></span></span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">Total Cards</span>
-          <span class="stat-value total-count"><span class="spinner-sm" aria-label="Loading"></span></span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-label">Unseen</span>
-          <span class="stat-value unseen-count"><span class="spinner-sm" aria-label="Loading"></span></span>
-        </div>
-      </div>
-
-      <div class="box-distribution">
-        <div class="box-item"><span>Box 1</span><strong><span class="spinner-xs" aria-label="Loading"></span></strong></div>
-        <div class="box-item"><span>Box 2</span><strong><span class="spinner-xs" aria-label="Loading"></span></strong></div>
-        <div class="box-item"><span>Box 3</span><strong><span class="spinner-xs" aria-label="Loading"></span></strong></div>
-        <div class="box-item"><span>Box 4</span><strong><span class="spinner-xs" aria-label="Loading"></span></strong></div>
-        <div class="box-item"><span>Box 5</span><strong><span class="spinner-xs" aria-label="Loading"></span></strong></div>
-      </div>
-
-      <div id="dashboard-message" style="margin-top: var(--space-4);">
-        <div class="dashboard-loading">
-          <span class="spinner" aria-hidden="true"></span>
-          <p>Loading study data...</p>
-        </div>
-      </div>
+    <section id="tab-home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-home" tabindex="0">
+      <div id="home-container" class="home-view"></div>
     </section>
-
-    <section id="tab-review" class="tab-panel" hidden>
-      <div id="review-container" class="review-view"></div>
+    <section id="tab-study" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-study" tabindex="0" hidden>
+      <div id="study-container" class="study-view"></div>
     </section>
-
-    <section id="tab-cards" class="tab-panel" hidden>
-      <div class="cards-toolbar">
-        <div class="cards-search-bar">
-          <input type="text" id="cards-search-input" class="search-input" placeholder="Search cards by question or answer...">
-          <select id="cards-category-select" class="select-input">
-            <option value="all">All Categories</option>
-          </select>
-        </div>
-        <div class="cards-filter-row">
-          <div class="filter-pills">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="official">Official</button>
-            <button class="filter-btn" data-filter="mine">Mine</button>
-            <button class="filter-btn" data-filter="hidden">Hidden</button>
-          </div>
-          <div class="cards-entry-points">
-            <button id="btn-add-card" class="btn btn-primary">+ Add Card</button>
-            <button id="btn-import-card" class="btn">Import</button>
-            <input type="file" id="import-file-input" accept=".json,.csv" style="display: none;">
-          </div>
-        </div>
-      </div>
-      <div id="cards-count-bar" class="cards-count-bar"></div>
-      <div id="cards-container"></div>
-      <div id="cards-pagination" class="cards-pagination"></div>
+    <section id="tab-trivia" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-trivia" tabindex="0" hidden>
+      <div id="trivia-container" class="trivia-view"></div>
     </section>
-
-    <section id="tab-settings" class="tab-panel" hidden>
+    <section id="tab-settings" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-settings" tabindex="0" hidden>
       <div class="settings-view">
         <div id="settings-account-section" class="settings-section settings-account-section">
           <div class="settings-section-header">
@@ -200,40 +152,23 @@
             <button type="button" id="settings-btn-logout" data-account-action="logout" class="btn" style="display: none;">Log Out</button>
           </div>
         </div>
-
         <form id="settings-form">
           <div class="settings-section">
             <div class="settings-section-header">
               <h3 class="settings-section-title">Study Preferences</h3>
             </div>
-            
-            <div class="form-group" style="max-width: 240px; margin-bottom: 0;">
+            <div class="form-group" style="max-width: 280px; margin-bottom: var(--space-3);">
               <label for="setting-daily-limit">Daily new cards limit (0–100)</label>
               <input type="number" id="setting-daily-limit" min="0" max="100" required>
+              <div id="settings-error-msg" class="field-error" style="display: none;"></div>
+              <p class="settings-desc" style="margin-top: 4px; font-size: 13px;">Applies to new cards introduced per day in scheduled study and trivia sessions.</p>
             </div>
-
-            <div class="settings-divider"></div>
-
-            <div class="settings-section-header">
-              <div>
-                <h4 class="settings-subsection-title">Categories</h4>
-                <p class="settings-desc" style="margin-top: 4px;">Choose which trivia categories appear in your study sessions.</p>
-              </div>
-              <div class="settings-category-actions">
-                <button type="button" id="btn-select-all-categories" class="btn btn-sm">Select All</button>
-                <button type="button" id="btn-deselect-all-categories" class="btn btn-sm">Deselect All</button>
-              </div>
-            </div>
-
-            <div id="settings-categories-list" class="settings-categories-grid"></div>
-
             <div class="settings-actions">
               <button type="submit" class="btn btn-primary">Save Settings</button>
               <span id="settings-saved-msg" class="settings-saved-pill" style="display: none;">Saved</span>
             </div>
           </div>
         </form>
-
         <div class="settings-section settings-theme-section">
           <div class="settings-section-header">
             <h3 class="settings-section-title">Appearance</h3>
@@ -242,24 +177,40 @@
           <p class="settings-desc">
             Choose your preferred color theme or match your system settings.
           </p>
-          <div class="segmented-control" role="tablist" style="max-width: 320px; margin-bottom: 0;">
-            <button type="button" id="btn-theme-light" class="segmented-btn">Light</button>
-            <button type="button" id="btn-theme-dark" class="segmented-btn">Dark</button>
-            <button type="button" id="btn-theme-system" class="segmented-btn">System</button>
+          <div class="segmented-control" role="tablist" aria-label="Theme options" style="max-width: 320px; margin-bottom: 0;">
+            <button type="button" id="btn-theme-light" class="segmented-btn" role="tab" aria-selected="false" tabindex="-1">Light</button>
+            <button type="button" id="btn-theme-dark" class="segmented-btn" role="tab" aria-selected="false" tabindex="-1">Dark</button>
+            <button type="button" id="btn-theme-system" class="segmented-btn" role="tab" aria-selected="true" tabindex="0">System</button>
           </div>
         </div>
-
         <div class="settings-section settings-about-section">
           <h3 class="settings-section-title">About &amp; Attribution</h3>
           <p class="settings-desc">
-            Trivia questions and categories are sourced from the <a href="https://opentdb.com/" target="_blank" rel="noopener noreferrer">Open Trivia Database</a> (OpenTDB), provided under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.
+            Genera is a spaced-repetition flashcard studying app using the Leitner method.
+            Trivia questions and categories are sourced from the <a href="https://opentdb.com/" target="_blank" rel="noopener noreferrer">Open Trivia Database</a> (OpenTDB), provided under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> license.
           </p>
         </div>
       </div>
     </section>
   </main>
-
-  <dialog id="card-modal" class="modal">
+  <dialog id="create-deck-modal" class="modal" aria-labelledby="create-deck-modal-title">
+    <div class="modal-header">
+      <h3 id="create-deck-modal-title">Create Deck</h3>
+      <button type="button" class="modal-close-btn" id="create-deck-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <form id="create-deck-form" method="dialog">
+      <div class="form-group">
+        <label for="create-deck-name-input">Deck Name</label>
+        <input type="text" id="create-deck-name-input" maxlength="50" placeholder="e.g. Biology, Spanish, History" autocomplete="off" required>
+        <span id="create-deck-error-msg" class="field-error" style="display: none;"></span>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="create-deck-cancel-btn" class="btn">Cancel</button>
+        <button type="submit" id="create-deck-submit-btn" class="btn btn-primary">Create Deck</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="card-modal" class="modal" aria-labelledby="modal-title">
     <div class="modal-header">
       <h3 id="modal-title">Add Card</h3>
       <button type="button" class="modal-close-btn" id="modal-close-icon" aria-label="Close dialog">&times;</button>
@@ -274,32 +225,69 @@
         <label for="card-answer-input">Answer</label>
         <textarea id="card-answer-input" rows="3" required maxlength="500"></textarea>
       </div>
-      <div class="form-group">
-        <label for="card-category-input">Category</label>
-        <input type="text" id="card-category-input" maxlength="50" placeholder="e.g. Science">
+      <div class="form-group card-deck-group">
+        <label for="card-category-input">Deck</label>
+        <input type="text" id="card-category-input" list="deck-list-suggestions" maxlength="50" placeholder="e.g. Default, Science, Spanish" autocomplete="off">
+        <datalist id="deck-list-suggestions"></datalist>
       </div>
+      <span id="card-error-msg" class="field-error" style="display: none;"></span>
       <div class="modal-actions">
         <button type="button" id="modal-cancel-btn" class="btn">Cancel</button>
-        <button type="submit" id="modal-save-btn" class="btn btn-primary">Save</button>
+        <button type="submit" id="modal-save-btn" class="btn btn-primary">Save Card</button>
       </div>
     </form>
   </dialog>
-
-  <dialog id="import-modal" class="modal">
+  <dialog id="import-modal" class="modal" aria-labelledby="import-modal-title">
     <div class="modal-header">
-      <h3 id="import-modal-title">Import Summary</h3>
+      <h3 id="import-modal-title">Import Cards</h3>
       <button type="button" class="modal-close-btn" id="import-modal-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <div class="import-modal-content">
-      <p id="import-modal-summary"></p>
-      <div id="import-modal-details" class="import-details-box" style="display: none;"></div>
-      <div class="modal-actions">
-        <button type="button" id="import-modal-close-btn" class="btn btn-primary">Close</button>
+      <div id="import-form-view">
+        <div id="import-dropzone" class="import-dropzone" tabindex="0" role="button" aria-label="Choose CSV or JSON file">
+          <input type="file" id="import-file-input" accept=".csv,.json" style="display: none;">
+          <div class="dropzone-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <p class="dropzone-primary-text">Choose a CSV or JSON file</p>
+          <p class="dropzone-subtext">Click to browse or drag and drop (max 1 MB)</p>
+          <div id="import-file-preview" class="import-file-preview" style="display: none;">
+            <span id="import-file-name" class="import-file-name"></span>
+            <button type="button" id="btn-remove-import-file" class="btn-link" style="color: var(--color-red, #ef4444); font-size: 12px; margin-left: 8px;">Remove</button>
+          </div>
+        </div>
+        <div class="form-group" id="import-deck-target-group">
+          <label for="import-deck-input">Deck</label>
+          <input type="text" id="import-deck-input" list="deck-list-suggestions" maxlength="50" placeholder="Auto-detect from file (or enter deck name)" autocomplete="off">
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="import-cancel-btn" class="btn">Cancel</button>
+          <button type="button" id="import-submit-btn" class="btn btn-primary" disabled>Import Cards</button>
+        </div>
+      </div>
+      <div id="import-report-view" style="display: none;">
+        <div class="import-report-status">
+          <div class="finished-icon" id="import-status-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h4 id="import-report-title" class="import-report-title">Import Completed</h4>
+          <p id="import-modal-summary" class="import-report-summary"></p>
+        </div>
+        <div id="import-modal-details" class="import-details-box" style="display: none;"></div>
+        <div class="modal-actions modal-actions-center">
+          <button type="button" id="import-modal-close-btn" class="btn btn-primary">Done</button>
+        </div>
       </div>
     </div>
   </dialog>
-
-  <dialog id="auth-modal" class="modal">
+  <dialog id="auth-modal" class="modal" aria-labelledby="auth-modal-title">
     <div class="modal-header">
       <h3 id="auth-modal-title">Sign In</h3>
       <button type="button" class="modal-close-btn" id="auth-close-btn" aria-label="Close dialog">&times;</button>
@@ -326,14 +314,14 @@
         </div>
         <div class="password-input-wrap">
           <input type="password" id="auth-password-input" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
-          <button type="button" class="btn-toggle-password" data-target="auth-password-input" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="auth-password-input" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="form-group" id="auth-confirm-password-group" hidden>
         <label for="auth-confirm-password-input">Confirm Password</label>
         <div class="password-input-wrap">
           <input type="password" id="auth-confirm-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="Re-enter password">
-          <button type="button" class="btn-toggle-password" data-target="auth-confirm-password-input" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="auth-confirm-password-input" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="form-group" id="auth-otp-group" hidden>
@@ -344,7 +332,7 @@
         <label for="auth-new-password-input">New Password</label>
         <div class="password-input-wrap">
           <input type="password" id="auth-new-password-input" autocomplete="new-password" minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
-          <button type="button" class="btn-toggle-password" data-target="auth-new-password-input" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="auth-new-password-input" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="auth-actions-row">
@@ -356,10 +344,9 @@
       </div>
     </form>
   </dialog>
-
-  <dialog id="change-username-modal" class="modal">
+  <dialog id="change-username-modal" class="modal" aria-labelledby="change-username-title">
     <div class="modal-header">
-      <h3>Change Username</h3>
+      <h3 id="change-username-title">Change Username</h3>
       <button type="button" class="modal-close-btn" id="change-username-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <form id="change-username-form" method="dialog">
@@ -373,7 +360,7 @@
         <label for="change-username-password">Current Password</label>
         <div class="password-input-wrap">
           <input type="password" id="change-username-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter current password">
-          <button type="button" class="btn-toggle-password" data-target="change-username-password" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="change-username-password" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="modal-actions">
@@ -382,10 +369,9 @@
       </div>
     </form>
   </dialog>
-
-  <dialog id="change-password-modal" class="modal">
+  <dialog id="change-password-modal" class="modal" aria-labelledby="change-password-title">
     <div class="modal-header">
-      <h3>Change Password</h3>
+      <h3 id="change-password-title">Change Password</h3>
       <button type="button" class="modal-close-btn" id="change-pass-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <form id="change-password-form" method="dialog">
@@ -395,21 +381,21 @@
         <label for="change-pass-current">Current Password</label>
         <div class="password-input-wrap">
           <input type="password" id="change-pass-current" autocomplete="current-password" required minlength="8" maxlength="128">
-          <button type="button" class="btn-toggle-password" data-target="change-pass-current" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="change-pass-current" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="form-group">
         <label for="change-pass-new">New Password</label>
         <div class="password-input-wrap">
           <input type="password" id="change-pass-new" autocomplete="new-password" required minlength="8" maxlength="128" placeholder="At least 8 chars, uppercase, lowercase, number">
-          <button type="button" class="btn-toggle-password" data-target="change-pass-new" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="change-pass-new" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="form-group">
         <label for="change-pass-confirm">Confirm New Password</label>
         <div class="password-input-wrap">
           <input type="password" id="change-pass-confirm" autocomplete="new-password" required minlength="8" maxlength="128">
-          <button type="button" class="btn-toggle-password" data-target="change-pass-confirm" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="change-pass-confirm" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="modal-actions">
@@ -418,10 +404,9 @@
       </div>
     </form>
   </dialog>
-
-  <dialog id="verify-email-modal" class="modal">
+  <dialog id="verify-email-modal" class="modal" aria-labelledby="verify-email-title">
     <div class="modal-header">
-      <h3>Verify Email</h3>
+      <h3 id="verify-email-title">Verify Email</h3>
       <button type="button" class="modal-close-btn" id="verify-email-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <form id="verify-email-form" method="dialog">
@@ -446,8 +431,7 @@
       </div>
     </form>
   </dialog>
-
-  <dialog id="bind-email-modal" class="modal">
+  <dialog id="bind-email-modal" class="modal" aria-labelledby="bind-email-title">
     <div class="modal-header">
       <h3 id="bind-email-title">Update Email Address</h3>
       <button type="button" class="modal-close-btn" id="bind-email-close-icon" aria-label="Close dialog">&times;</button>
@@ -466,7 +450,7 @@
         <label for="bind-email-password">Current Password</label>
         <div class="password-input-wrap">
           <input type="password" id="bind-email-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter current password">
-          <button type="button" class="btn-toggle-password" data-target="bind-email-password" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="bind-email-password" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="modal-actions">
@@ -475,10 +459,9 @@
       </div>
     </form>
   </dialog>
-
-  <dialog id="delete-account-modal" class="modal">
+  <dialog id="delete-account-modal" class="modal" aria-labelledby="delete-account-title">
     <div class="modal-header">
-      <h3>Delete Account</h3>
+      <h3 id="delete-account-title">Delete Account</h3>
       <button type="button" class="modal-close-btn" id="delete-account-close-icon" aria-label="Close dialog">&times;</button>
     </div>
     <form id="delete-account-form" method="dialog">
@@ -490,7 +473,7 @@
         <label for="delete-account-password">Confirm Password</label>
         <div class="password-input-wrap">
           <input type="password" id="delete-account-password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Enter your current password">
-          <button type="button" class="btn-toggle-password" data-target="delete-account-password" aria-label="Toggle password visibility">&#128065;</button>
+          <button type="button" class="btn-toggle-password" data-target="delete-account-password" aria-label="Toggle password visibility"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
         </div>
       </div>
       <div class="modal-actions">
@@ -499,7 +482,20 @@
       </div>
     </form>
   </dialog>
-
+  <dialog id="confirm-modal" class="modal" aria-labelledby="confirm-modal-title">
+    <div class="modal-header">
+      <h3 id="confirm-modal-title">Confirm Action</h3>
+      <button type="button" class="modal-close-btn" id="confirm-modal-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="confirm-modal-body">
+      <p id="confirm-modal-message" class="confirm-modal-message"></p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" id="confirm-modal-cancel-btn" class="btn">Cancel</button>
+      <button type="button" id="confirm-modal-confirm-btn" class="btn btn-primary">Confirm</button>
+    </div>
+  </dialog>
+  <div id="toast-container" class="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

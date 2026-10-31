@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Genera logo">
+  <rect width="512" height="512" rx="112" fill="#2F6FDB"/>
+  <g transform="rotate(-8 256 250)">
+    <rect x="172" y="80" width="168" height="220" rx="30" fill="#FFFFFF" fill-opacity="0.22"/>
+    <rect x="158" y="110" width="196" height="220" rx="30" fill="#FFFFFF" fill-opacity="0.38"/>
+    <rect x="144" y="140" width="224" height="220" rx="30" fill="#FFFFFF" fill-opacity="0.56"/>
+    <rect x="130" y="170" width="252" height="220" rx="30" fill="#FFFFFF" fill-opacity="0.76"/>
+    <rect x="116" y="200" width="280" height="220" rx="30" fill="#FFFFFF"/>
+    <circle cx="214" cy="292" r="19" fill="#2F6FDB"/>
+    <circle cx="298" cy="292" r="19" fill="#2F6FDB"/>
+    <circle cx="221" cy="285" r="6" fill="#FFFFFF"/>
+    <circle cx="305" cy="285" r="6" fill="#FFFFFF"/>
+    <path d="M216 336 Q256 380 296 336" fill="none" stroke="#2F6FDB" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="178" cy="334" r="14" fill="#FFC83D"/>
+    <circle cx="334" cy="334" r="14" fill="#FFC83D"/>
+  </g>
+</svg>
