@@ -26,6 +26,7 @@ let is_session_active = false;
 let is_rating = false;
 let on_data_change_callback = null;
 let on_navigate_home_callback = null;
+let render_seq = 0;
 export function init_trivia_controller({ on_data_change, on_navigate_home } = {}) {
     on_data_change_callback = on_data_change;
     on_navigate_home_callback = on_navigate_home;
@@ -35,12 +36,14 @@ export function init_trivia_controller({ on_data_change, on_navigate_home } = {}
 export async function render_trivia_view() {
     const container = document.getElementById("trivia-container");
     if (!container) return;
-    container.innerHTML = "";
+    const seq = ++render_seq;
     if (!is_session_active) {
         const [catalog_cards, settings] = await Promise.all([
             get_all_catalog_cards(),
             get_user_settings()
         ]);
+        if (seq !== render_seq) return;
+        container.innerHTML = "";
         const cat_set = new Set();
         for (const c of catalog_cards) {
             if (c.category) cat_set.add(c.category);
@@ -128,6 +131,7 @@ export async function render_trivia_view() {
         });
         container.appendChild(start_el);
     } else if (current_card_index >= current_session.length) {
+        container.innerHTML = "";
         const finished_el = create_trivia_finished_screen({
             stats: session_stats,
             sub_mode: current_sub_mode,
@@ -146,6 +150,7 @@ export async function render_trivia_view() {
         });
         container.appendChild(finished_el);
     } else {
+        container.innerHTML = "";
         const card = current_session[current_card_index];
         const card_fragment = create_trivia_active_card({
             card,

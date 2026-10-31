@@ -1,16 +1,4 @@
-/**
- * Toast View: Non-blocking transient notification feedback.
- */
 import { escape_html } from "./view_utils.js";
-
-/**
- * Displays a non-blocking toast notification.
- *
- * @param {string} message - Notification text to display.
- * @param {"info" | "success" | "warning" | "error"} [type="info"] - Severity/style.
- * @param {number} [duration=3500] - Duration in ms before auto-dismiss (0 for persistent).
- * @returns {HTMLElement|null} The created toast element, or null if DOM is unavailable.
- */
 export function show_toast(message, type = "info", duration = 3500) {
     if (typeof document === "undefined" || !message) {
         return null;

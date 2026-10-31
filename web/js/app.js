@@ -48,8 +48,9 @@ export function navigate_to_tab(tab_name, options = {}) {
     } else if (tab_name === "study") {
         if (options.deck_name) {
             set_study_deck(options.deck_name);
+        } else {
+            render_study_view();
         }
-        render_study_view();
     } else if (tab_name === "trivia") {
         render_trivia_view();
     } else if (tab_name === "settings") {

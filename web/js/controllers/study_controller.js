@@ -25,6 +25,7 @@ let is_session_active = false;
 let is_rating = false;
 let on_data_change_callback = null;
 let on_navigate_home_callback = null;
+let render_seq = 0;
 export function init_study_controller({ on_data_change, on_navigate_home } = {}) {
     on_data_change_callback = on_data_change;
     on_navigate_home_callback = on_navigate_home;
@@ -40,12 +41,14 @@ export function set_study_deck(deck_name) {
 export async function render_study_view() {
     const container = document.getElementById("study-container");
     if (!container) return;
-    container.innerHTML = "";
+    const seq = ++render_seq;
     if (!is_session_active) {
         const [decks, all_cards] = await Promise.all([
             get_user_decks(),
             get_all_own_cards(false)
         ]);
+        if (seq !== render_seq) return;
+        container.innerHTML = "";
         const total_due = decks.reduce((acc, d) => acc + (d.due_count || 0), 0);
         const start_el = create_study_start_screen({
             decks,
@@ -93,6 +96,7 @@ export async function render_study_view() {
         });
         container.appendChild(start_el);
     } else if (current_card_index >= current_session.length) {
+        container.innerHTML = "";
         const finished_el = create_study_finished_screen({
             stats: session_stats,
             sub_mode: current_sub_mode,
@@ -111,6 +115,7 @@ export async function render_study_view() {
         });
         container.appendChild(finished_el);
     } else {
+        container.innerHTML = "";
         const card = current_session[current_card_index];
         const card_fragment = create_study_active_card({
             card,

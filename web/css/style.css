@@ -1663,7 +1663,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 140px;
+  gap: var(--space-3);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   text-align: left;
@@ -1705,7 +1705,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--space-3);
   font-size: 13px;
   color: var(--color-text-muted);
 }
@@ -2063,9 +2062,6 @@ body {
   background: rgba(239, 68, 68, 0.12);
   color: var(--color-red, #ef4444);
 }
-/* ==========================================================================
-   Feedback & Toast Notifications
-   ========================================================================== */
 .confirm-modal-message {
   font-size: 14px;
   line-height: 1.5;

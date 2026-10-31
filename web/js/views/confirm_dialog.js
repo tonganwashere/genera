@@ -1,20 +1,3 @@
-/**
- * Dialog View: Non-blocking in-app confirmation modal.
- * Uses standard HTML5 <dialog id="confirm-modal">.
- */
-
-/**
- * Displays an in-app non-blocking confirmation dialog.
- * Returns a Promise that resolves to true if the user confirmed, or false if cancelled/closed.
- *
- * @param {Object} options
- * @param {string} [options.title="Confirm Action"] - Dialog title.
- * @param {string} [options.message=""] - Message body describing the action.
- * @param {string} [options.confirm_text="Confirm"] - Text for confirmation button.
- * @param {string} [options.cancel_text="Cancel"] - Text for cancel button.
- * @param {boolean} [options.danger=false] - If true, styles confirm button with .btn-danger; else .btn-primary.
- * @returns {Promise<boolean>}
- */
 export function show_confirm_dialog({
     title = "Confirm Action",
     message = "",
