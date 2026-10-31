@@ -10,14 +10,11 @@ import {
     clear_account_local_data,
     load_catalog_if_needed
 } from "../models/localdb.js";
-
 let is_syncing = false;
 let last_sync_error = null;
-
 export function get_last_sync_error() {
     return last_sync_error;
 }
-
 export async function update_sync_status_ui(forced_color = null) {
     const mode = await get_meta("mode");
     const username = await get_meta("username");
@@ -25,25 +22,20 @@ export async function update_sync_status_ui(forced_color = null) {
     if (text_el) {
         text_el.textContent = mode === "account" ? (username || "Account") : "Local Mode";
     }
-
     const el = document.getElementById("sync-status");
     if (!el) return;
-
     if (forced_color) {
         el.className = `status-pill ${forced_color} account-btn`;
         return;
     }
-
     if (mode !== "account" || !navigator.onLine) {
         el.className = "status-pill status-gray account-btn";
         return;
     }
-
     if (last_sync_error) {
         el.className = "status-pill status-red account-btn";
         return;
     }
-
     const dirty_count = await count_dirty_rows();
     if (dirty_count > 0 || is_syncing) {
         el.className = "status-pill status-blue account-btn";
@@ -51,7 +43,6 @@ export async function update_sync_status_ui(forced_color = null) {
         el.className = "status-pill status-green account-btn";
     }
 }
-
 function sanitize_card_for_sync(card) {
     return {
         id: card.id,
@@ -63,7 +54,6 @@ function sanitize_card_for_sync(card) {
         deleted: card.deleted ? 1 : 0
     };
 }
-
 function sanitize_progress_for_sync(p) {
     return {
         card_kind: p.card_kind,
@@ -78,7 +68,6 @@ function sanitize_progress_for_sync(p) {
         updated_at: p.updated_at
     };
 }
-
 function sanitize_settings_for_sync(s) {
     if (!s) return null;
     return {
@@ -87,19 +76,16 @@ function sanitize_settings_for_sync(s) {
         updated_at: s.updated_at
     };
 }
-
 export async function show_conflict_banner(conflicts) {
     if (!conflicts || conflicts.length === 0) {
         return;
     }
-
     const banner = document.getElementById("conflict-banner");
     const message_el = document.getElementById("conflict-banner-message");
     const dismiss_btn = document.getElementById("btn-dismiss-conflict");
     if (!banner || !message_el) {
         return;
     }
-
     const names = [];
     for (const c of conflicts) {
         if (c.type === "card") {
@@ -120,75 +106,61 @@ export async function show_conflict_banner(conflicts) {
             names.push("Study settings");
         }
     }
-
     const unique_names = [...new Set(names)];
     if (unique_names.length === 0) {
         return;
     }
-
     const text = unique_names.length === 1
         ? `Sync conflict: A newer version from the server replaced your local changes to ${unique_names[0]}.`
         : `Sync conflict: Newer versions from the server replaced your local changes to: ${unique_names.join(", ")}.`;
-
     message_el.textContent = text;
     banner.style.display = "flex";
-
     if (dismiss_btn) {
         dismiss_btn.onclick = () => {
             banner.style.display = "none";
         };
     }
 }
-
 export async function sync_now(on_update) {
     if (is_syncing) {
         return false;
     }
-
     if (!navigator.onLine) {
         await update_sync_status_ui();
         return false;
     }
-
     const mode = await get_meta("mode");
     if (mode !== "account") {
         return false;
     }
-
     const email_verified = (await get_meta("email_verified")) || 0;
     if (!email_verified) {
         last_sync_error = null;
         await update_sync_status_ui();
         return false;
     }
-
     is_syncing = true;
     last_sync_error = null;
     await update_sync_status_ui();
     let total_applied = 0;
     const all_conflicts = [];
-
     try {
         let has_more = true;
-
         while (has_more) {
             const last_sync_version = (await get_meta("lastSyncVersion")) || 0;
             const dirty_cards = await get_dirty_own_cards();
             const dirty_progress = await get_dirty_progress_rows();
             const dirty_settings = await get_dirty_settings();
-
             const batch_cards = dirty_cards.slice(0, 500);
             const remaining_slots = 500 - batch_cards.length;
             const batch_progress = dirty_progress.slice(0, remaining_slots);
             const batch_settings = dirty_settings;
-
             const payload = {
                 since: last_sync_version,
                 own_cards: batch_cards.map(sanitize_card_for_sync),
                 progress: batch_progress.map(sanitize_progress_for_sync),
                 settings: sanitize_settings_for_sync(batch_settings)
             };
-
             const csrf_token = await get_meta("csrf_token");
             const response = await fetch("/api/sync", {
                 method: "POST",
@@ -198,7 +170,6 @@ export async function sync_now(on_update) {
                 },
                 body: JSON.stringify(payload)
             });
-
             if (response.status === 401) {
                 await clear_account_local_data();
                 last_sync_error = null;
@@ -207,7 +178,6 @@ export async function sync_now(on_update) {
                 if (on_update) await on_update();
                 return false;
             }
-
             if (!response.ok) {
                 let err_msg = response.statusText;
                 try {
@@ -219,13 +189,11 @@ export async function sync_now(on_update) {
                 await update_sync_status_ui();
                 return false;
             }
-
             const data = await response.json();
             const server_cards = data.own_cards || [];
             const server_progress = data.progress || [];
             const server_settings = data.settings || null;
             const server_version = data.version || 0;
-
             const batch_result = await apply_sync_batch({
                 server_cards,
                 server_progress,
@@ -235,27 +203,20 @@ export async function sync_now(on_update) {
                 pushed_settings: batch_settings,
                 server_version
             });
-
             if (batch_result && batch_result.conflicts && batch_result.conflicts.length > 0) {
                 all_conflicts.push(...batch_result.conflicts);
             }
-
             total_applied += server_cards.length + server_progress.length + (server_settings ? 1 : 0);
-
             const remaining_dirty = await count_dirty_rows();
             has_more = data.has_more === true || remaining_dirty > 0;
         }
-
         if (all_conflicts.length > 0) {
             await show_conflict_banner(all_conflicts);
         }
-
         last_sync_error = null;
-
         if (on_update && total_applied > 0) {
             await on_update();
         }
-
         return true;
     } catch (err) {
         if (navigator.onLine) {
@@ -267,7 +228,6 @@ export async function sync_now(on_update) {
         await update_sync_status_ui();
     }
 }
-
 export async function init_sync_engine(on_update) {
     window.addEventListener("online", async () => {
         const cat_result = await load_catalog_if_needed();
@@ -276,11 +236,9 @@ export async function init_sync_engine(on_update) {
         }
         await sync_now(on_update);
     });
-
     window.addEventListener("offline", () => {
         update_sync_status_ui();
     });
-
     await update_sync_status_ui();
     await sync_now(on_update);
 }

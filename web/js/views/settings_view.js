@@ -1,66 +1,33 @@
 import {
     get_user_settings,
-    get_all_categories,
     get_meta,
     count_dirty_rows
 } from "../models/localdb.js";
 import { get_last_sync_error } from "../controllers/sync_controller.js";
-
 export async function render_settings_view() {
     const limit_input = document.getElementById("setting-daily-limit");
-    const categories_container = document.getElementById("settings-categories-list");
-    if (!limit_input || !categories_container) return;
-
     const settings = await get_user_settings();
-    const categories = await get_all_categories();
-
-    limit_input.value = settings.daily_new_limit ?? 10;
-
-    categories_container.innerHTML = "";
-    const enabled_set = new Set(settings.enabled_categories || []);
-    const is_all_enabled = enabled_set.size === 0;
-
-    for (const cat of categories) {
-        const item_label = document.createElement("label");
-        item_label.className = "settings-category-item";
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "setting-category-cb";
-        checkbox.value = cat;
-        checkbox.checked = is_all_enabled || enabled_set.has(cat);
-
-        const span = document.createElement("span");
-        span.textContent = cat;
-
-        item_label.appendChild(checkbox);
-        item_label.appendChild(span);
-        categories_container.appendChild(item_label);
+    if (limit_input) {
+        limit_input.value = settings.daily_new_limit ?? 10;
     }
-
     await render_account_section();
 }
-
 export async function render_account_section() {
     const badge = document.getElementById("account-status-badge");
     const text = document.getElementById("account-status-text");
     if (!badge || !text) return;
-
     const dropdown_user = document.getElementById("dropdown-username");
     const dropdown_email = document.getElementById("dropdown-email");
-
     const s_badge = document.getElementById("settings-account-badge");
     const s_desc = document.getElementById("settings-account-desc");
     const s_info = document.getElementById("settings-account-info");
     const s_user = document.getElementById("settings-info-username");
     const s_email = document.getElementById("settings-info-email");
     const s_email_badge = document.getElementById("settings-info-email-badge");
-
     const mode = await get_meta("mode");
     const username = await get_meta("username");
     const email = await get_meta("email");
     const email_verified = (await get_meta("email_verified")) || 0;
-
     const toggle = (selector, visible) => {
         document.querySelectorAll(selector).forEach((b) => (b.style.display = visible ? "inline-block" : "none"));
     };
@@ -70,7 +37,6 @@ export async function render_account_section() {
             el.className = cls;
         }
     };
-
     const is_account = mode === "account";
     let badge_text = "Local";
     let badge_cls = "badge";
@@ -80,7 +46,6 @@ export async function render_account_section() {
     let show_verify = false;
     let show_bind = false;
     let bind_label = "Add Email";
-
     if (is_account) {
         const user_label = username || "user";
         if (dropdown_user) dropdown_user.textContent = username || "Account";
@@ -91,9 +56,7 @@ export async function render_account_section() {
         if (s_info) s_info.style.display = "flex";
         if (s_user) s_user.textContent = username || "User";
         if (s_email) s_email.textContent = email || "None";
-
         show_bind = true;
-
         if (!email) {
             badge_text = "Email needed";
             badge_cls = "badge badge-hidden";
@@ -110,7 +73,6 @@ export async function render_account_section() {
             can_sync = true;
             bind_label = "Update Email";
             email_badge_info = { text: "Verified", cls: "badge badge-official" };
-
             if (!navigator.onLine) {
                 badge_text = "Offline";
                 badge_cls = "badge";
@@ -141,12 +103,10 @@ export async function render_account_section() {
         }
         if (s_info) s_info.style.display = "none";
     }
-
     set_badge(badge, badge_text, badge_cls);
     set_badge(s_badge, badge_text, badge_cls);
     text.textContent = status_desc;
     if (s_desc) s_desc.textContent = status_desc;
-
     if (s_email_badge) {
         if (email_badge_info) {
             set_badge(s_email_badge, email_badge_info.text, email_badge_info.cls);
@@ -155,7 +115,6 @@ export async function render_account_section() {
             s_email_badge.style.display = "none";
         }
     }
-
     toggle('[data-account-action="login"], [data-account-action="register"]', !is_account);
     toggle('[data-account-action="manage"], [data-account-action="logout"], [data-account-action="change-username"], [data-account-action="change-password"], [data-account-action="delete-account"]', is_account);
     toggle('[data-account-action="sync"]', is_account && can_sync);
