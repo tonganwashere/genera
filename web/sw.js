@@ -1,4 +1,4 @@
-const cache_name = "genera-v37";
+const cache_name = "genera-v38";
 const app_shell_assets = [
   "/",
   "/index.html",
@@ -89,17 +89,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        return cached;
+    fetch(event.request).then((response) => {
+      if (response && response.status === 200 && response.type === "basic") {
+        const clone = response.clone();
+        caches.open(cache_name).then((cache) => cache.put(event.request, clone));
       }
-      return fetch(event.request).then((response) => {
-        if (response && response.status === 200 && response.type === "basic") {
-          const clone = response.clone();
-          caches.open(cache_name).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      });
+      return response;
+    }).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
