@@ -3,7 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genera</title>
+  <title>Genera · Spaced Repetition Flashcards</title>
+  <meta name="description" content="Genera is a lightweight, offline-first flashcard app powered by Leitner spaced repetition. Master custom study decks and practice with trivia.">
+  <link rel="canonical" href="https://usegenera.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Genera">
+  <meta property="og:title" content="Genera · Spaced Repetition Flashcards">
+  <meta property="og:description" content="Master custom study decks using the Leitner spaced repetition system. Fast, offline-first flashcard studying with optional cloud sync.">
+  <meta property="og:image" content="/icons/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Genera spaced repetition flashcards app">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Genera · Spaced Repetition Flashcards">
+  <meta name="twitter:description" content="Master custom study decks using the Leitner spaced repetition system. Fast, offline-first flashcard studying with optional cloud sync.">
+  <meta name="twitter:image" content="/icons/og-image.png">
+  <meta name="twitter:image:alt" content="Genera spaced repetition flashcards app">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Genera",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "description": "Genera is a lightweight, offline-first flashcard studying app powered by the Leitner spaced repetition system."
+  }
+  </script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
@@ -189,6 +219,21 @@
             Genera is a spaced-repetition flashcard studying app using the Leitner method.
             Trivia questions and categories are sourced from the <a href="https://opentdb.com/" target="_blank" rel="noopener noreferrer">Open Trivia Database</a> (OpenTDB), provided under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a> license.
           </p>
+          <div class="settings-legal-links">
+            <button type="button" id="btn-open-privacy" class="btn-link">Privacy Policy</button>
+            <span class="legal-sep" aria-hidden="true">&middot;</span>
+            <button type="button" id="btn-open-terms" class="btn-link">Terms of Service</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="tab-not-found" class="tab-panel" role="tabpanel" aria-labelledby="not-found-title" tabindex="0" hidden>
+      <div class="not-found-view">
+        <div class="not-found-card">
+          <div class="not-found-code">404</div>
+          <h2 id="not-found-title" class="not-found-title">Page Not Found</h2>
+          <p class="not-found-desc">The requested page or section could not be found.</p>
+          <button type="button" id="btn-not-found-home" class="btn btn-primary">Back to Home</button>
         </div>
       </div>
     </section>
@@ -493,6 +538,44 @@
     <div class="modal-actions">
       <button type="button" id="confirm-modal-cancel-btn" class="btn">Cancel</button>
       <button type="button" id="confirm-modal-confirm-btn" class="btn btn-primary">Confirm</button>
+    </div>
+  </dialog>
+  <dialog id="privacy-modal" class="modal modal-lg" aria-labelledby="privacy-modal-title">
+    <div class="modal-header">
+      <h3 id="privacy-modal-title">Privacy Policy</h3>
+      <button type="button" class="modal-close-btn" id="privacy-modal-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body legal-content">
+      <h4>Offline-First Storage</h4>
+      <p>Genera is designed to respect your privacy. By default, your flashcards, decks, study progress, and settings are saved strictly in your browser using local IndexedDB storage. You do not need to register or provide personal information to use Genera.</p>
+      <h4>Optional Account &amp; Sync</h4>
+      <p>If you create an account, your username, password hash, and optional email address are transmitted over HTTPS and stored securely on our server. Card and progress data are synced only to keep your material available across your own devices.</p>
+      <h4>Zero Tracking &amp; Advertising</h4>
+      <p>We do not use third-party analytics scripts, advertising cookies, or behavioral trackers. We do not sell or monetize your data.</p>
+      <h4>Data Ownership &amp; Erasure</h4>
+      <p>You can export your decks at any time in CSV or JSON format. You can delete your synced account and all cloud data from Settings &gt; Account &gt; Delete Account.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" id="privacy-modal-close-btn" class="btn btn-primary">Close</button>
+    </div>
+  </dialog>
+  <dialog id="terms-modal" class="modal modal-lg" aria-labelledby="terms-modal-title">
+    <div class="modal-header">
+      <h3 id="terms-modal-title">Terms of Service</h3>
+      <button type="button" class="modal-close-btn" id="terms-modal-close-icon" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body legal-content">
+      <h4>Usage Terms</h4>
+      <p>Genera is provided free of charge for personal and educational study. By using the app, you agree to comply with applicable laws and avoid actions that compromise sync service availability.</p>
+      <h4>User Content</h4>
+      <p>You retain full ownership of all flashcard text and materials you create in Genera. You are responsible for ensuring that your cards do not infringe on intellectual property rights.</p>
+      <h4>Attribution &amp; Third-Party Content</h4>
+      <p>Trivia quiz questions and categories are sourced from the Open Trivia Database (OpenTDB) and provided under the CC BY-SA 4.0 license.</p>
+      <h4>Disclaimer of Warranties</h4>
+      <p>Genera is provided &ldquo;as is&rdquo; without warranties of any kind. While offline storage and sync are engineered for reliability, we encourage regular backups using the export tool.</p>
+    </div>
+    <div class="modal-actions">
+      <button type="button" id="terms-modal-close-btn" class="btn btn-primary">Close</button>
     </div>
   </dialog>
   <div id="toast-container" class="toast-container" role="region" aria-live="polite" aria-label="Notifications"></div>

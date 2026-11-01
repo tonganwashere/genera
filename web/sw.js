@@ -1,4 +1,4 @@
-const cache_name = "genera-v38";
+const cache_name = "genera-v39";
 const app_shell_assets = [
   "/",
   "/index.html",
@@ -10,6 +10,7 @@ const app_shell_assets = [
   "/icons/apple-touch-icon.png",
   "/icons/android-chrome-192x192.png",
   "/icons/android-chrome-512x512.png",
+  "/icons/og-image.png",
   "/icons/site.webmanifest",
   "/css/style.css",
   "/js/app.js",

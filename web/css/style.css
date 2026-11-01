@@ -2143,3 +2143,76 @@ body {
 @media (max-width: 600px) {
   .toast-container { left: 16px; right: 16px; bottom: 16px; width: auto; max-width: none; }
 }
+.not-found-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 440px;
+  padding: var(--space-6) var(--space-4);
+}
+.not-found-card {
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+.not-found-code {
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  letter-spacing: -1px;
+}
+.not-found-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+.not-found-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-5);
+  line-height: 1.5;
+}
+.settings-legal-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: 13px;
+}
+.legal-sep {
+  color: var(--color-text-muted);
+}
+.modal.modal-lg {
+  max-width: 640px;
+  width: 90vw;
+}
+.legal-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+  padding: var(--space-1) 0;
+}
+.legal-content h4 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-1);
+  color: var(--color-text);
+}
+.legal-content h4:first-child {
+  margin-top: 0;
+}
+.legal-content p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}

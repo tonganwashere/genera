@@ -7,7 +7,11 @@ import { init_home_controller, render_home_tab } from "./controllers/home_contro
 import { init_study_controller, render_study_view, set_study_deck } from "./controllers/study_controller.js";
 import { init_trivia_controller, render_trivia_view } from "./controllers/trivia_controller.js";
 import { render_settings_view, render_account_section } from "./views/settings_view.js";
-import { init_settings_controller } from "./controllers/settings_controller.js";
+import {
+    init_settings_controller,
+    open_privacy_modal,
+    open_terms_modal
+} from "./controllers/settings_controller.js";
 import { init_auth_controller } from "./controllers/auth_controller.js";
 import { init_sync_engine, update_sync_status_ui, sync_now } from "./controllers/sync_controller.js";
 import { init_theme } from "./controllers/theme_controller.js";
@@ -25,10 +29,47 @@ function update_tab_indicator(active_btn, animate = true) {
     indicator.style.height = `${active_btn.offsetHeight}px`;
     indicator.style.top = `${active_btn.offsetTop}px`;
 }
+export function set_page_title(tab_name, options = {}) {
+    if (tab_name === "home") {
+        document.title = "Genera · Spaced Repetition Flashcards";
+    } else if (tab_name === "study") {
+        if (options.deck_name) {
+            document.title = `Study: ${options.deck_name} · Genera`;
+        } else {
+            document.title = "Study · Genera";
+        }
+    } else if (tab_name === "trivia") {
+        document.title = "Trivia Challenge · Genera";
+    } else if (tab_name === "settings") {
+        document.title = "Settings · Genera";
+    } else if (tab_name === "404") {
+        document.title = "404 Not Found · Genera";
+    }
+}
+export function show_404_view() {
+    const tabs = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".tab-panel");
+    tabs.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+        b.setAttribute("tabindex", "-1");
+    });
+    panels.forEach((p) => {
+        p.hidden = p.id !== "tab-not-found";
+    });
+    const indicator = document.querySelector(".tab-indicator");
+    if (indicator) {
+        indicator.style.width = "0px";
+    }
+    set_page_title("404");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
 export function navigate_to_tab(tab_name, options = {}) {
     if (!VALID_TABS.includes(tab_name)) {
         throw new Error(`Invalid tab name: ${tab_name}. Expected one of: ${VALID_TABS.join(", ")}`);
     }
+    const not_found_panel = document.getElementById("tab-not-found");
+    if (not_found_panel) not_found_panel.hidden = true;
     const tabs = document.querySelectorAll(".tab-btn");
     const panels = document.querySelectorAll(".tab-panel");
     tabs.forEach((b) => {
@@ -43,6 +84,16 @@ export function navigate_to_tab(tab_name, options = {}) {
     panels.forEach((p) => {
         p.hidden = p.id !== `tab-${tab_name}`;
     });
+    set_page_title(tab_name, options);
+    if (options.update_hash !== false) {
+        let target_hash = `#${tab_name}`;
+        if (tab_name === "study" && options.deck_name) {
+            target_hash = `#study?deck=${encodeURIComponent(options.deck_name)}`;
+        }
+        if (window.location.hash !== target_hash) {
+            history.pushState(null, "", target_hash);
+        }
+    }
     if (tab_name === "home") {
         render_home_tab();
     } else if (tab_name === "study") {
@@ -57,6 +108,39 @@ export function navigate_to_tab(tab_name, options = {}) {
         render_settings_view();
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
+}
+export function handle_hash_route() {
+    const raw = window.location.hash.replace(/^#\/?/, "");
+    if (!raw || raw === "home") {
+        navigate_to_tab("home", { update_hash: false });
+        return;
+    }
+    if (raw.startsWith("study")) {
+        const parts = raw.split("?");
+        const params = new URLSearchParams(parts[1] || "");
+        const deck_name = params.get("deck");
+        navigate_to_tab("study", { deck_name, update_hash: false });
+        return;
+    }
+    if (raw === "trivia") {
+        navigate_to_tab("trivia", { update_hash: false });
+        return;
+    }
+    if (raw === "settings") {
+        navigate_to_tab("settings", { update_hash: false });
+        return;
+    }
+    if (raw === "privacy") {
+        navigate_to_tab("settings", { update_hash: false });
+        open_privacy_modal();
+        return;
+    }
+    if (raw === "terms") {
+        navigate_to_tab("settings", { update_hash: false });
+        open_terms_modal();
+        return;
+    }
+    show_404_view();
 }
 function setup_tab_navigation() {
     const tabs = document.querySelectorAll(".tab-btn");
@@ -107,6 +191,14 @@ function setup_tab_navigation() {
             await update_sync_status_ui();
         });
     }
+    const btn_404_home = document.getElementById("btn-not-found-home");
+    if (btn_404_home) {
+        btn_404_home.addEventListener("click", () => {
+            navigate_to_tab("home");
+        });
+    }
+    window.addEventListener("popstate", handle_hash_route);
+    window.addEventListener("hashchange", handle_hash_route);
 }
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js");
@@ -175,7 +267,10 @@ async function init_app() {
         } catch (cat_err) {
             console.error("Failed to check/load catalog:", cat_err);
         }
-        await render_home_tab();
+        if (!window.location.hash || window.location.hash === "#" || window.location.hash === "#/") {
+            history.replaceState(null, "", "#home");
+        }
+        handle_hash_route();
         await init_sync_engine(refresh_all);
     } catch (err) {
         console.error("Initialization failed:", err);
