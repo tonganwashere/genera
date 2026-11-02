@@ -40,5 +40,13 @@ def internal_server_error(e):
 def index():
     return send_from_directory(app.static_folder, "index.html")
 
+@app.after_request
+def add_cache_headers(response):
+    if request.path in ("/", "/index.html", "/sw.js"):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=not is_prod)

@@ -201,7 +201,9 @@ function setup_tab_navigation() {
     window.addEventListener("hashchange", handle_hash_route);
 }
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js");
+    navigator.serviceWorker.register("/sw.js").then((reg) => {
+        reg.update();
+    });
 }
 async function init_app() {
     async function refresh_all() {
